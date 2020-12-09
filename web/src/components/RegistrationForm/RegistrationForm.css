@@ -1,0 +1,35 @@
+header, .App {
+    text-align: center;
+}
+
+.RegistrationForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+}
+
+.RegistrationForm>input {
+    width: 250px;
+    padding: 5px 0;
+    margin: 10px 0;
+}
+
+.RegistrationForm>label {
+    margin: 15px 0 -5px 0;
+}
+
+.RegistrationForm>.submit-button {
+    margin: 10px 0;
+    padding: 5px 10px;
+    font-size: 1.15em;
+    width: 100px;
+}
+
+.error-alert {
+    color: rgb(244, 198, 83);
+	font-size: 1.25em;
+	font-weight: 500;
+}
+

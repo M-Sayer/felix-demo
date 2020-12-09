@@ -1,0 +1,53 @@
+/* NOTE:: MAIN HEADER IS STAYING AS ITS OWN UNIQUE STYLED ELEMENT FOR NOW */
+
+/* MAIN HEADER FLEX CONTAINER */
+.headerMain {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+
+/**************************************************/
+/* FELIX TYPELOGO */
+.mainTitle {
+    margin: 10px 0 -25px 0;
+    font-family: 'MuseoModerno', sans-serif;
+    font-size: 5.25em;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: rgb(101, 244, 236);
+}
+
+
+
+/**************************************************/
+/* PERSONAL FINANCE ASSISTANT */
+.mainSubtitle {
+    margin: -2px 0 5px 0;
+    font-family: 'MuseoModerno', sans-serif;
+    font-size: 1.25em;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: rgb(249, 157, 149);
+}
+
+
+
+/**************************************************/
+/* MAIN HEADER NAVIGATION*/
+.headerNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 20px 0;
+}
+.headerNav>a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
+    margin: 10px 25px;
+}
+
+

@@ -1,0 +1,96 @@
+/* BASE STYLES FOR ENTIRE APP */
+
+/* FONT STACK: MuseoModerno , Roboto 
+(available from GoogeleFonts) */
+
+/* HTML LINK (if needed) ------------------------------
+<link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"> 
+---------------------------------------------------*/
+
+/*------------------------------------- 
+font-family: 'MuseoModerno', sans-serif;
+font-family: 'Roboto', sans-serif; 
+--------------------------------------*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+/* APPLIED TO ENTIRE APP */
+* {
+    box-sizing: border-box;
+}
+
+
+/* must add "<body class='body'>" in "index.html" to work */
+.body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(35, 39, 43);
+    color: #FFFFFF;/*remove later - GAGE*/
+}
+
+
+/* ALL LIST ITEMS */
+ul {
+  padding-inline-start: 0;
+}
+
+li {
+    list-style: none;
+}
+
+/* CENTER ELEMENTS*/
+.centered {
+    text-align: center;
+    align-self: center; 
+}
+
+/* USER DATA FROM THE DATABASE */
+.userData {
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2em;
+}
+
+/* SMALLER DATA SIZE with alternate padding*/
+.userData2 {
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.35em;
+    margin: 10px 0;
+}
+
+/* EVEN SMALLER DATA SIZE with alternate padding*/
+.userData3 {
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.05em;
+    margin: 10px 5px;
+}
+
+/* FLEXBOX CONTAINER with row direction */
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px;
+    align-self: space-around;
+}
+
+/* ADJUSTS 3column DATA ELEMENTS to have straightened middle column*/
+.middleColumn {
+    margin-right: 10%;
+    position: absolute;
+    right: 33%;
+}
+
+/* INCOME & EXPENSE DATA COLOR SCHEMES*/
+.income{
+    color: #81D281 ;
+}
+
+.expenses{
+    color: #995E50 ;
+}

@@ -1,0 +1,26 @@
+
+.overviewSection {
+  background-color: #282e33;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 15px;
+  padding: 15px;
+  text-align: left;
+}
+
+.dataFlexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.btnsFlexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}

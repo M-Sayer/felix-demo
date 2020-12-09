@@ -1,0 +1,100 @@
+  
+/* ALL BUTTONS */
+.btn {
+    /* text-decoration: none; */
+    font-family: 'Roboto', sans-serif; 
+    color:  rgb(11, 47, 41);
+    border-radius: .3rem;
+    outline: none;
+    background-color: rgb(101, 244, 236);
+    border: none;
+}
+.btn:hover, .btn:focus {
+    background-color: rgb(109, 253, 114);
+    outline: none;
+    border: none;
+}
+.btn:active {
+    background-color: rgb(244, 198, 83);
+    outline: none;
+    border: none;
+}
+
+
+/**************************************************/
+/* "CANCEL" & "DELETE" BUTTONS COLOR */
+.cancel, .delete {
+    background-color: rgba(252, 56, 56, 0.769);
+}
+
+/**************************************************/
+/* PRIMARY BUTTONS */
+.primaryBtn {
+    width: 150px;
+    border-radius: 4px;
+
+    margin: 20px 0 15px 0;
+    padding: 8px 10px;
+
+    font-size: 1.125em;
+    font-weight: 900;
+    text-transform: uppercase; 
+}
+
+
+/**************************************************/
+/* SECONDARY BUTTONS */
+.secondaryBtn {
+    width: 100px;
+    border-radius: 4px;
+
+    margin: 4px;
+    padding: 6px;
+
+    font-size: 1.0125em;
+    font-weight: 700;
+    text-transform: uppercase;
+    /* flex-basis: 7em;  */
+}
+
+/* SECONDARY BUTTONS with larger margin spacing */
+.secondaryBtnALT {
+    width: 100px;
+    border-radius: 4px;
+
+    margin: 25px;
+    padding: 8px;
+
+    font-size: 1.0125em;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-basis: 6em; 
+}
+
+
+/**************************************************/
+/* TERTIARY BUTTONS */
+.tertiaryBtn {
+    width: 80px;
+    border-radius: 4px;
+
+    margin: 4px;
+    padding: 4px;
+
+    font-size: .85em;
+    font-weight: 700;
+    text-transform: uppercase; 
+}
+
+/* TERTIARY BUTTONS wider size */
+.tertiaryBtnALT {
+    width: 115px;
+    border-radius: 4px;
+
+    margin: 4px;
+    padding: 4px;
+
+    font-size: .85em;
+    font-weight: 700;
+    text-transform: uppercase; 
+}

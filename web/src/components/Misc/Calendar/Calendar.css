@@ -1,0 +1,45 @@
+/* Temporary! */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap');
+
+.calendar {
+  /* align-items: center; */
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.calendar-header {
+  border: none;
+  border-bottom: 1px solid #000;
+  text-align: center;
+}
+
+select {
+  font-family: 'Roboto', sans-serif; 
+}
+
+.calendar-row-header {
+  border: 1px solid yellow;
+  background-color: #FFF;
+  /* border: none; */
+  flex: 1;
+  font-family: 'Roboto', sans-serif; 
+  text-align: center;
+}
+
+.calendar-row {
+  border: 1px solid red;
+  /* border: none; */
+  display: flex;
+  justify-content: center;
+}
+
+.calendar-input {
+  border: 1px solid blue;
+  background-color: #FFF;
+  /* border: none; */
+  flex: 1;
+  font-family: 'Roboto Mono', monospace; 
+}

@@ -1,0 +1,69 @@
+/**************** FORM STYLING *****************/
+
+/* FORM FLEX CONTAINER */
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.formContainerALT {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 0 10px 0;
+}
+
+
+/**************************************************/
+/* FORM INPUTS */
+.formInput {
+    text-align: center;
+    text-transform: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.275em;
+    font-weight: 400;
+    color: white;
+    width: 250px;
+    padding: 5px 0;
+    margin: 10px 0 9px 0;
+    border-radius: 4px;
+    border: .105em solid rgb(128, 128, 128);
+    background: none;
+}
+.formInput::placeholder {
+    text-transform: lowercase;
+}
+.formInput:focus, .formInputt:hover {
+    border: .115em solid rgb(109, 253, 114);
+    outline: none;
+}
+
+
+
+/**************************************************/
+/* FORM DROPDOWN SELECT MENUS */
+.formSelect {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.275em;
+    font-weight: 400;
+    color: rgb(186, 181, 181);
+    
+    width: 250px;
+    padding: 5px;
+    margin: 10px 0 9px 0;
+
+    border-radius: 4px;
+    background: none;
+    border: .105em solid rgb(128, 128, 128);    
+}
+.formSelect:hover, .formSelect:focus {
+    border: .115em solid rgb(109, 253, 114);
+    outline: none;
+}
+.formSelect:active {
+    background-color: rgb(244, 198, 83);
+}

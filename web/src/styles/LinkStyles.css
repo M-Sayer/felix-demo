@@ -1,0 +1,15 @@
+/********************* ALL LINKS *******************************/
+a, .btn-link {
+    color: rgb(101, 244, 236);
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    outline: none;
+    background: none;
+    border: none;
+}
+a:focus, a:hover {
+    color:  rgb(109, 253, 114);
+}
+a:active {
+    background-color: rgb(244, 198, 83);
+}

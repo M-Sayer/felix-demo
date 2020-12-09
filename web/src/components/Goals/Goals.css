@@ -1,0 +1,34 @@
+.AllGoals {
+    width: 100%;
+}
+
+.overviewSectionALT {
+    background-color: #282e33;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 15px;
+    padding: 15px;
+    text-align: left;
+}
+  
+.dataFlexRowALT {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: right;
+    margin: 10px 0;
+}
+
+.dataFlexColALT {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.dataFlexColALT>div {
+    min-width: 100px;
+}
+
+.goalBtn {
+    margin-left: -20px;
+}

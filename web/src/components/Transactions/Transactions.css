@@ -1,0 +1,12 @@
+.AllTransactions {
+    width: 100%;
+}
+
+
+@media screen and (min-width: 1024px) {
+
+    .AllTransactions {
+        /* flex: 2; */
+        max-width: 50%;
+    }
+}

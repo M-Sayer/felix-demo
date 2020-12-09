@@ -1,0 +1,38 @@
+.goalContainer {
+  background-color: #282e33;
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 15px;
+  padding: 15px;
+  text-align: left;
+}
+
+.goalName {
+  color: rgb(249, 157, 149);
+  font-family: 'Roboto', sans-serif;
+  /* font-size: 1.15em; */
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+  /* text-transform: capitalize; */
+}
+
+.goalAttribute {
+  display: flex;
+  flex-flow: row wrap;
+  font-family: 'Roboto', sans-serif;
+  margin: 15px;
+}
+
+.goalProperty {
+  align-self: flex-start;
+  flex: 1;
+}
+
+.goalValue {
+  align-self: flex-end;
+  flex: 1;
+  text-align: right;
+}

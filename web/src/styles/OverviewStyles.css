@@ -1,0 +1,38 @@
+/**************** USER OVERVIEW STYLING *****************/
+
+/* SECTION HEADER */
+.sectionHeader {
+    color: rgb(249, 157, 149);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.15em;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 0;
+    text-align: left;
+}
+
+
+/* SECTION HEADER without text-alignment  */
+.sectionHeaderALT {
+    color: rgb(249, 157, 149);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.15em;
+    font-weight: 400;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+
+/* SECTION SUBHEADER */
+.sectionSubHeader {
+    color: rgb(101, 244, 236);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
+}
+
+/* GOAL TITLE HEADINGS */
+.goalTitleHeader {
+    color: rgb(101, 244, 236);
+    font-family: 'Roboto', sans-serif;
+    font-size: .95em;
+}
