@@ -1,18 +1,12 @@
-const express = require('express');
-const { requireAuth } = require('../../middleware/jwtAuth');
-const transactionsRouter = express.Router();
+import { Router } from 'express';
+import { requireAuth } from '../../middleware/jwtAuth.js';
 
-const {
-  getUserIncome,
-  getUserExpenses,
-  getSingleTransaction,
-  createTransaction,
-  patchSingleTransaction,
-  serializeOutgoingTransaction,
-  serializeAllPackage,
-} = require('./TransactionsService');
-const TransactionsService = require('./TransactionsService');
-const { convertToCents, convertTransactionsToDollars, convertToDollars } = require('../../helpers');
+import { TransactionsService } from './TransactionsService.js';
+import { convertToCents, convertTransactionsToDollars, convertToDollars } from '../../helpers.js';
+
+const { getUserIncome, getUserExpenses, getSingleTransaction, createTransaction, patchSingleTransaction, serializeOutgoingTransaction, serializeAllPackage , deleteTransaction } = TransactionsService;
+
+export const transactionsRouter = Router();
 
 transactionsRouter
   .route('/')
@@ -242,7 +236,7 @@ transactionsRouter
         });
     }
 
-    TransactionsService.deleteTransaction(
+    deleteTransaction(
       req.app.get('db'),
       type,
       id,
@@ -273,6 +267,4 @@ async function checkIfTransactionExists(req,res,next) {
     next(error);
   }
 }
-
-module.exports = transactionsRouter;
 

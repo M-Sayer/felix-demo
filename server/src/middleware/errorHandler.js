@@ -1,6 +1,6 @@
-const { NODE_ENV } = require('../config');
+import { NODE_ENV } from '../config.js';
 
-module.exports = function errorHandler(error, req, res, next) {
+export function errorHandler(error, req, res, next) {
   const response =
     NODE_ENV === 'production'
       ? { error: 'Server error' }

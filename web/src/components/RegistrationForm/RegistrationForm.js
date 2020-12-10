@@ -1,127 +1,59 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import AuthService from '../../services/auth-service';
 import UserContext from '../../contexts/UserContext';
 import './RegistrationForm.css';
 
-class RegistrationForm extends React.Component {
-  static contextType = UserContext;
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-  static defaultProps = {
-    onRegSuccess: () => {},
-  }
+export const RegistrationForm = () => {
+  const user = useContext(UserContext);
+  const history = useHistory();
+  const [error, setError] = useState(null)
 
-  state = {
-    error: null
-  }
-
-  handleUserRegistration = async (e) => {
-    e.preventDefault();
-
-    const {
-      first_name,
-      last_name,
-      username,
-      email,
-      password } = e.target;
-
-    const newUser = {
-      first_name: first_name.value,
-      last_name: last_name.value,
-      username: username.value,
-      email: email.value,
-      password: password.value        
-    }
-
-    first_name.value = '';
-    last_name.value = '';
-    username.value = '';
-    email.value = '';
-    password.value = '';
-
-    this.setState({error: null})
-
-    try {
-      const { authToken } = await AuthService.postNewUser(newUser);
-      this.context.handleUserLog(authToken);
-      this.props.onRegSuccess();
-    }
-    catch(error) {
-      this.setState({...error});
-    }
-  }
-
-  render() {
-    const {error} = this.state;
-
-    return (
-      <div>
-        <form 
-          className='RegistrationForm'
-          onSubmit={this.handleUserRegistration}
-        >
-          <div role='alert'>
-            {error && <p className='error-alert'>{error}</p>}
-          </div>
-
-          <input
-            aria-label='firstname'
-            placeholder='first name'
-            className='formInput'
-            id='first_name'
-            type='text'
-            required
-          />
-      
-          <input
-            aria-label='lastname'
-            placeholder='last name'
-            className='formInput'
-            id='last_name'
-            type='text'
-            required
-          />
-      
-          <input
-            aria-label='username'
-            placeholder='username'
-            className='formInput'
-            id='username'
-            type='text'
-            required
-          />
-      
-          <input
-            aria-label='email'
-            placeholder='email'
-            className='formInput'
-            id='email'
-            type='text'
-            required
-          />
-
-          <input
-            aria-label='password'
-            placeholder='password'
-            className='formInput'
-            id='password'
-            type='password'
-            required
-          />
-      
-          <button
-            className='primaryBtn btn'
-            type='submit'
-          >
-            Submit
-          </button>
-        </form>
-
-        <a href='/login'>
-          Already have an account? Login
-        </a>
-      </div>
-    )
-  }   
+  return (
+    <>
+      {error && console.log(error)}
+      <Formik
+        initialValues={{ firstName: '', lastName: '', email: '' }}
+        validationSchema={Yup.object({
+          firstName: Yup.string()
+            .max(12, 'Must be 12 characters or less')
+            .required('Required'),
+          lastName: Yup.string()
+            .max(12, 'Must be 12 characters or less')
+            .required('Required'),
+          email: Yup.string()
+            .email('Invalid email address')
+            .required()
+          })}
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              const { authToken } = await AuthService.postNewUser(values);
+              user.handleUserLog(authToken);
+              history.push('/')
+            } catch (e) {
+              setError(e)
+            }
+          }}
+      >
+        <Form>
+          <label htmlFor='firstName'>First Name
+            <Field name='firstName' type='text' />
+          </label>
+          <ErrorMessage name='firstName' />
+          <label htmlFor='lastName'>Last Name
+            <Field name='lastName' type='text' />
+          </label>
+          <ErrorMessage name='lastName' />
+          <label htmlFor='email'>Email
+            <Field name='email' type='text' />
+          </label>
+          <ErrorMessage name='email' />
+          <button type='submit'>Submit</button>
+        </Form>
+      </Formik>
+    </>
+  )
 }
-
-export default RegistrationForm;

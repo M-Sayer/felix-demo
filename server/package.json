@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "personal finance assistant",
   "main": "src/server.js",
+  "type": "module",
   "scripts": {
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js --delay 2000ms",
@@ -35,7 +36,8 @@
     "knex": "^0.21.5",
     "moment": "^2.28.0",
     "morgan": "^1.10.0",
-    "pg": "^7.18.2",
+    "nodemailer": "^6.4.16",
+    "pg": "^8.5.1",
     "postgrator-cli": "^3.2.0",
     "xss": "^1.0.8"
   },

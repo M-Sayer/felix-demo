@@ -1,11 +1,11 @@
-require('dotenv').config();
-const app = require('./app');
-const knex = require('knex');
-const { PORT, DATABASE_URL } = require('./config');
+import app from './app.js';
+import knex from 'knex';
+import { PORT, DATABASE_URL } from './config.js';
 
 //  pg returns number values as strings
 //  this converts bigint type to int
-var types = require('pg').types;
+import pg from 'pg';
+const { types } = pg;
 types.setTypeParser(20, function(val) {
   return parseInt(val);
 });

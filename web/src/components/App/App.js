@@ -18,7 +18,7 @@ import AlertsRoute from '../../routes/AlertsRoute';
 
 // Authentication & Registration Components
 import LoginRoute from '../../routes/LoginRoute';
-import RegistrationRoute from '../../routes/RegistrationRoute';
+import { RegistrationRoute } from '../../routes/RegistrationRoute';
 import LandingRoute from '../../routes/LandingRoute';
 
 import '../../styles/index.css';

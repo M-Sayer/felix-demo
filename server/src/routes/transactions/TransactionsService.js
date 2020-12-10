@@ -1,7 +1,7 @@
-const xss = require('xss');
-const { updateAllowance, updateBalance, getDifference, selectTransactionAmount } = require('../../helpers');
+import xss from 'xss';
+import { updateAllowance, updateBalance, getDifference, selectTransactionAmount } from '../../helpers.js';
 
-const TransactionsService = {
+export const TransactionsService = {
   getUserDetails(db, id) {
     return db('users')
       .select('*')
@@ -142,5 +142,3 @@ const TransactionsService = {
     ;
   }
 };
-
-module.exports = TransactionsService;

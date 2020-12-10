@@ -1,8 +1,8 @@
-const express = require('express');
-const { requireAuth } = require('../../middleware/jwtAuth');
-const { getUserAlerts, updateAlert } = require('./alertsService');
+import { Router } from 'express';
+import { requireAuth } from '../../middleware/jwtAuth.js';
+import { getUserAlerts, updateAlert } from './alertsService.js';
 
-const alertsRouter = express.Router();
+export const alertsRouter = Router();
 
 alertsRouter
   .route('/')
@@ -43,5 +43,3 @@ alertsRouter
       console.log(error);
     }
   })
-
-module.exports = alertsRouter;

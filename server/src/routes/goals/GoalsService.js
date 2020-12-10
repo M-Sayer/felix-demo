@@ -1,6 +1,6 @@
-const xss = require("xss");
+import xss from "xss";
 
-const GoalsService = {
+export const GoalsService = {
   getGoal(db, id) {
     return db('goals')
       .select('*')
@@ -38,5 +38,3 @@ const GoalsService = {
     }
   },
 }
-
-module.exports = GoalsService;

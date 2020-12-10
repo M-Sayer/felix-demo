@@ -34,14 +34,7 @@
 
 //check end date
 
-const {
-  asyncForEach,
-  selectGoals,
-  createAlert,
-  selectUserAllowance,
-  moveContribution,
-  completeGoal,
-} = require('./automationHelpers');
+import { asyncForEach, selectGoals, createAlert, selectUserAllowance, moveContribution, completeGoal } from './automationHelpers.js';
 
 async function automatedGoals () {
   try {
@@ -80,4 +73,4 @@ async function automatedGoals () {
   }
 };
 
-module.exports = automatedGoals;
+export default automatedGoals;

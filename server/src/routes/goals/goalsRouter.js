@@ -1,21 +1,14 @@
-const express = require('express');
-const xss = require('xss');
-const { requireAuth } = require('../../middleware/jwtAuth');
-const goalsRouter = express.Router();
+import { Router } from 'express';
+import xss from 'xss';
+import { requireAuth } from '../../middleware/jwtAuth.js';
 
-const {
-  getGoal,
-  getGoals,
-  createGoal,
-  updateGoal,
-  deleteGoal,
-  sanitizeGoal,
-} = require('./GoalsService');
+import { GoalsService } from './GoalsService.js';
+import { convertToCents, convertToDollars } from '../../helpers.js';
+import moment from 'moment';
 
-const { 
-  convertToCents,
-  convertToDollars } = require('../../helpers');
-const moment = require('moment');
+const { getGoal, getGoals, createGoal, updateGoal, deleteGoal, sanitizeGoal } = GoalsService;
+
+export const goalsRouter = Router();
 
 goalsRouter.use(requireAuth);
 goalsRouter
@@ -211,6 +204,4 @@ goalsRouter
       next(error)
     }
   });
-
-module.exports = goalsRouter;
 

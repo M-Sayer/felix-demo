@@ -1,18 +1,18 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const helmet = require('helmet');
-const { NODE_ENV } = require('./config');
-// Variables
+import express, { json } from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import helmet from 'helmet';
+import { NODE_ENV } from './config.js';
+// Middleware
+import { errorHandler } from './middleware/errorHandler.js';
+// Routers
+import { usersRouter } from './routes/users/usersRouter.js';
+import { goalsRouter } from './routes/goals/goalsRouter.js';
+import { transactionsRouter } from './routes/transactions/transactionsRouter.js';
+import { alertsRouter } from './routes/alerts/alertsRouter.js';
+
 const app = express();
 const morganOption = NODE_ENV === 'production' ? 'tiny' : 'common';
-// Middleware
-const errorHandler = require('./middleware/errorHandler');
-// Routers
-const usersRouter = require('./routes/users/usersRouter');
-const goalsRouter = require('./routes/goals/goalsRouter');
-const transactionsRouter = require('./routes/transactions/transactionsRouter');
-const alertsRouter = require('./routes/alerts/alertsRouter');
 
 app.get('/', (req, res) => {
   res.status(200).send('Hello, world!');
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
 app.use('/api/users', usersRouter);
 app.use('/api/goals', goalsRouter);
@@ -29,4 +29,4 @@ app.use('/api/alerts', alertsRouter);
 
 app.use(errorHandler);
 
-module.exports = app;
+export default app;

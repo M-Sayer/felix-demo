@@ -1,6 +1,6 @@
-var Fraction = require('fraction.js');
+import Fraction from 'fraction.js';
 
-const { selectUserAllowance } = require("../automationHelpers");
+import { selectUserAllowance } from "../automationHelpers.js";
 
 const selectBalance = async (db, id) => {
   const res = await db('users').where({ id }).select('balance').first();
@@ -155,7 +155,7 @@ const updateAllowance = async (trx, id, amount) => {
   }
 };
 
-module.exports = {
+export {
   selectTransactionAmount,
   convertToCents,
   convertToDollars,

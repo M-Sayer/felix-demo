@@ -1,6 +1,8 @@
-const UsersService = require('../routes/users/UsersService');
+import { UsersService } from '../routes/users/UsersService.js';
 
-async function requireAuth(req, res, next) {
+const { verifyJwt, getUserWithUsername } = UsersService;
+
+export async function requireAuth(req, res, next) {
   const authToken = req.get('Authorization') || '';
   const db = req.app.get('db');
 
@@ -12,8 +14,8 @@ async function requireAuth(req, res, next) {
   }
 
   try {
-    const payload = UsersService.verifyJwt(bearerToken);
-    const user = await UsersService.getUserWithUsername(db, payload.sub);
+    const payload = verifyJwt(bearerToken);
+    const user = await getUserWithUsername(db, payload.sub);
 
     if (!user) {
       return res.status(401).json({
@@ -27,7 +29,3 @@ async function requireAuth(req, res, next) {
     res.status(401).json({ error: 'Unauthorized request' });
   }
 }
-
-module.exports = {
-  requireAuth,
-};

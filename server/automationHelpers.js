@@ -1,10 +1,11 @@
-const knex = require("knex");
-const { DATABASE_URL } = require('./src/config');
-const { updateTotalSaved } = require('./src/helpers');
+import knex from "knex";
+import { DATABASE_URL } from './src/config.js';
+import { updateTotalSaved } from './src/helpers.js';
 
 //  pg returns numeric values as strings
 //  this converts all numeric types to floats (decimal)
-var types = require('pg').types
+import pg from 'pg';
+const { types } = pg;
 types.setTypeParser(1700, function(val) {
   return parseFloat(val)
 });
@@ -114,7 +115,7 @@ const completeGoal = async (goal, allowance, adjusted,) => {
   });
 };
 
-module.exports = {
+export {
   asyncForEach,
   selectGoals,
   updateGoal,
