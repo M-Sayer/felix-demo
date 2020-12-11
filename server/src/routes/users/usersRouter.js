@@ -82,9 +82,9 @@ usersRouter.post('/login', async (req, res, next) => {
       });
     }
 
-    sendEmail(createEmailToken({ userId: user.id }));
+    await sendEmail(createEmailToken({ userId: user.id }));
 
-    res.status(200);
+    return res.status(200).end();
   } catch (error) {
     next(error);
   }

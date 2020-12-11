@@ -40,6 +40,22 @@ const AuthService = {
     }
 
     return response.json();
+  },
+
+  async emailLogin(email) {
+    const response = await fetch(`${config.API_ENDPOINT}/users/login`, {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify(email)
+    })
+
+    if(!response.ok) {
+      return Promise.reject(await response.json());
+    }
+
+    return;
   }
 }
 
