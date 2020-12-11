@@ -14,6 +14,7 @@ export const EmailRoute = () => {
         try {
           const res = await AuthService.verifyEmailToken(token);
           TokenService.saveAuthToken(res.authToken)
+          history.push('/')
         } catch(e) {
           console.log(e)
         }
