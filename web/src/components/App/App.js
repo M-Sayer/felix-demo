@@ -101,7 +101,7 @@ const App = () => {
           />
 
           <Route 
-            path='/email'
+            path='/email/:token'
             component={EmailRoute}
           />
 

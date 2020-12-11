@@ -28,9 +28,13 @@ export const AlertsProvider = props => {
   }
   
   const fetchData = async () => {
-    const alerts = await getAlerts();
-    sortAlerts(alerts);
-    setAllAlerts(alerts);
+    try {
+      const alerts = await getAlerts();
+      sortAlerts(alerts);
+      setAllAlerts(alerts);
+    } catch(e) {
+      console.log(e)
+    }
   };
   
   useEffect(() => {TokenService.hasAuthToken() && fetchData()}, [state]);

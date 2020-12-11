@@ -56,6 +56,22 @@ const AuthService = {
     }
 
     return;
+  },
+
+  async verifyEmailToken(token){
+    const response = await fetch(`${config.API_ENDPOINT}/users/login/token`, {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify({ token: token })
+    })
+
+    if(!response.ok) {
+      return Promise.reject(await response.json());
+    }
+
+    return await response.json();
   }
 }
 
