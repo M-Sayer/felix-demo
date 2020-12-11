@@ -11,9 +11,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import App from './components/App/App';
 
-import { Auth0Provider } from "@auth0/auth0-react";
-
 import './styles/index.css'
+import { CssBaseline } from '@material-ui/core';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -22,13 +21,8 @@ ReactDOM.render(
           <UserProvider>
             <TransactionsProvider>
               <GoalsProvider>
-                <Auth0Provider
-                  domain='amina-assistant.us.auth0.com'
-                  clientId='s2amWLKnb3fJkZN7tUYPZNJoOwqnnEif'
-                  redirectUri={window.location.origin}
-                >
-                  <App />
-                </Auth0Provider>
+                <CssBaseline />
+                <App />
               </GoalsProvider>
             </TransactionsProvider>
           </UserProvider>

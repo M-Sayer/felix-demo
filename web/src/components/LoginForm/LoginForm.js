@@ -6,6 +6,7 @@ import '../../styles/ButtonStyles.css'
 import './LoginForm.css'
 import { ErrorMessage, Form, Formik, Field } from 'formik';
 import * as Yup from 'yup';
+import { Button, TextField } from '@material-ui/core';
 
 export const LoginForm = () => {
   const [error, setError] = useState(null)
@@ -34,11 +35,16 @@ export const LoginForm = () => {
       >
         {props => (
           <Form>
-            <label htmlFor='email'>Email
-              <Field name='email' type='text' />
-            </label>
-            <ErrorMessage name='email' />
-            <button type='submit' disabled={props.isSubmitting}>Submit</button>
+            <TextField
+              id='email'
+              name='email'
+              label='Email'
+              value={props.values.email}
+              onChange={props.handleChange}
+              error={props.touched.email && !!props.errors.email}
+              helperText={props.touched.email && props.errors.email}
+            />
+            <Button type='submit' disabled={props.isSubmitting}>Submit</Button>
           </Form>
         )}
       </Formik>
