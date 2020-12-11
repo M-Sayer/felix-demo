@@ -65,21 +65,17 @@ usersRouter.post('/register', async (req, res, next) => {
 
 usersRouter.post('/login', async (req, res, next) => {
   const db = req.app.get('db');
-
   const { email } = req.body;
 
-  // Check that fields exist
-    if (!email) {
-      return res.status(400).json({
-        error: `Missing email in request body`,
-      });
-    }
+  if (!email) {
+    return res.status(400).json({
+      error: `Missing email in request body`,
+    });
+  }
 
   try {
-    // Get user object to check against POSTed username and password
     const user = await getUserWithEmail(db, email);
 
-    // If hasUser is undefined (username does not exist in db), return error
     if (!user) {
       return res.status(401).json({
         error: 'User does not exist'
@@ -97,20 +93,23 @@ usersRouter.post('/login', async (req, res, next) => {
 usersRouter.post(
   '/login/token',
   async (req, res, next) => {
-    const { token } = req.body;
+    try {
+      const { token } = req.body;
+      const decoded = await verifyEmailToken(token);
 
-    const decoded = await verifyEmailToken(token);
-    console.log(decoded)
+      if (decoded.name === 'TokenExpiredError') {
+        return res.status(401).json({
+          error: 'Token Expired'
+        })
+      }
 
-    if (decoded.name === 'TokenExpiredError') {
-      return res.status(401).json({
-        error: 'Token Expired'
+      return res.json({
+        authToken: createAuthToken({ userId: decoded.userId })
       })
+      
+    } catch(e) {
+      next(error)
     }
-
-    return res.json({
-      authToken: createAuthToken({ userId: decoded.userId })
-    })
   }
 )
 

@@ -28,6 +28,7 @@ import '../../styles/LinkStyles.css';
 import '../Header/Header.css';
 import '../../styles/OverviewStyles.css';
 import './App.css'
+import { EmailRoute } from '../../routes/EmailRoute';
 
 const App = () => {
 
@@ -97,6 +98,11 @@ const App = () => {
           <Route
             path={'/about'}
             component={LandingRoute}
+          />
+
+          <Route 
+            path='/email'
+            component={EmailRoute}
           />
 
         </Switch>
