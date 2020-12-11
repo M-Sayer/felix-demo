@@ -11,7 +11,6 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './theme';
 import App from './components/App/App';
 
-import './styles/index.css'
 import { CssBaseline } from '@material-ui/core';
 
 ReactDOM.render(

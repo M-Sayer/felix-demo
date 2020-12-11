@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import GoalsContext from '../../contexts/GoalsContext';
 import GoalsService from '../../services/goals-service';
-import './Overview.css';
 
 const GoalsOverview = (props) => {
   const { 

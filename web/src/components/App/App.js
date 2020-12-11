@@ -27,7 +27,6 @@ import '../../styles/FormStyles.css';
 import '../../styles/LinkStyles.css';
 import '../Header/Header.css';
 import '../../styles/OverviewStyles.css';
-import './App.css'
 import { EmailRoute } from '../../routes/EmailRoute';
 
 const App = () => {
