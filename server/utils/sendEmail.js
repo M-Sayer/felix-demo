@@ -23,7 +23,7 @@ export async function sendEmail(token) {
     to: "haji.san@icloud.com", // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
-    html: `<a>http://localhost:3000/email/${token}</>`, // html body
+    html: `<a href='http://localhost:3000/email/${token}'>login</a>`, // html body
   });
 
   console.log("Message sent: %s", info.messageId);
