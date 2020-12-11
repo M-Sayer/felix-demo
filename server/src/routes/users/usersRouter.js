@@ -5,7 +5,7 @@ import { UsersService } from './UsersService.js';
 import { convertToDollars } from '../../helpers.js';
 import  { sendEmail } from '../../../utils/sendEmail.js';
 
-const { createUser, getUserWithEmail, unhashPassword, getUserWithId, createJwt } = UsersService;
+const { createUser, getUserWithEmail,createAuthToken, createEmailToken, verifyEmailToken, getUserWithId, createJwt } = UsersService;
 
 export const usersRouter = Router();
 
@@ -86,20 +86,33 @@ usersRouter.post('/login', async (req, res, next) => {
       });
     }
 
-    sendEmail();
+    sendEmail(createEmailToken({ userId: user.id }));
 
-    // Get user id and username from db to create jwt token
-    // const sub = hasUser.username;
-    // const payload = { user_id: hasUser.id };
-
-    // // Create and send jwt
-    // res.status(200).json({
-    //   authToken: createJwt(sub, payload),
-    // });
+    res.status(200);
   } catch (error) {
     next(error);
   }
 });
+
+usersRouter.post(
+  '/login/token',
+  async (req, res, next) => {
+    const { token } = req.body;
+
+    const decoded = await verifyEmailToken(token);
+    console.log(decoded)
+
+    if (decoded.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        error: 'Token Expired'
+      })
+    }
+
+    return res.json({
+      authToken: createAuthToken({ userId: decoded.userId })
+    })
+  }
+)
 
 usersRouter.route('/').get(requireAuth, async (req, res, next) => {
   const db = req.app.get('db');
