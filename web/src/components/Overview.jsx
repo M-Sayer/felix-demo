@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Financials } from './Financials';
-import GoalsOverview from './Overview/GoalsOverview';
 import TransactionsOverview from './Overview/TransactionsOverview';
 import Alerts from './Alerts/Alerts';
 import AlertsContext from '../contexts/AlertsContext';
 import { Grid, Paper } from '@material-ui/core';
+import { Goals } from './Goals';
 
 export const Overview = (props) => {
   const alertsContext = useContext(AlertsContext);
@@ -31,7 +31,7 @@ export const Overview = (props) => {
       </Grid>
       <Grid item xs={10}>
         <Paper>
-          <GoalsOverview {...props}/>
+          <Goals />
         </Paper>
       </Grid>
       <Grid item xs={10}>
