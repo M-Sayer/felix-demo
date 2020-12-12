@@ -1,4 +1,4 @@
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Box } from '@material-ui/core';
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../../contexts/UserContext';
 import UserService from '../../services/user-service';
@@ -20,26 +20,39 @@ export const Overview = () => {
     getUser()
   }, []);
 
+  const renderOverview = () => {
+    const data = {
+      Balance: [user.balance, 'primary.main'],
+      Allowance: [user.allowance, 'primary.dark'],
+      Goals: [user.total_saved, 'tertiary.dark'],
+    };
+
+    let fields = [];
+
+    for (const key in data) {
+      fields.push(
+        <Grid item xs={12} md={6}>
+          <Typography variant='money'>
+            <Box ml={2} alignItems='left' color={data[key][1] || ''}>{key}</Box>
+          </Typography>
+          <Typography variant='h3'>
+            <Box ml={2} fontFamily='Roboto Slab'>${data[key][0]}</Box>
+          </Typography>
+        </Grid>
+      )
+    }
+    return fields;
+  };
+
   return (
     <Grid
       container
       direction='row'
       justify='center'
-      alignItems='center'
+      alignItems='left'
       spacing={2}
     >
-      <Grid item xs={12} md={6}>
-        <Typography variant='h3'>Balance</Typography>
-        <Typography>${user.balance}</Typography>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Typography variant='h3'>Allowance</Typography>
-        <Typography>${user.allowance}</Typography>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Typography variant='h3'>Goals</Typography>
-        <Typography>${user.total_saved}</Typography>
-      </Grid>
+      {renderOverview()}
     </Grid>
   );
 };
