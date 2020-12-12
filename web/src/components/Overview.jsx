@@ -3,11 +3,13 @@ import { Financials } from './Financials';
 import TransactionsOverview from './Overview/TransactionsOverview';
 import Alerts from './Alerts/Alerts';
 import AlertsContext from '../contexts/AlertsContext';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Paper, Typography, Box } from '@material-ui/core';
 import { Goals } from './Goals';
+import UserContext from '../contexts/UserContext';
 
 export const Overview = (props) => {
   const alertsContext = useContext(AlertsContext);
+  const User = useContext(UserContext);
 
   return (
     <Grid
@@ -31,7 +33,13 @@ export const Overview = (props) => {
       </Grid>
       <Grid item xs={10}>
         <Paper>
-          <Goals />
+          <Typography>
+            <Box ml={2} color='tertiary.main'>Goals</Box>
+          </Typography>
+          <Typography variant='h3'>
+            <Box ml={2} mb={2} fontFamily='Roboto Slab'>${User.user.total_saved}</Box>
+          </Typography>
+          <Goals id='overview' />
         </Paper>
       </Grid>
       <Grid item xs={10}>

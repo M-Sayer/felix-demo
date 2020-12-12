@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from '@material-ui/core';
 import React, { useContext, useEffect } from 'react'
 import GoalsContext from '../contexts/GoalsContext'
+import UserContext from '../contexts/UserContext';
 import GoalsService from '../services/goals-service';
 
 export const Goals = (props) => {
@@ -26,19 +27,20 @@ export const Goals = (props) => {
 
   const renderGoals = () => {
     return goals.map(goal => (
-      <Box>
-        <Typography>{goal.name}</Typography>
-        <Typography>{goal.goal_amount}</Typography>
+      <Box display='flex' flexDirection='row'>
+        <Box flexGrow={2} >
+          <Typography>{goal.name}</Typography>
+        </Box>
+        <Box color='tertiary.main' flexGrow={1} textAlign='right'>
+          <Typography>${goal.current_amount}</Typography>
+        </Box>
       </Box>
     ))
   }
 
   return (
     <Container>
-      <Typography>
-        <Box color='tertiary.dark'>Goals</Box>
-      </Typography>
-      {renderGoals()}
+      {goals ? renderGoals() : null}
     </Container>
     )
 }

@@ -24,7 +24,6 @@ export const Financials = () => {
     const data = {
       Balance: [user.balance, 'primary.main'],
       Allowance: [user.allowance, 'primary.dark'],
-      Goals: [user.total_saved, 'tertiary.dark'],
     };
 
     let fields = [];
