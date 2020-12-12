@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import UserOverview from '../components/Overview/UserOverview';
+import { Overview } from '../components/Overview/UserOverview';
 import GoalsOverview from '../components/Overview/GoalsOverview';
 import TransactionsOverview from '../components/Overview/TransactionsOverview';
 import Alerts from '../components/Alerts/Alerts';
@@ -26,7 +26,7 @@ const DashboardRoute = (props) => {
       }
       <Grid item xs={10}>
         <Paper>
-          <UserOverview />
+          <Overview />
         </Paper>
       </Grid>
       <Grid item xs={10}>

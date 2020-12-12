@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
 import TokenService from '../../services/token-service';
-import NavTabs from '../NavBar';
-import FullWidthTabs from '../TabBar';
+import { TabBar } from '../TabBar';
 
 const Header = () => {
   const { isUserLoggedIn, handleUserLog } = useContext(UserContext);
@@ -37,7 +36,7 @@ const Header = () => {
       //     Log Out
       //   </Link>
       // </nav>
-        <FullWidthTabs />
+        <TabBar />
       )
   }
 

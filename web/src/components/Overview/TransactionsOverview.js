@@ -1,6 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import TransactionsContext from '../../contexts/TransactionsContext';
 import TransactionsService from '../../services/transactions-service';
+
+export const TransactionsList = () => {
+  const Transactions = useContext(TransactionsContext);
+
+  
+}
 
 class TransactionsOverview extends Component {
   static contextType = TransactionsContext;

@@ -17,8 +17,8 @@ import Settings from '@material-ui/icons/Settings'
 import DashboardRoute from '../routes/DashboardRoute';
 import { useHistory } from 'react-router-dom';
 import Goals from './Goals/Goals';
-import Transaction from './Transaction/Transaction';
 import Alerts from './Alerts/Alerts';
+import Transactions from './Transactions/Transactions';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function FullWidthTabs() {
+export const TabBar = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -110,7 +110,7 @@ export default function FullWidthTabs() {
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           Transactions
-          <Transaction />
+          <Transactions />
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
           Alerts

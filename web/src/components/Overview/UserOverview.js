@@ -1,48 +1,42 @@
-import React, { Component } from 'react';
+import { Typography, Grid } from '@material-ui/core';
+import React, { useContext, useEffect } from 'react';
 import UserContext from '../../contexts/UserContext';
 import UserService from '../../services/user-service';
 
-class UserOverview extends Component {
-  static contextType = UserContext;
+export const Overview = () => {
+  const User = useContext(UserContext);
+  const user = User.user;
 
-  async componentDidMount() {
-    try {
-      const user = await UserService.getUser();
-      this.context.setUser(user);
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const res = await UserService.getUser();
+        User.setUser(res);
+      } catch(e) {
+        User.setError(e);
+      }
     }
-    catch({ error }) {
-      this.context.setError(error);
-    }
-  }
+    getUser()
+  }, []);
 
-  render() {
-    const { user = {} } = this.context;
-
-    return (
-      <article 
-        className='overviewSection'
-      >
-        <h2
-          className='sectionHeader'
-        >
-          Overview
-        </h2>
-        <p className='sectionSubHeader'>
+  return (
+    <Grid
+      container
+      direction='row'
+      justify='center'
+      alignItems='center'
+      spacing={2}
+    >
+      <Grid item xs={12} md={6}>
+        <Typography variant='h3'>
           Balance
-        </p>
-        <div className='userData'>
-          {user.balance}
-        </div>
-        
-        <p className='sectionSubHeader'>
+        </Typography>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Typography variant='h3'>
           Allowance
-        </p>
-        <div className='userData'>
-          {user.allowance}
-        </div>
-      </article>
-    );
-  }
-}
-
-export default UserOverview;
+        </Typography>
+      </Grid>
+    </Grid>
+  );
+};

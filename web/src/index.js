@@ -8,7 +8,7 @@ import { TransactionsProvider } from './contexts/TransactionsContext';
 import { GoalsProvider } from './contexts/GoalsContext';
 
 import { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from './theme';
+import theme from './theme';
 import App from './components/App/App';
 
 import { CssBaseline } from '@material-ui/core';
