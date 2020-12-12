@@ -11,6 +11,7 @@ export const Overview = () => {
     async function getUser() {
       try {
         const res = await UserService.getUser();
+        console.log(res)
         User.setUser(res);
       } catch(e) {
         User.setError(e);

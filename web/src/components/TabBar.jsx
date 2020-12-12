@@ -75,7 +75,6 @@ export const TabBar = () => {
     setValue(index);
   };
   const history = useHistory();
-  console.log(history)
 
   return (
     <div className={classes.root}>

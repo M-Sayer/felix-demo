@@ -19,6 +19,11 @@ export const UsersService = {
       algorithm: 'HS256'
     })
   },
+  verifyAuthToken(token) {
+    return verify(token, JWT_SECRET, {
+      algorithms: ['HS256']
+    });
+  },
   createEmailToken(payload) {
     return sign(payload, JWT_SECRET, {
       algorithm: 'HS256',

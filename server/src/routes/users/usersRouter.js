@@ -5,7 +5,15 @@ import { UsersService } from './UsersService.js';
 import { convertToDollars } from '../../helpers.js';
 import  { sendEmail } from '../../../utils/sendEmail.js';
 
-const { createUser, getUserWithEmail,createAuthToken, createEmailToken, verifyEmailToken, getUserWithId, createJwt } = UsersService;
+const { 
+  createUser, 
+  getUserWithEmail, 
+  createAuthToken, 
+  createEmailToken, 
+  verifyEmailToken, 
+  getUserWithId, 
+  createJwt 
+} = UsersService;
 
 export const usersRouter = Router();
 
@@ -14,9 +22,6 @@ usersRouter.post('/register', async (req, res, next) => {
 
   const { firstName, lastName, email } = req.body;
 
-  // Check that fields exist
-  // Not sure if this style is readable
-  // Correct me if anything - Miki
   for (const field of [
     'firstName',
     'lastName',
