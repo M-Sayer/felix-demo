@@ -20,13 +20,6 @@ import AlertsRoute from '../../routes/AlertsRoute';
 import LoginRoute from '../../routes/LoginRoute';
 import { RegistrationRoute } from '../../routes/RegistrationRoute';
 import LandingRoute from '../../routes/LandingRoute';
-
-import '../../styles/index.css';
-import '../../styles/ButtonStyles.css';
-import '../../styles/FormStyles.css';
-import '../../styles/LinkStyles.css';
-import '../Header/Header.css';
-import '../../styles/OverviewStyles.css';
 import { EmailRoute } from '../../routes/EmailRoute';
 
 const App = () => {

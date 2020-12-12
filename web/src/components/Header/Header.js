@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
 import TokenService from '../../services/token-service';
-
-import './Header.css';
+import FullWidthTabs from '../TabBar';
 
 const Header = () => {
   const { isUserLoggedIn, handleUserLog } = useContext(UserContext);
@@ -14,29 +13,30 @@ const Header = () => {
   // When isUserLoggedIn in UserContext is true
   const renderLoggedInNav = () => {
     return (
-      <nav className='headerNav'>
-        <Link
-          to='/about'
-        >
-          About
-        </Link>
-        <Link
-          to='/'
-        >
-          Dashboard
-        </Link>
-        <Link to='/alerts'>
-          Alerts
-        </Link>
-        <Link
-          onClick={() => {
-            handleUserLog();
-          }}
-          to='/' // Goes to register page from dash/Temp
-        >
-          Log Out
-        </Link>
-      </nav>
+      // <nav className='headerNav'>
+      //   <Link
+      //     to='/about'
+      //   >
+      //     About
+      //   </Link>
+      //   <Link
+      //     to='/'
+      //   >
+      //     Dashboard
+      //   </Link>
+      //   <Link to='/alerts'>
+      //     Alerts
+      //   </Link>
+      //   <Link
+      //     onClick={() => {
+      //       handleUserLog();
+      //     }}
+      //     to='/' // Goes to register page from dash/Temp
+      //   >
+      //     Log Out
+      //   </Link>
+      // </nav>
+      <FullWidthTabs />
     )
   }
 

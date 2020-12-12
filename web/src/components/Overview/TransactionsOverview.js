@@ -70,7 +70,7 @@ class TransactionsOverview extends Component {
         <h2
           className='sectionHeader'
         >
-          Transactions Overview
+          Transactions
         </h2>
         {(transactions.length)
             ? this.renderTransactions(transactions)

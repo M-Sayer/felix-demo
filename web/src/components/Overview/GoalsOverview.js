@@ -63,7 +63,7 @@ const GoalsOverview = (props) => {
       <h2
         className='sectionHeader'
       >
-        Goals Overview
+        Goals
       </h2>
       {(goals.length)
           ? renderGoals(goals)

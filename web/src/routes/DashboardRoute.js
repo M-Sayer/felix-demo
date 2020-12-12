@@ -23,7 +23,6 @@ const DashboardRoute = (props) => {
             <Alerts />
           </Paper>
         </Grid>
-        
       }
       <Grid item xs={10}>
         <Paper>
