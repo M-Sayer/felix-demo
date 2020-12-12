@@ -11,10 +11,14 @@ import Box from '@material-ui/core/Box';
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import AttachMoney from '@material-ui/icons/AttachMoney'
 import MoneyOff from '@material-ui/icons/MoneyOff'
-import UserOverview from './Overview/UserOverview';
+import Notifications from '@material-ui/icons/Notifications'
+import Settings from '@material-ui/icons/Settings'
+
 import DashboardRoute from '../routes/DashboardRoute';
 import { useHistory } from 'react-router-dom';
 import Goals from './Goals/Goals';
+import Transaction from './Transaction/Transaction';
+import Alerts from './Alerts/Alerts';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  tab: {
+    fontSize: '8px',
+  }
 }));
 
 export default function FullWidthTabs() {
@@ -81,9 +88,11 @@ export default function FullWidthTabs() {
           variant="fullWidth"
           aria-label="nav tabs"
         >
-          <Tab icon={<DonutLarge />} label={ value === 0 ? 'Overview' : '' } {...a11yProps(0)} />
-          <Tab icon={<AttachMoney />} label={ value === 1 ? 'Goals' : '' } {...a11yProps(1)} />
-          <Tab icon={<MoneyOff />} label={ value === 2 ? 'Transactions' : '' } {...a11yProps(2)} />
+          <Tab className={classes.tab} icon={<DonutLarge />} label={ value === 0 ? 'Overview' : '' } {...a11yProps(0)} />
+          <Tab className={classes.tab} icon={<AttachMoney />} label={ value === 1 ? 'Goals' : '' } {...a11yProps(1)} />
+          <Tab className={classes.tab} icon={<MoneyOff />} label={ value === 2 ? 'Transactions' : '' } {...a11yProps(2)} />
+          <Tab className={classes.tab} icon={<Notifications />} label={ value === 3 ? 'Alerts' : '' } {...a11yProps(3)} />
+          <Tab className={classes.tab} icon={<Settings />} label={ value === 4 ? 'Settings' : '' } {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -101,6 +110,14 @@ export default function FullWidthTabs() {
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           Transactions
+          <Transaction />
+        </TabPanel>
+        <TabPanel value={value} index={3} dir={theme.direction}>
+          Alerts
+          <Alerts />
+        </TabPanel>
+        <TabPanel value={value} index={4} dir={theme.direction}>
+          Settings
         </TabPanel>
       </SwipeableViews>
     </div>
