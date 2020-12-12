@@ -29,14 +29,16 @@ export const Overview = () => {
       spacing={2}
     >
       <Grid item xs={12} md={6}>
-        <Typography variant='h3'>
-          Balance
-        </Typography>
+        <Typography variant='h3'>Balance</Typography>
+        <Typography>${user.balance}</Typography>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Typography variant='h3'>
-          Allowance
-        </Typography>
+        <Typography variant='h3'>Allowance</Typography>
+        <Typography>${user.allowance}</Typography>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Typography variant='h3'>Goals</Typography>
+        <Typography>${user.total_saved}</Typography>
       </Grid>
     </Grid>
   );
