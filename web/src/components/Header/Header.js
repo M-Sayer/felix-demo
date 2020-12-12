@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
 import TokenService from '../../services/token-service';
+import NavTabs from '../NavBar';
 import FullWidthTabs from '../TabBar';
 
 const Header = () => {
@@ -36,8 +37,8 @@ const Header = () => {
       //     Log Out
       //   </Link>
       // </nav>
-      <FullWidthTabs />
-    )
+        <FullWidthTabs />
+      )
   }
 
   // Render logged out state
@@ -65,17 +66,13 @@ const Header = () => {
   }
 
   return (
-    <>
-      <header className='headerMain'>
-        <h1 className='mainTitle'>felix</h1>
-        <h2 className='mainSubtitle'>Personal Finance Assistant</h2>
-        {
-          (isUserLoggedIn || TokenService.hasAuthToken())
-            ? renderLoggedInNav()
-            : renderLoggedOutNav()
-        }
-      </header>
-    </>
+    <header className='headerMain'>
+      {
+        (isUserLoggedIn || TokenService.hasAuthToken())
+          ? renderLoggedInNav()
+          : renderLoggedOutNav()
+      }
+    </header>
   );
 }
 

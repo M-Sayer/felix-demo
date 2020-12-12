@@ -27,7 +27,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <div className='App'>
+      {/* <div className='App'>
         <Switch>
           <PrivateRoute
             exact
@@ -98,7 +98,7 @@ const App = () => {
           />
 
         </Switch>
-      </div>
+      </div> */}
     </>
   );
 };

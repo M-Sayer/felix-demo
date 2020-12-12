@@ -11,6 +11,10 @@ import Box from '@material-ui/core/Box';
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import AttachMoney from '@material-ui/icons/AttachMoney'
 import MoneyOff from '@material-ui/icons/MoneyOff'
+import UserOverview from './Overview/UserOverview';
+import DashboardRoute from '../routes/DashboardRoute';
+import { useHistory } from 'react-router-dom';
+import Goals from './Goals/Goals';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,8 +51,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
-    width: 500,
+    flexGrow: 1,
   },
 }));
 
@@ -64,6 +67,8 @@ export default function FullWidthTabs() {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+  const history = useHistory();
+  console.log(history)
 
   return (
     <div className={classes.root}>
@@ -74,7 +79,7 @@ export default function FullWidthTabs() {
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
-          aria-label="full width tabs example"
+          aria-label="nav tabs"
         >
           <Tab icon={<DonutLarge />} label={ value === 0 ? 'Overview' : '' } {...a11yProps(0)} />
           <Tab icon={<AttachMoney />} label={ value === 1 ? 'Goals' : '' } {...a11yProps(1)} />
@@ -87,10 +92,11 @@ export default function FullWidthTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Overview
+          <DashboardRoute />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           Goals
+          <Goals props={history} />
         <AttachMoney />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
