@@ -13,7 +13,7 @@ import MoneyOff from '@material-ui/icons/MoneyOff'
 import Notifications from '@material-ui/icons/Notifications'
 import Settings from '@material-ui/icons/Settings'
 
-import DashboardRoute from '../routes/DashboardRoute';
+import { Overview } from './Overview';
 import { useHistory } from 'react-router-dom';
 import Goals from './Goals/Goals';
 import Alerts from './Alerts/Alerts';
@@ -97,7 +97,7 @@ export const TabBar = () => {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <DashboardRoute />
+          <Overview />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           Goals

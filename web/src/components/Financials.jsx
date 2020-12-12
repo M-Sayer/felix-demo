@@ -1,9 +1,9 @@
 import { Typography, Grid, Box } from '@material-ui/core';
 import React, { useContext, useEffect } from 'react';
-import UserContext from '../../contexts/UserContext';
-import UserService from '../../services/user-service';
+import UserContext from '../contexts/UserContext';
+import UserService from '../services/user-service';
 
-export const Overview = () => {
+export const Financials = () => {
   const User = useContext(UserContext);
   const user = User.user;
 

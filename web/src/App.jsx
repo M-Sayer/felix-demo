@@ -2,34 +2,34 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // Util Components
-import Header from '../Header/Header';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute';
+import { Header } from './components/Header';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import PublicOnlyRoute from './components/PublicOnlyRoute/PublicOnlyRoute';
 
 // Main Components
-import DashboardRoute from '../../routes/DashboardRoute';
-import GoalsRoute from '../../routes/GoalsRoute';
-import GoalRoute from '../../routes/GoalRoute';
-import GoalFormRoute from '../../routes/GoalFormRoute';
-import CreateTransactionRoute from '../../routes/CreateTransactionRoute';
-import TransactionsRoute from '../../routes/TransactionsRoute';
-import TransactionRoute from '../../routes/TransactionRoute/TransactionRoute';
-import AlertsRoute from '../../routes/AlertsRoute';
+// import DashboardRoute from '../../routes/DashboardRoute';
+// import GoalsRoute from '../../routes/GoalsRoute';
+// import GoalRoute from '../../routes/GoalRoute';
+// import GoalFormRoute from '../../routes/GoalFormRoute';
+// import CreateTransactionRoute from '../../routes/CreateTransactionRoute';
+// import TransactionsRoute from '../../routes/TransactionsRoute';
+// import TransactionRoute from '../../routes/TransactionRoute/TransactionRoute';
+// import AlertsRoute from '../../routes/AlertsRoute';
 
-// Authentication & Registration Components
-import LoginRoute from '../../routes/LoginRoute';
-import { RegistrationRoute } from '../../routes/RegistrationRoute';
-import LandingRoute from '../../routes/LandingRoute';
-import { EmailRoute } from '../../routes/EmailRoute';
+// // Authentication & Registration Components
+// import LoginRoute from '../../routes/LoginRoute';
+// import { RegistrationRoute } from '../../routes/RegistrationRoute';
+// import LandingRoute from '../../routes/LandingRoute';
+import { EmailRoute } from './routes/EmailRoute';
 
 const App = () => {
 
   return (
     <>
       <Header />
-      {/* <div className='App'>
+      <div className='App'>
         <Switch>
-          <PrivateRoute
+          {/* <PrivateRoute
             exact
             path={'/'}
             comp={DashboardRoute}
@@ -90,7 +90,7 @@ const App = () => {
           <Route
             path={'/about'}
             component={LandingRoute}
-          />
+          /> */}
 
           <Route 
             path='/email/:token'
@@ -98,7 +98,7 @@ const App = () => {
           />
 
         </Switch>
-      </div> */}
+      </div>
     </>
   );
 };

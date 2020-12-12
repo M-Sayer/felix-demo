@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AuthService from '../../services/auth-service';
+import AuthService from '../services/auth-service';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@material-ui/core';

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { Overview } from '../components/Overview/UserOverview';
-import GoalsOverview from '../components/Overview/GoalsOverview';
-import TransactionsOverview from '../components/Overview/TransactionsOverview';
-import Alerts from '../components/Alerts/Alerts';
+import { Financials } from './Financials';
+import GoalsOverview from './Overview/GoalsOverview';
+import TransactionsOverview from './Overview/TransactionsOverview';
+import Alerts from './Alerts/Alerts';
 import AlertsContext from '../contexts/AlertsContext';
 import { Grid, Paper } from '@material-ui/core';
 
-const DashboardRoute = (props) => {
+export const Overview = (props) => {
   const alertsContext = useContext(AlertsContext);
 
   return (
@@ -26,7 +26,7 @@ const DashboardRoute = (props) => {
       }
       <Grid item xs={10}>
         <Paper>
-          <Overview />
+          <Financials />
         </Paper>
       </Grid>
       <Grid item xs={10}>
@@ -42,5 +42,3 @@ const DashboardRoute = (props) => {
     </Grid>
   );
 }
-
-export default DashboardRoute;

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import UserContext from '../../contexts/UserContext';
-import TokenService from '../../services/token-service';
-import { TabBar } from '../TabBar';
+import UserContext from '../contexts/UserContext';
+import TokenService from '../services/token-service';
+import { TabBar } from './TabBar';
 
-const Header = () => {
+export const Header = () => {
   const { isUserLoggedIn, handleUserLog } = useContext(UserContext);
 
   // Set user to null or redundant?
@@ -74,5 +74,3 @@ const Header = () => {
     </header>
   );
 }
-
-export default Header;

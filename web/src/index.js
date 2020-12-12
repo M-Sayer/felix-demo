@@ -9,7 +9,7 @@ import { GoalsProvider } from './contexts/GoalsContext';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
-import App from './components/App/App';
+import App from './App';
 
 import { CssBaseline } from '@material-ui/core';
 

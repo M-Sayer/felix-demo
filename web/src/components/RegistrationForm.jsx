@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import AuthService from '../../services/auth-service';
-import UserContext from '../../contexts/UserContext';
+import AuthService from '../services/auth-service';
+import UserContext from '../contexts/UserContext';
 
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -11,11 +11,9 @@ export const RegistrationForm = () => {
   const user = useContext(UserContext);
   const history = useHistory();
   const [error, setError] = useState(null)
-  const theme = useTheme();
 
   return (
     <>
-      {error && console.log(error)}
       <Formik
         initialValues={{ firstName: '', lastName: '', email: '' }}
         validationSchema={Yup.object({
