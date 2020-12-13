@@ -8,6 +8,7 @@ import UserContext from '../contexts/UserContext';
 import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
+import { Transaction } from './Transactions';
 
 export const Overview = (props) => {
   const alertsContext = useContext(AlertsContext);
@@ -52,8 +53,13 @@ export const Overview = (props) => {
       </Grid>
       <Grid item xs={10}>
         <Paper>
-        <TransactionsOverview {...props} />
-        </Paper>
+            <Container>
+              <Typography>
+                <Box mb={2} color='secondary.main'>Transactions</Box>
+              </Typography>
+              {transactions.map(trx => <Transaction key={trx.id} trx={trx} /> )}
+            </Container>
+          </Paper>
       </Grid>
     </Grid>
   );
