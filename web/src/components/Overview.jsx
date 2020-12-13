@@ -7,12 +7,15 @@ import { Grid, Paper, Typography, Box, Container } from '@material-ui/core';
 import UserContext from '../contexts/UserContext';
 import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
+import { TransactionsContext } from '../contexts/TransactionsContext';
 
 export const Overview = (props) => {
   const alertsContext = useContext(AlertsContext);
   const UserCtx = useContext(UserContext);
   const GoalCtx = useContext(GoalsContext);
+  const TransactionCtx = useContext(TransactionsContext);
   const goals = GoalCtx.goals.slice(0, 3);
+  const transactions = TransactionCtx.transactions.slice(0, 3);
 
   return (
     <Grid

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import TransactionsService from '../services/transactions-service';
 
 export const TransactionsContext = React.createContext({
   transactions: [],
@@ -6,7 +7,6 @@ export const TransactionsContext = React.createContext({
   clearTransactions : ()=>{},
   clearError: ()=>{},
   filterTransactions : ()=>{},
-  sortTransactions : ()=>{},
   setError : () => {},
 })
 
@@ -28,6 +28,20 @@ export const TransactionsProvider = props => {
     return transactions.sort((a, b) => a[property] - b[property]);
   };
 
+  const getTransactions = async () => {
+    try {
+      const { income, expenses } = await TransactionsService.getAllTransactions();
+      const sortedTransactions = sortTransactions([...income, ...expenses], 'date_created');
+      setTransactions(sortedTransactions);
+      console.log(sortedTransactions)
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => getTransactions(), [])
+
   return (
     <TransactionsContext.Provider
       value={{
@@ -37,7 +51,6 @@ export const TransactionsProvider = props => {
         error,
         setError,
         clearError,
-        sortTransactions,
         filterTransactions
       }}
     >
