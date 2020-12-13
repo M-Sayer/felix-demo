@@ -3,13 +3,16 @@ import { Financials } from './Financials';
 import TransactionsOverview from './Overview/TransactionsOverview';
 import Alerts from './Alerts/Alerts';
 import AlertsContext from '../contexts/AlertsContext';
-import { Grid, Paper, Typography, Box } from '@material-ui/core';
-import { Goals } from './Goals';
+import { Grid, Paper, Typography, Box, Container } from '@material-ui/core';
 import UserContext from '../contexts/UserContext';
+import GoalsContext from '../contexts/GoalsContext';
+import { Goal } from './Goal';
 
 export const Overview = (props) => {
   const alertsContext = useContext(AlertsContext);
-  const User = useContext(UserContext);
+  const UserCtx = useContext(UserContext);
+  const GoalCtx = useContext(GoalsContext);
+  const goals = GoalCtx.goals.slice(0, 3);
 
   return (
     <Grid
@@ -33,13 +36,15 @@ export const Overview = (props) => {
       </Grid>
       <Grid item xs={10}>
         <Paper>
-          <Typography>
-            <Box ml={2} color='tertiary.main'>Goals</Box>
-          </Typography>
-          <Typography variant='h3'>
-            <Box ml={2} mb={2} fontFamily='Roboto Slab'>${User.user.total_saved}</Box>
-          </Typography>
-          <Goals id='overview' />
+          <Container>
+            <Typography>
+              <Box color='tertiary.main'>Goals</Box>
+            </Typography>
+            <Typography variant='h3'>
+              <Box mb={2} fontFamily='Roboto Slab'>${UserCtx.user.total_saved}</Box>
+            </Typography>
+            {goals.map(goal => <Goal goal={goal} /> )}
+          </Container>
         </Paper>
       </Grid>
       <Grid item xs={10}>

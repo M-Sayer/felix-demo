@@ -1,7 +1,6 @@
 import { Box, Container, Typography } from '@material-ui/core';
 import React, { useContext, useEffect } from 'react'
 import GoalsContext from '../contexts/GoalsContext'
-import UserContext from '../contexts/UserContext';
 import GoalsService from '../services/goals-service';
 
 export const Goals = (props) => {

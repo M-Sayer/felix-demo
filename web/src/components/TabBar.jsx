@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -15,9 +15,12 @@ import Settings from '@material-ui/icons/Settings'
 
 import { Overview } from './Overview';
 import { useHistory } from 'react-router-dom';
-import Goals from './Goals/Goals';
 import Alerts from './Alerts/Alerts';
 import Transactions from './Transactions/Transactions';
+import { Goals } from './Goals';
+import { Container, Paper, Typography } from '@material-ui/core';
+import GoalsContext from '../contexts/GoalsContext';
+import { Goal } from './Goal';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -63,6 +66,7 @@ export const TabBar = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const GoalCtx = useContext(GoalsContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -71,7 +75,6 @@ export const TabBar = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  const history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -100,9 +103,12 @@ export const TabBar = () => {
           <Overview />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Goals
-          <Goals props={history} />
-        <AttachMoney />
+          <Box color='tertiary.main'>
+            <Typography variant='h3'>Goals</Typography>
+          </Box>
+          <Container>
+            {GoalCtx.goals.map(goal => <Paper><Goal goal={goal} /></Paper>)}
+          </Container>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           Transactions

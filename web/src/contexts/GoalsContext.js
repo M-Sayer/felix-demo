@@ -1,18 +1,10 @@
 // import React, { Component } from 'react';
-import React, { useState } from 'react'; 
-
-const nullGoal = {
-  'id' : null,
-  'name': null,
-  'user_id' : null,
-  'goal_amount' : null,
-  'contribution_amount' : null,
-  'current_amount' : null,
-  'end_date' : null
-}
+import React, { useEffect, useState } from 'react'; 
+import GoalsService from '../services/goals-service';
+import TokenService from '../services/token-service';
 
 const GoalsContext = React.createContext({
-  goal: nullGoal,
+  goal: null,
   goals: [],
   setGoal: () => {},
   setGoals: () => {},
@@ -23,8 +15,19 @@ export default GoalsContext;
 
 export const GoalsProvider = (props) => {
   const [error, setError] = useState(null);
-  const [goal, setGoal] = useState(nullGoal);
+  const [goal, setGoal] = useState(null);
   const [goals, setGoals] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const goals = await GoalsService.getGoals();
+      setGoals(goals);
+    } catch(e) {
+      setError(e);
+    };
+  };
+
+  useEffect(() => {TokenService.hasAuthToken() && fetchData()}, [])
 
   return (
     <GoalsContext.Provider 
