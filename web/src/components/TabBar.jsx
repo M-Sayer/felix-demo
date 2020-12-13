@@ -114,7 +114,7 @@ export const TabBar = () => {
           <Container>
             {GoalCtx.goals.map(goal => (
               <Paper key={goal.id}>
-                <Box p={2}>
+                <Box m={1} p={2}>
                   <Goal goal={goal} />
                 </Box>
               </Paper>
@@ -128,7 +128,7 @@ export const TabBar = () => {
             <Container>
               {TransactionCtx.transactions.map(trx => (
                 <Paper key={trx.id}>
-                  <Box p={2}>
+                  <Box m={1} p={2}>
                     <Transaction trx={trx} />
                   </Box>
                 </Paper>
