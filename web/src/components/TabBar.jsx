@@ -21,7 +21,6 @@ import Settings from '@material-ui/icons/Settings'
 
 import { Overview } from './Overview';
 import Alerts from './Alerts/Alerts';
-import Transactions from './Transactions/Transactions';
 import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
@@ -106,7 +105,7 @@ export const TabBar = () => {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Overview />
+          <Overview setValue={setValue} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Box color='tertiary.main'>

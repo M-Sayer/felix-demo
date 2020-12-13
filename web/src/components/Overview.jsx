@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { Financials } from './Financials';
 import Alerts from './Alerts/Alerts';
 import AlertsContext from '../contexts/AlertsContext';
-import { Grid, Paper, Typography, Box, Container } from '@material-ui/core';
+import { Grid, Paper, Typography, Box, Container, Button } from '@material-ui/core';
 import UserContext from '../contexts/UserContext';
 import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
 
-export const Overview = (props) => {
+export const Overview = props => {
   const alertsContext = useContext(AlertsContext);
   const UserCtx = useContext(UserContext);
   const GoalCtx = useContext(GoalsContext);
@@ -47,6 +47,11 @@ export const Overview = (props) => {
               <Box mb={2} fontFamily='Roboto Slab'>${UserCtx.user.total_saved}</Box>
             </Typography>
             {goals.map(goal => <Goal key={goal.id} goal={goal} /> )}
+            <Box m={2} textAlign='center'>
+              <Button onClick={() => props.setValue(1)}>
+                <Typography variant='overline'>See All</Typography>
+              </Button>
+            </Box>
           </Container>
         </Paper>
       </Grid>
@@ -57,6 +62,11 @@ export const Overview = (props) => {
                 <Box mb={2} color='secondary.main'>Transactions</Box>
               </Typography>
               {transactions.map(trx => <Transaction key={trx.id} trx={trx} /> )}
+              <Box m={2} textAlign='center'>
+              <Button onClick={() => props.setValue(2)}>
+                <Typography variant='overline'>See All</Typography>
+              </Button>
+            </Box>
             </Container>
           </Paper>
       </Grid>
