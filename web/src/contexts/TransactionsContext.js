@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import TokenService from '../services/token-service';
 import TransactionsService from '../services/transactions-service';
 
 export const TransactionsContext = React.createContext({
@@ -40,7 +41,7 @@ export const TransactionsProvider = props => {
     }
   }
 
-  useEffect(() => getTransactions(), [])
+  useEffect(() => {TokenService.hasAuthToken() && getTransactions()}, [])
 
   return (
     <TransactionsContext.Provider
