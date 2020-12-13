@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Financials } from './Financials';
-import TransactionsOverview from './Overview/TransactionsOverview';
 import Alerts from './Alerts/Alerts';
 import AlertsContext from '../contexts/AlertsContext';
 import { Grid, Paper, Typography, Box, Container } from '@material-ui/core';
@@ -8,7 +7,7 @@ import UserContext from '../contexts/UserContext';
 import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
-import { Transaction } from './Transactions';
+import { Transaction } from './Transaction';
 
 export const Overview = (props) => {
   const alertsContext = useContext(AlertsContext);

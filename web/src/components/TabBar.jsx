@@ -24,6 +24,8 @@ import Alerts from './Alerts/Alerts';
 import Transactions from './Transactions/Transactions';
 import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
+import { TransactionsContext } from '../contexts/TransactionsContext';
+import { Transaction } from './Transaction';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,6 +72,7 @@ export const TabBar = () => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const GoalCtx = useContext(GoalsContext);
+  const TransactionCtx = useContext(TransactionsContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -120,8 +123,18 @@ export const TabBar = () => {
           </Container>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Transactions
-          <Transactions />
+          <Box color='secondary.main'>
+              <Typography variant='h3'>Transactions</Typography>
+            </Box>
+            <Container>
+              {TransactionCtx.transactions.map(trx => (
+                <Paper key={trx.id}>
+                  <Box p={2}>
+                    <Transaction trx={trx} />
+                  </Box>
+                </Paper>
+              ))}
+            </Container>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
           Alerts
