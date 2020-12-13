@@ -5,7 +5,7 @@ import Alerts from './Alerts/Alerts';
 import AlertsContext from '../contexts/AlertsContext';
 import { Grid, Paper, Typography, Box, Container } from '@material-ui/core';
 import UserContext from '../contexts/UserContext';
-import GoalsContext from '../contexts/GoalsContext';
+import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 
 export const Overview = (props) => {
@@ -43,7 +43,7 @@ export const Overview = (props) => {
             <Typography variant='h3'>
               <Box mb={2} fontFamily='Roboto Slab'>${UserCtx.user.total_saved}</Box>
             </Typography>
-            {goals.map(goal => <Goal goal={goal} /> )}
+            {goals.map(goal => <Goal key={goal.id} goal={goal} /> )}
           </Container>
         </Paper>
       </Grid>

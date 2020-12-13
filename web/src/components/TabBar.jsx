@@ -1,11 +1,17 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
+import { 
+  AppBar, 
+  Tabs, 
+  Tab, 
+  Box, 
+  useTheme, 
+  makeStyles, 
+  Container, 
+  Paper, 
+  Typography 
+} from '@material-ui/core';
 
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import AttachMoney from '@material-ui/icons/AttachMoney'
@@ -14,12 +20,9 @@ import Notifications from '@material-ui/icons/Notifications'
 import Settings from '@material-ui/icons/Settings'
 
 import { Overview } from './Overview';
-import { useHistory } from 'react-router-dom';
 import Alerts from './Alerts/Alerts';
 import Transactions from './Transactions/Transactions';
-import { Goals } from './Goals';
-import { Container, Paper, Typography } from '@material-ui/core';
-import GoalsContext from '../contexts/GoalsContext';
+import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 
 function TabPanel(props) {
@@ -107,7 +110,13 @@ export const TabBar = () => {
             <Typography variant='h3'>Goals</Typography>
           </Box>
           <Container>
-            {GoalCtx.goals.map(goal => <Paper><Goal goal={goal} /></Paper>)}
+            {GoalCtx.goals.map(goal => (
+              <Paper key={goal.id}>
+                <Box p={2}>
+                  <Goal goal={goal} />
+                </Box>
+              </Paper>
+            ))}
           </Container>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>

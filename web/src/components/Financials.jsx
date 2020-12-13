@@ -30,8 +30,8 @@ export const Financials = () => {
 
     for (const key in data) {
       fields.push(
-        <Grid item xs={12} md={6}>
-          <Typography variant='money'>
+        <Grid key={key} item xs={12} md={6}>
+          <Typography>
             <Box ml={2} alignItems='left' color={data[key][1] || ''}>{key}</Box>
           </Typography>
           <Typography variant='h3'>
@@ -48,7 +48,6 @@ export const Financials = () => {
       container
       direction='row'
       justify='center'
-      alignItems='left'
       spacing={2}
     >
       {renderOverview()}

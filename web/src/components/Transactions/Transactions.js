@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import TransactionsContext from '../../contexts/TransactionsContext';
+import { TransactionsContext } from '../../contexts/TransactionsContext';
 import TransactionsService from '../../services/transactions-service';
 import './Transactions.css';
 

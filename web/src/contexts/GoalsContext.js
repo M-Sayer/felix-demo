@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import GoalsService from '../services/goals-service';
 import TokenService from '../services/token-service';
 
-const GoalsContext = React.createContext({
+export const GoalsContext = React.createContext({
   goal: null,
   goals: [],
   setGoal: () => {},
@@ -11,9 +11,7 @@ const GoalsContext = React.createContext({
   setError: () => {},
 });
 
-export default GoalsContext;
-
-export const GoalsProvider = (props) => {
+export const GoalsProvider = props => {
   const [error, setError] = useState(null);
   const [goal, setGoal] = useState(null);
   const [goals, setGoals] = useState([]);
