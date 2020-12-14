@@ -10,7 +10,7 @@ import PublicOnlyRoute from './components/PublicOnlyRoute/PublicOnlyRoute';
 // import DashboardRoute from '../../routes/DashboardRoute';
 // import GoalsRoute from '../../routes/GoalsRoute';
 // import GoalRoute from '../../routes/GoalRoute';
-// import GoalFormRoute from '../../routes/GoalFormRoute';
+// import GoalFormRoute from './routes/GoalFormRoute';
 // import CreateTransactionRoute from '../../routes/CreateTransactionRoute';
 // import TransactionsRoute from '../../routes/TransactionsRoute';
 // import TransactionRoute from '../../routes/TransactionRoute/TransactionRoute';
