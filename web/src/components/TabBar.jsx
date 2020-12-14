@@ -10,8 +10,12 @@ import {
   makeStyles, 
   Container, 
   Paper, 
-  Typography 
+  Typography, 
+  Fab,
+  Zoom
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+
 
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import AttachMoney from '@material-ui/icons/AttachMoney'
@@ -63,6 +67,14 @@ const useStyles = makeStyles((theme) => ({
   },
   tab: {
     fontSize: '8px',
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+  fabGoal: {
+    backgroundColor: theme.palette.tertiary.main
   }
 }));
 
@@ -80,6 +92,21 @@ export const TabBar = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+
+  const transitionDuration = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen,
+  };
+
+  const fabs = [
+    {
+      className: `${classes.fab} ${classes.fabGoal}`,
+    },
+    {
+      color: 'secondary',
+      className: classes.fab,
+    }
+  ]
 
   return (
     <div className={classes.root}>
@@ -143,6 +170,21 @@ export const TabBar = () => {
           Settings
         </TabPanel>
       </SwipeableViews>
+      {fabs.map((fab, index) => (
+        <Zoom
+          key={index}
+          in={value === index + 1}
+          timeout={transitionDuration}
+          style={{
+            transitionDelay: `${value === index + 1 ? transitionDuration.exit : 0}ms`,
+          }}
+          unmountOnExit
+        >
+          <Fab aria-label='Add' className={fab.className} color={fab.color}>
+            <AddIcon />
+          </Fab>
+        </Zoom>
+      ))}
     </div>
   );
 }
