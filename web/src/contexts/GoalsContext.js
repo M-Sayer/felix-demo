@@ -9,12 +9,14 @@ export const GoalsContext = React.createContext({
   setGoal: () => {},
   setGoals: () => {},
   setError: () => {},
+  createGoal: false,
 });
 
 export const GoalsProvider = props => {
   const [error, setError] = useState(null);
   const [goal, setGoal] = useState(null);
   const [goals, setGoals] = useState([]);
+  const [createGoal, setCreateGoal] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -32,13 +34,12 @@ export const GoalsProvider = props => {
       value={{ 
         goal,
         goals,
-
         setGoal,
         setGoals,
-
+        createGoal,
+        setCreateGoal,
         error,
         setError,
-
       }}>
       {props.children}
     </GoalsContext.Provider>
