@@ -6,7 +6,7 @@ import {
   DateTimePicker, 
 } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-import { Box, TextField, Typography } from '@material-ui/core';
+import { Box, TextField, Typography, Button } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -21,14 +21,14 @@ export const GoalForm = () => {
       <Formik
         initialValues={{
           name: '',
-          goal_amount: null,
+          goal_amount: 0,
           end_date: '',
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Required')
             .max(15, 'Must be 15 characters or less'),
-          goal_amount: Yup.number().positive()
-            .required('Required').max(1000000),
+          goal_amount: Yup.number().positive('Please enter a number greater than 0')
+            .required('Required').max(1000000, 'Cannot be greater than 1,000,000'),
           end_date: Yup.date().required('Required').min(selectedDate),
         })}
         onSubmit={async (values, { setSubmitting }) => {
@@ -50,6 +50,7 @@ export const GoalForm = () => {
                 inputProps={{ style: { textAlign: 'center' } }}
               />
               <TextField
+                type='number'
                 id='goal_amount'
                 name='goal_amount'
                 label='Goal Amount'
@@ -57,7 +58,7 @@ export const GoalForm = () => {
                 value={props.values.goal_amount}
                 onChange={props.handleChange}
                 error={props.touched.goal_amount && !!props.errors.goal_amount}
-                helperText={props.touched.goal_amount && !!props.errors.goal_amount}
+                helperText={props.touched.goal_amount && props.errors.goal_amount}
                 inputProps={{ style: { textAlign: 'center' } }}
               />
               <KeyboardDatePicker value={selectedDate} />
@@ -71,6 +72,7 @@ export const GoalForm = () => {
                 inputProps={{ style: { textAlign: 'center' } }}
               />
             </Box>
+            <Button variant='contained' color='primary' type='submit' disabled={props.isSubmitting}>Submit</Button>
           </Form>
         )}
       </Formik>
