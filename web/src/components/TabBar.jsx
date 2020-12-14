@@ -29,6 +29,7 @@ import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
+import { GoalForm } from './GoalForm';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -101,10 +102,12 @@ export const TabBar = () => {
   const fabs = [
     {
       className: `${classes.fab} ${classes.fabGoal}`,
+      name: 'goal',
     },
     {
       color: 'secondary',
       className: classes.fab,
+      name: 'transaction',
     }
   ]
 
@@ -135,18 +138,25 @@ export const TabBar = () => {
           <Overview setValue={setValue} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Box color='tertiary.main'>
-            <Typography variant='h3'>Goals</Typography>
-          </Box>
-          <Container>
-            {GoalCtx.goals.map(goal => (
-              <Paper key={goal.id}>
-                <Box m={1} p={2}>
-                  <Goal goal={goal} />
+          {GoalCtx.editGoal || GoalCtx.createGoal
+            ? null
+            : <>
+                <Box color='tertiary.main'>
+                  <Typography variant='h3'>Goals</Typography>
                 </Box>
-              </Paper>
-            ))}
-          </Container>
+                <Container>
+                  {GoalCtx.goals.map(goal => (
+                    <Paper key={goal.id}>
+                      <Box m={1} p={2}>
+                        <Goal goal={goal} />
+                      </Box>
+                    </Paper>
+                  ))}
+                </Container>
+             </>
+          }
+          {GoalCtx.editGoal ? <GoalForm /> : null}
+          {GoalCtx.createGoal ? <GoalForm /> : null}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Box color='secondary.main'>
@@ -180,7 +190,16 @@ export const TabBar = () => {
           }}
           unmountOnExit
         >
-          <Fab aria-label='Add' className={fab.className} color={fab.color}>
+          <Fab 
+            onClick={() => {
+              if (fab.name === 'goal') {
+                GoalCtx.setEditGoal(true)
+                console.log(GoalCtx.editGoal)
+              } 
+            }} 
+            aria-label='Add' className={fab.className} 
+            color={fab.color}
+            >
             <AddIcon />
           </Fab>
         </Zoom>
