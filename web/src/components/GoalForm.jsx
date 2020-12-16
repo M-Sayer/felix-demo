@@ -2,17 +2,32 @@ import React, { useState } from 'react';
 import { 
   MuiPickersUtilsProvider, 
   KeyboardDatePicker,
-  TimePicker,
-  DateTimePicker, 
 } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { Box, TextField, Typography, Button } from '@material-ui/core';
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-export const GoalForm = () => {
+export const GoalForm = props => {
   const [selectedDate, handleDateChange] = useState(new Date());
   const [contribution, setContribution] = useState(0);
+
+  const DatePickerField = ({ field, form, ...other}) => {
+    const currentError = form.errors[field.name];
+
+    return (
+      <KeyboardDatePicker
+        name={field.name}
+        value={field.value}
+        label='Goal Date'
+        placeholder='Choose a date'
+        helperText={currentError}
+        error={!!currentError} 
+        onChange={date => form.setFieldValue(field.name, date, true)}
+        {...other}
+      />
+    );
+  }
 
 
   return (
@@ -21,7 +36,7 @@ export const GoalForm = () => {
       <Formik
         initialValues={{
           name: '',
-          goal_amount: 0,
+          goal_amount: '',
           end_date: '',
         }}
         validationSchema={Yup.object({
@@ -29,10 +44,10 @@ export const GoalForm = () => {
             .max(15, 'Must be 15 characters or less'),
           goal_amount: Yup.number().positive('Please enter a number greater than 0')
             .required('Required').max(1000000, 'Cannot be greater than 1,000,000'),
-          end_date: Yup.date().required('Required').min(selectedDate),
+          end_date: Yup.date().required('Required').min(selectedDate + 1, 'Please select a date in the future'),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log(values)
+          await props.handleSubmit()
         }}
       >
         {props => (
@@ -61,9 +76,10 @@ export const GoalForm = () => {
                 helperText={props.touched.goal_amount && props.errors.goal_amount}
                 inputProps={{ style: { textAlign: 'center' } }}
               />
-              <KeyboardDatePicker value={selectedDate} />
+              <Field name='end_date' component={DatePickerField} />
               <TextField
                 disabled
+                type='number'
                 id='contribution_amount'
                 name='contribution_amount'
                 label='Weekly Contribution'
