@@ -7,13 +7,16 @@ import MomentUtils from '@date-io/moment';
 import { Box, TextField, Typography, Button } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import Moment from 'moment';
+import { toCents, toDollars } from '../utils/moneyHelpers';
 
 export const GoalForm = props => {
-  const [selectedDate, handleDateChange] = useState(new Date());
   const [contribution, setContribution] = useState(0);
+  const moment = Moment();
 
   const DatePickerField = ({ field, form, ...other}) => {
     const currentError = form.errors[field.name];
+    console.log(props)
 
     return (
       <KeyboardDatePicker
@@ -27,6 +30,11 @@ export const GoalForm = props => {
         {...other}
       />
     );
+  };
+  const createContributionAmt = (goalDate, goalAmt) => {
+    const weeks = goalDate.diff(moment, 'weeks');
+    setContribution(Math.ceil(toCents(goalAmt) / weeks))
+    console.log(weeks)
   }
 
 
@@ -37,17 +45,18 @@ export const GoalForm = props => {
         initialValues={{
           name: '',
           goal_amount: '',
-          end_date: '',
+          end_date: moment,
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Required')
             .max(15, 'Must be 15 characters or less'),
           goal_amount: Yup.number().positive('Please enter a number greater than 0')
             .required('Required').max(1000000, 'Cannot be greater than 1,000,000'),
-          end_date: Yup.date().required('Required').min(selectedDate + 1, 'Please select a date in the future'),
+          end_date: Yup.date().required('Required').min(new Date() + 1, 'Please select a date in the future'),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          await props.handleSubmit()
+          console.log(values.end_date)
+          console.log(moment)
         }}
       >
         {props => (
@@ -83,9 +92,12 @@ export const GoalForm = props => {
                 id='contribution_amount'
                 name='contribution_amount'
                 label='Weekly Contribution'
-                placeholder={contribution}
-                value={contribution}
+                placeholder={toDollars(contribution)}
+                value={toDollars(contribution)}
                 inputProps={{ style: { textAlign: 'center' } }}
+                onChange={(!props.values.goal_amount || props.values.end_date === moment) 
+                  ? 0 
+                  : createContributionAmt(props.values.end_date, props.values.goal_amount)}
               />
             </Box>
             <Button variant='contained' color='primary' type='submit' disabled={props.isSubmitting}>Submit</Button>
