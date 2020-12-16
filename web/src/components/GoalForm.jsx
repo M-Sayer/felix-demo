@@ -10,18 +10,19 @@ import { toCents, toDollars } from '../utils/moneyHelpers';
 export const GoalForm = props => {
   const [contribution, setContribution] = useState(0);
   const moment = Moment(), date = moment._d, goal = props.goal;
+  console.log(contribution)
 
   const DatePickerField = ({ field, form, ...other}) => {
     const currentError = form.errors[field.name];
-
+    
     return (
       <KeyboardDatePicker
         name={field.name}
         value={field.value}
         label='Goal Date'
         placeholder='Choose a date'
-        helperText={currentError}
-        error={!!currentError} 
+        helperText={form.touched.end_date && currentError}
+        error={form.touched.end_date && !!currentError} 
         onChange={date => form.setFieldValue(field.name, date, true)}
         {...other}
       />
@@ -29,8 +30,10 @@ export const GoalForm = props => {
   };
 
   const createContributionAmt = (goalDate, goalAmt) => {
-    const weeks = Moment(goalDate).diff(moment, 'weeks');
-    setContribution(Math.ceil(toCents(goalAmt) / weeks));
+    if (goalAmt !== '' || goalDate !== date) {
+      const weeks = Moment(goalDate).diff(moment, 'weeks');
+      setContribution(Math.ceil(toCents(goalAmt) / weeks));
+    } 
   };
 
   return (
@@ -50,7 +53,6 @@ export const GoalForm = props => {
           end_date: Yup.date().required('Required').min(date, 'Please select a date in the future'),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log(props)
           await props.submitGoal({...values, contribution_amount: contribution}, '', 'POST');
           props.createGoal(false)
         }}
@@ -88,17 +90,15 @@ export const GoalForm = props => {
                 id='contribution_amount'
                 name='contribution_amount'
                 label='Weekly Contribution'
-                placeholder={toDollars(contribution)}
+                placeholder={0}
                 value={toDollars(contribution)}
                 inputProps={{ style: { textAlign: 'center' } }}
-                onChange={
-                  (!props.values.goal_amount || props.values.end_date === date) 
-                    ? 0 
-                    : createContributionAmt(props.values.end_date, props.values.goal_amount)
-                }
+                onChange={createContributionAmt(props.values.end_date, props.values.goal_amount)}
               />
             </Box>
-            <Button variant='contained' color='primary' type='submit' disabled={props.isSubmitting}>Submit</Button>
+            <Button variant='contained' color='primary' type='submit' disabled={props.isSubmitting}>
+              Submit
+            </Button>
           </Form>
         )}
       </Formik>
