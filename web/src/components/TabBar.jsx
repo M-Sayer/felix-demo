@@ -16,7 +16,6 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import AttachMoney from '@material-ui/icons/AttachMoney'
 import MoneyOff from '@material-ui/icons/MoneyOff'
@@ -30,6 +29,7 @@ import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
 import { GoalForm } from './GoalForm';
+import GoalsService from '../services/goals-service';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -156,7 +156,11 @@ export const TabBar = () => {
              </>
           }
           {GoalCtx.editGoal ? <GoalForm /> : null}
-          {GoalCtx.createGoal ? <GoalForm /> : null}
+          {GoalCtx.createGoal 
+            ? <GoalForm 
+              createGoal={GoalCtx.setCreateGoal}
+              submitGoal={GoalsService.createUpdateGoal}
+            /> : null}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Box color='secondary.main'>
@@ -193,8 +197,7 @@ export const TabBar = () => {
           <Fab 
             onClick={() => {
               if (fab.name === 'goal') {
-                GoalCtx.setEditGoal(true)
-                console.log(GoalCtx.editGoal)
+                GoalCtx.setCreateGoal(true);
               } 
             }} 
             aria-label='Add' className={fab.className} 

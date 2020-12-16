@@ -31,7 +31,7 @@ export const GoalsProvider = props => {
     };
   };
 
-  useEffect(() => {TokenService.hasAuthToken() && fetchData()}, [])
+  useEffect(() => {TokenService.hasAuthToken() && fetchData()}, [createGoal])
 
   return (
     <GoalsContext.Provider 

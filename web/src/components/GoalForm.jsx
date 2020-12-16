@@ -9,8 +9,7 @@ import { toCents, toDollars } from '../utils/moneyHelpers';
 
 export const GoalForm = props => {
   const [contribution, setContribution] = useState(0);
-  const moment = Moment();
-  const goal = props.goal;
+  const moment = Moment(), date = moment._d, goal = props.goal;
 
   const DatePickerField = ({ field, form, ...other}) => {
     const currentError = form.errors[field.name];
@@ -30,7 +29,7 @@ export const GoalForm = props => {
   };
 
   const createContributionAmt = (goalDate, goalAmt) => {
-    const weeks = goalDate.diff(moment, 'weeks');
+    const weeks = Moment(goalDate).diff(moment, 'weeks');
     setContribution(Math.ceil(toCents(goalAmt) / weeks));
   };
 
@@ -41,18 +40,19 @@ export const GoalForm = props => {
         initialValues={{
           name: goal ? goal.name : '',
           goal_amount: goal ? goal.goal_amount : '',
-          end_date: goal ? goal.end_date : moment,
+          end_date: goal ? goal.end_date : date,
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Required')
             .max(15, 'Must be 15 characters or less'),
           goal_amount: Yup.number().positive('Please enter a number greater than 0')
             .required('Required').max(1000000, 'Cannot be greater than 1,000,000'),
-          end_date: Yup.date().required('Required').min(new Date() + 1, 'Please select a date in the future'),
+          end_date: Yup.date().required('Required').min(date, 'Please select a date in the future'),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log(values.end_date)
-          console.log(moment)
+          console.log(props)
+          await props.submitGoal({...values, contribution_amount: contribution}, '', 'POST');
+          props.createGoal(false)
         }}
       >
         {props => (
@@ -92,7 +92,7 @@ export const GoalForm = props => {
                 value={toDollars(contribution)}
                 inputProps={{ style: { textAlign: 'center' } }}
                 onChange={
-                  (!props.values.goal_amount || props.values.end_date === moment) 
+                  (!props.values.goal_amount || props.values.end_date === date) 
                     ? 0 
                     : createContributionAmt(props.values.end_date, props.values.goal_amount)
                 }
