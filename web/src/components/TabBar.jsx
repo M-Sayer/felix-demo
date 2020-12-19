@@ -30,6 +30,7 @@ import { Transaction } from './Transaction';
 import { GoalForm } from './GoalForm';
 import GoalsService from '../services/goals-service';
 import { GoalAccordionList } from './GoalAccordionList';
+import { SettingsTab } from './SettingsTab';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -180,7 +181,7 @@ export const TabBar = () => {
           <Alerts />
         </TabPanel>
         <TabPanel value={value} index={4} dir={theme.direction}>
-          Settings
+          <SettingsTab />
         </TabPanel>
       </SwipeableViews>
       {fabs.map((fab, index) => (
