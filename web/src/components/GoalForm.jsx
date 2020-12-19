@@ -108,10 +108,18 @@ export const GoalForm = props => {
                   onChange={createContributionAmt(props.values.end_date, props.values.goal_amount)}
                 />
               </Box>
-              <Button variant='contained' color='primary' type='submit' disabled={props.isSubmitting}>
+              <Button 
+                variant='contained' 
+                color='primary' 
+                type='submit' 
+                disabled={props.isSubmitting}>
                 Submit
               </Button>
-              <CancelButton onClick={() => goal ? editGoal(false) : createGoal(false)} variant='contained' disabled={props.isSubmitting}>
+              <CancelButton 
+                onClick={() => goal ? editGoal(false) : createGoal(false)} 
+                variant='contained' 
+                disabled={props.isSubmitting}
+              >
                 Cancel
               </CancelButton>
             </Form>

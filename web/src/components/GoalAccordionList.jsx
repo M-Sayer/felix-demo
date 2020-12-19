@@ -1,8 +1,20 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Typography, withStyles } from '@material-ui/core';
+import { 
+  Accordion, 
+  AccordionDetails, 
+  AccordionSummary, 
+  Box, 
+  Button, 
+  Dialog, 
+  DialogTitle, 
+  Grid, 
+  Typography, 
+  withStyles 
+} from '@material-ui/core';
 import React, { useState, useContext } from 'react';
 import moment from 'moment';
 import { DeleteButton, EditButton } from './Buttons';
 import { GoalsContext } from '../contexts/GoalsContext';
+import GoalsService from '../services/goals-service';
 
 const List = withStyles(theme => ({
   root: {
@@ -21,8 +33,10 @@ const List = withStyles(theme => ({
   expanded: {},
 }))(Accordion);
 
+
 export const GoalAccordionList = ({ goals }) => {
   const [expanded, setExpanded] = useState(false);
+  const [dialog, setDialog] = useState(false);
   const GoalCtx = useContext(GoalsContext);
 
   const handleChange = idx => {
@@ -30,7 +44,7 @@ export const GoalAccordionList = ({ goals }) => {
   };
 
   return goals.map((goal, idx) => (
-    <List marginBottom={2} key={idx} expanded={expanded === idx} onChange={() => handleChange(idx)}>
+    <List marginBottom={2} key={idx} expanded={expanded === goal.id} onChange={() => handleChange(goal.id)}>
       <AccordionSummary flexDirection='row'>
           <Box flexGrow={2} >
             <Typography>{goal.name}</Typography>
@@ -67,7 +81,26 @@ export const GoalAccordionList = ({ goals }) => {
                 GoalCtx.setGoal(goal);
                 GoalCtx.setEditGoal(true);
                 }} />
-              <DeleteButton />
+              <DeleteButton onClick={() => setDialog(true)} />
+              <Dialog aria-labelledby='confirm-delete' open={dialog} onClose={() => setDialog(false)}>
+                <DialogTitle>Are you sure you wish to delete this item?</DialogTitle>
+                    <Box mb={2} display='flex' flexDirection='row' justifyContent='space-evenly'>
+                      <Button 
+                        variant='contained' 
+                        color='primary' 
+                        onClick={() => setDialog(false)}
+                      >
+                        Cancel
+                      </Button>
+                      <DeleteButton onClick={async () => {
+                        await GoalsService.deleteGoal(expanded);
+                        const goals = await GoalsService.getGoals();
+                        GoalCtx.setGoals(goals);
+                        setDialog(false);
+                        }} 
+                      />
+                    </Box>
+              </Dialog>
             </Box>
           </Grid>
         </Grid>
