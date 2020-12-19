@@ -65,7 +65,7 @@ export const GoalForm = props => {
               goal ? goal.id : '',
               goal ? 'PATCH' : 'POST'
             );
-            
+
             goal ? editGoal(false) : createGoal(false)
           }}
         >
@@ -111,7 +111,7 @@ export const GoalForm = props => {
               <Button variant='contained' color='primary' type='submit' disabled={props.isSubmitting}>
                 Submit
               </Button>
-              <CancelButton onClick={() => createGoal(false)} variant='contained' disabled={props.isSubmitting}>
+              <CancelButton onClick={() => goal ? editGoal(false) : createGoal(false)} variant='contained' disabled={props.isSubmitting}>
                 Cancel
               </CancelButton>
             </Form>
