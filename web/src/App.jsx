@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // Util Components
-import { Header } from './components/Header';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import PublicOnlyRoute from './components/PublicOnlyRoute/PublicOnlyRoute';
 
@@ -21,16 +20,18 @@ import PublicOnlyRoute from './components/PublicOnlyRoute/PublicOnlyRoute';
 // import { RegistrationRoute } from '../../routes/RegistrationRoute';
 // import LandingRoute from '../../routes/LandingRoute';
 import { EmailRoute } from './routes/EmailRoute';
-import { LoginForm } from './components/LoginForm';
+import { Home } from './components/Home';
 import { RegistrationForm } from './components/RegistrationForm';
+import TokenService from './services/token-service';
+import { TabBar } from './components/TabBar';
 
 const App = () => {
 
   return (
-    <>
-      <Header />
-      <div className='App'>
-        <Switch>
+    <div className='App'>
+      {TokenService.hasAuthToken()
+       ? <TabBar />
+       : <Switch>
           {/* <PrivateRoute
             exact
             path={'/'}
@@ -94,23 +95,16 @@ const App = () => {
             component={LandingRoute}
           /> */}
           <PublicOnlyRoute
-            path={'/login'}
-            comp={LoginForm}
+            path='/'
+            comp={Home}
           />
-
-          <PublicOnlyRoute
-            path={'/register'}
-            comp={RegistrationForm}
-          />
-
           <Route 
             path='/email/:token'
             component={EmailRoute}
           />
-
         </Switch>
-      </div>
-    </>
+      }
+    </div>
   );
 };
 

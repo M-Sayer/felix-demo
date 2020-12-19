@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthService from '../services/auth-service';
-import UserContext from '../contexts/UserContext';
+import { UserContext } from '../contexts/UserContext';
 
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button, useTheme, Box } from '@material-ui/core';
+import { TextField, Button, Box } from '@material-ui/core';
 
-export const RegistrationForm = () => {
-  const user = useContext(UserContext);
+export const RegistrationForm = props => {
+  const UserCtx = useContext(UserContext);
   const history = useHistory();
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
+  const { register } = props;
 
   return (
     <>
@@ -30,7 +31,7 @@ export const RegistrationForm = () => {
           onSubmit={async (values, { setSubmitting }) => {
             try {
               const { authToken } = await AuthService.postNewUser(values);
-              user.handleUserLog(authToken);
+              UserCtx.handleUserLog(authToken);
               history.push('/')
             } catch (e) {
               setError(e)
@@ -39,7 +40,7 @@ export const RegistrationForm = () => {
       >
         {props => (
           <Form>
-            <Box display='flex' flexDirection='column' px={25} pb={4}>
+            <Box display='flex' flexDirection='column'>
               <TextField 
                 id='firstName'
                 name='firstName'
@@ -71,7 +72,25 @@ export const RegistrationForm = () => {
                 inputProps={{ style: { textAlign: 'center', marginTop: 10 } }}
               />
             </Box>
-            <Button variant='contained' color='primary' type='submit' disabled={props.isSubmitting}>Sign Up</Button>
+            <Box my={2} display='flex' flexDirection='column'>
+              <Button 
+                variant='contained' 
+                color='primary' 
+                type='submit' 
+                disabled={props.isSubmitting}
+              >
+                Sign Up
+              </Button>
+            </Box>
+            <Box display='flex' flexDirection='column'>
+              <Button 
+                onClick={() => register(false)}
+                variant='outlined' 
+                color='primary' 
+              >
+                Login
+              </Button>
+            </Box>
           </Form>
         )}
       </Formik>

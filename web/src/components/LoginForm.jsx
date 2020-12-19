@@ -4,9 +4,10 @@ import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@material-ui/core';
 
-export const LoginForm = () => {
-  const [error, setError] = useState(null)
-  const [success, setSuccess] = useState(false)
+export const LoginForm = props => {
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const { register } = props;
 
   return (
     <>
@@ -31,17 +32,19 @@ export const LoginForm = () => {
       >
         {props => (
           <Form>
-            <TextField
-              id='email'
-              name='email'
-              placeholder='Email'
-              value={props.values.email}
-              onChange={props.handleChange}
-              error={props.touched.email && !!props.errors.email}
-              helperText={props.touched.email && props.errors.email}
-              inputProps={{ style: { textAlign: 'center' } }}
-            />
-            <Box m={5}>
+            <Box display='flex' flexDirection='column'>
+              <TextField
+                id='email'
+                name='email'
+                placeholder='Email'
+                value={props.values.email}
+                onChange={props.handleChange}
+                error={props.touched.email && !!props.errors.email}
+                helperText={props.touched.email && props.errors.email}
+                inputProps={{ style: { textAlign: 'center' } }}
+              />
+            </Box>
+            <Box my={2} display='flex' flexDirection='column'>
               <Button
                 variant='contained' 
                 color='primary' 
@@ -51,6 +54,9 @@ export const LoginForm = () => {
                 Login
               </Button>
             </Box>
+              <Box display='flex' flexDirection='column'>
+                <Button color='primary' variant='outlined' onClick={() => register(true)}>Sign Up</Button>
+              </Box>
           </Form>
         )}
       </Formik>

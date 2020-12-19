@@ -3,7 +3,7 @@ import { Financials } from './Financials';
 import Alerts from './Alerts/Alerts';
 import AlertsContext from '../contexts/AlertsContext';
 import { Grid, Paper, Typography, Box, Container, Button } from '@material-ui/core';
-import UserContext from '../contexts/UserContext';
+import { UserContext } from '../contexts/UserContext';
 import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
