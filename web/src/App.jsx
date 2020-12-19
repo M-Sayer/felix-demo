@@ -21,6 +21,8 @@ import PublicOnlyRoute from './components/PublicOnlyRoute/PublicOnlyRoute';
 // import { RegistrationRoute } from '../../routes/RegistrationRoute';
 // import LandingRoute from '../../routes/LandingRoute';
 import { EmailRoute } from './routes/EmailRoute';
+import { LoginForm } from './components/LoginForm';
+import { RegistrationForm } from './components/RegistrationForm';
 
 const App = () => {
 
@@ -91,6 +93,15 @@ const App = () => {
             path={'/about'}
             component={LandingRoute}
           /> */}
+          <PublicOnlyRoute
+            path={'/login'}
+            comp={LoginForm}
+          />
+
+          <PublicOnlyRoute
+            path={'/register'}
+            comp={RegistrationForm}
+          />
 
           <Route 
             path='/email/:token'

@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-import { Box, TextField, Typography, Button, useTheme, withStyles } from '@material-ui/core';
+import { Box, TextField, Typography, Button, withStyles } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import Moment from 'moment';
 import { toCents, toDollars } from '../utils/moneyHelpers';
 
+const CancelButton = withStyles(theme => ({
+  root: {
+    backgroundColor: theme.palette.secondary.dark,
+  },
+}))(Button);
+
 export const GoalForm = props => {
-  const theme = useTheme();
   const [contribution, setContribution] = useState(0);
   const moment = Moment(), date = moment._d, goal = props.goal;
   const { submitGoal, createGoal } = props;
@@ -36,12 +41,6 @@ export const GoalForm = props => {
       setContribution(Math.ceil(toCents(goalAmt) / weeks));
     } 
   };
-
-  const CancelButton = withStyles(theme => ({
-    root: {
-      backgroundColor: theme.palette.secondary.dark,
-    },
-  }))(Button);
 
   return (
     <div>

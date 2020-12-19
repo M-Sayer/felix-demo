@@ -12,7 +12,9 @@ import {
   Paper, 
   Typography, 
   Fab,
-  Zoom
+  Zoom,
+  Accordion,
+  AccordionDetails
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -30,6 +32,7 @@ import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
 import { GoalForm } from './GoalForm';
 import GoalsService from '../services/goals-service';
+import { GoalAccordionList } from './GoalAccordionList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -145,13 +148,26 @@ export const TabBar = () => {
                   <Typography variant='h3'>Goals</Typography>
                 </Box>
                 <Container>
-                  {GoalCtx.goals.map(goal => (
-                    <Paper key={goal.id}>
-                      <Box m={1} p={2}>
-                        <Goal goal={goal} />
-                      </Box>
-                    </Paper>
-                  ))}
+                  {/* {GoalCtx.goals.map(goal => (
+                    // <Paper key={goal.id}>
+                    //   <Box onClick={() => console.log('click')} m={1} p={2}>
+                    //     <Goal goal={goal} />
+                    //   </Box>
+                    // </Paper>
+                    <Accordion square expanded={}>
+                      <AccordionDetails>
+                        {goal.name} 
+                        {goal.current_amount}
+                      </AccordionDetails>
+                      <AccordionSummary>
+                      {goal.goal_amount}
+        {goal.contribution_amount}
+        {goal.end_date}
+                      </AccordionSummary>
+                    </Accordion>
+                  ))} */}
+                  <GoalAccordionList goals={GoalCtx.goals} />
+                  {console.log('hi')}
                 </Container>
              </>
           }
