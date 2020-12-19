@@ -21,7 +21,7 @@ export const EmailRoute = () => {
       }
     }
     verifyToken();
-  }, [token])
+  }, [])
   
   return (
     <h1>email</h1>
