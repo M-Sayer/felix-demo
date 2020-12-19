@@ -2,14 +2,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import PublicOnlyRoute from './components/PublicOnlyRoute/PublicOnlyRoute';
-
 import { EmailRoute } from './routes/EmailRoute';
 import { Home } from './components/Home';
 import { TabBar } from './components/TabBar';
 
-const App = () => {
-
+export const App = () => {
   return (
     <div className='App'>
       <Switch>
@@ -27,5 +24,3 @@ const App = () => {
     </div>
   );
 };
-
-export default App;
