@@ -13,8 +13,6 @@ import {
   Typography, 
   Fab,
   Zoom,
-  Accordion,
-  AccordionDetails
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -27,7 +25,6 @@ import Settings from '@material-ui/icons/Settings'
 import { Overview } from './Overview';
 import Alerts from './Alerts/Alerts';
 import { GoalsContext } from '../contexts/GoalsContext';
-import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
 import { GoalForm } from './GoalForm';
@@ -148,30 +145,16 @@ export const TabBar = () => {
                   <Typography variant='h3'>Goals</Typography>
                 </Box>
                 <Container>
-                  {/* {GoalCtx.goals.map(goal => (
-                    // <Paper key={goal.id}>
-                    //   <Box onClick={() => console.log('click')} m={1} p={2}>
-                    //     <Goal goal={goal} />
-                    //   </Box>
-                    // </Paper>
-                    <Accordion square expanded={}>
-                      <AccordionDetails>
-                        {goal.name} 
-                        {goal.current_amount}
-                      </AccordionDetails>
-                      <AccordionSummary>
-                      {goal.goal_amount}
-        {goal.contribution_amount}
-        {goal.end_date}
-                      </AccordionSummary>
-                    </Accordion>
-                  ))} */}
                   <GoalAccordionList goals={GoalCtx.goals} />
-                  {console.log('hi')}
                 </Container>
              </>
           }
-          {GoalCtx.editGoal ? <GoalForm /> : null}
+          {GoalCtx.editGoal 
+            ? <GoalForm 
+              goal={GoalCtx.goal}
+              submitGoal={GoalsService.createUpdateGoal}
+              editGoal={GoalCtx.setEditGoal}
+              /> : null}
           {GoalCtx.createGoal 
             ? <GoalForm 
               createGoal={GoalCtx.setCreateGoal}

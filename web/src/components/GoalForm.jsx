@@ -15,8 +15,8 @@ const CancelButton = withStyles(theme => ({
 
 export const GoalForm = props => {
   const [contribution, setContribution] = useState(0);
-  const moment = Moment(), date = moment._d, goal = props.goal;
-  const { submitGoal, createGoal } = props;
+  const moment = Moment(), date = moment._d;
+  const { submitGoal, createGoal, editGoal, goal } = props;
 
   const DatePickerField = ({ field, form, ...other}) => {
     const currentError = form.errors[field.name];
@@ -60,8 +60,13 @@ export const GoalForm = props => {
             end_date: Yup.date().required('Required').min(date, 'Please select a date in the future'),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            await submitGoal({...values, contribution_amount: contribution}, '', 'POST');
-            createGoal(false)
+            await submitGoal(
+              {...values, contribution_amount: contribution}, 
+              goal ? goal.id : '',
+              goal ? 'PATCH' : 'POST'
+            );
+            
+            goal ? editGoal(false) : createGoal(false)
           }}
         >
           {props => (

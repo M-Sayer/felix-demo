@@ -12,20 +12,22 @@ const Delete = withStyles(theme => ({
   },
   }))(Button);
 
-export const DeleteButton = () => (
+export const DeleteButton = props => (
   <Delete
     variant='contained'
     startIcon={<DeleteIcon />}
+    {...props}
   >
     Delete
   </Delete>
 );
 
-export const EditButton = () => (
+export const EditButton = props => (
   <Button
     variant='contained'
     startIcon={<EditIcon />}
     color='primary'
+    {...props}
   >
     Edit
   </Button>

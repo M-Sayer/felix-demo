@@ -1,7 +1,8 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Typography, withStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import moment from 'moment';
 import { DeleteButton, EditButton } from './Buttons';
+import { GoalsContext } from '../contexts/GoalsContext';
 
 const List = withStyles(theme => ({
   root: {
@@ -22,6 +23,7 @@ const List = withStyles(theme => ({
 
 export const GoalAccordionList = ({ goals }) => {
   const [expanded, setExpanded] = useState(false);
+  const GoalCtx = useContext(GoalsContext);
 
   const handleChange = idx => {
     setExpanded(expanded === idx ? false : idx);
@@ -61,7 +63,10 @@ export const GoalAccordionList = ({ goals }) => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Box display='flex' flexDirection='row' justifyContent='space-evenly'>
-              <EditButton />
+              <EditButton onClick={() => {
+                GoalCtx.setGoal(goal);
+                GoalCtx.setEditGoal(true);
+                }} />
               <DeleteButton />
             </Box>
           </Grid>
