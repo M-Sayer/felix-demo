@@ -62,10 +62,10 @@ export const GoalAccordionList = ({ goals }) => {
           </Box>
           <Box flexDirection='row'>
             <Typography display='inline'>End Date: </Typography>
-            <Typography display='inline'>{console.log(moment(goal.end_date, 'MM-DD-YYYY', true))}</Typography>
+            <Typography display='inline'>{moment(goal.end_date).format('MM/DD/YYYY')}</Typography>
           </Box>
           <Box flexDirection='row'>
-            <Typography display='inline'>Weekly Contribution Amount:</Typography>
+            <Typography display='inline'>Weekly Contribution Amount: </Typography>
             <Typography display='inline'>{goal.contribution_amount}</Typography>
           </Box>
         </Box>
