@@ -78,7 +78,7 @@ export const GoalForm = props => {
                   label='Goal Name'
                   placeholder='e.g. New Bicycle'
                   value={props.values.name}
-                  onChange={props.handleChange}
+                  onChange={() => props.handleChange}
                   error={props.touched.name && !!props.errors.name}
                   helperText={props.touched.name && props.errors.name}
                   inputProps={{ style: { textAlign: 'center' } }}
@@ -90,7 +90,7 @@ export const GoalForm = props => {
                   label='Goal Amount'
                   placeholder='e.g. 500'
                   value={props.values.goal_amount}
-                  onChange={props.handleChange}
+                  onChange={() => props.handleChange}
                   error={props.touched.goal_amount && !!props.errors.goal_amount}
                   helperText={props.touched.goal_amount && props.errors.goal_amount}
                   inputProps={{ style: { textAlign: 'center' } }}
@@ -105,7 +105,7 @@ export const GoalForm = props => {
                   placeholder={0}
                   value={toDollars(contribution)}
                   inputProps={{ style: { textAlign: 'center' } }}
-                  onChange={createContributionAmt(props.values.end_date, props.values.goal_amount)}
+                  onChange={() => createContributionAmt(props.values.end_date, props.values.goal_amount)}
                 />
               </Box>
               <Button 
