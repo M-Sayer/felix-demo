@@ -4,5 +4,5 @@ const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://localhost/amina';
 const JWT_SECRET = process.env.JWT_SECRET || 'not_a_working_secret';
 
 export {
-    PORT, NODE_ENV, DATABASE_URL, JWT_SECRET
+  PORT, NODE_ENV, DATABASE_URL, JWT_SECRET
 }

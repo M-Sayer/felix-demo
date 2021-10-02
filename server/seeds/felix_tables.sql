@@ -7,16 +7,13 @@ TRUNCATE
   "goals",
   "users";
 
-INSERT INTO "users" ("id", "first_name", "last_name", "username", "email", "password", "allowance", "balance", "total_saved")
+INSERT INTO "users" ("id", "first_name", "last_name", "email", "allowance", "balance", "total_saved")
 VALUES
   (
     1,
     'john',
     'smith',
-    'js123',
     'notarealemail@notrealmail.com',
-    --password = "pass"
-    '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG',
     5121,
     100050,
     1045
@@ -25,10 +22,7 @@ VALUES
     2,
     'Jane',
     'Goodall',
-    'realTarzan',
     'notarealemail@notrealmail.com',
-    --password = "pass"
-    '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG',
     1000000,
     10000000,
     0 
@@ -37,10 +31,7 @@ VALUES
     3,
     'Chatchawan',
     'Suwaratana',
-    'catLover27',
     'notarealemail@notrealmail.com',
-    --password = "pass"
-    '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG',
     7817,
     23459,
     0 
@@ -49,10 +40,7 @@ VALUES
     4,
     'James',
     'Coffelt',
-    'Big Papa',
     'notarealemail@notrealmail.com',
-    --password = "pass"
-    '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG',
     56294,
     60059,
     2500
@@ -61,10 +49,7 @@ VALUES
     5,
     '-----',
     'M',
-    'sumDude',
     'notarealemail@notrealmail.com',
-    --password = "pass"
-    '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG',
     29278,
     30427,
     0
@@ -73,10 +58,7 @@ VALUES
     6,
     'Miki',
     'Francisco',
-    'loveToCode',
     'notarealemail@notrealmail.com',
-    --password = "pass"
-    '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG',
     84768,
     90268,
     10000
@@ -85,10 +67,7 @@ VALUES
     7,
     'Muhajir',
     'Sayer',
-    'broke man',
     'notarealemail@notrealmail.com',
-    --password = "pass"
-    '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG',
     1872,
     2927,
     0

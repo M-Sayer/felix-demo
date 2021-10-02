@@ -40,12 +40,12 @@ export const Overview = props => {
       <Grid item xs={10}>
         <Paper>
           <Container>
-            <Typography>
-              <Box color='tertiary.main'>Goals</Box>
-            </Typography>
-            <Typography variant='h3'>
-              <Box mb={2} fontFamily='Roboto Slab'>${UserCtx.user.total_saved}</Box>
-            </Typography>
+            <Box color='tertiary.main'>
+              <Typography>Goals</Typography>
+            </Box>
+            <Box mb={2}>
+              <Typography fontFamily='Roboto Slab' variant='h3'>${UserCtx.user.total_saved}</Typography>
+            </Box>
             {goals.map(goal => <Goal key={goal.id} goal={goal} /> )}
             <Box m={2} textAlign='center'>
               <Button onClick={() => props.setValue(1)}>
@@ -58,9 +58,9 @@ export const Overview = props => {
       <Grid item xs={10}>
         <Paper>
             <Container>
-              <Typography>
-                <Box mb={2} color='secondary.main'>Transactions</Box>
-              </Typography>
+              <Box mb={2} color='secondary.main'>
+                <Typography>Transactions</Typography>
+              </Box>
               {transactions.map(trx => <Transaction key={trx.id} trx={trx} /> )}
               <Box m={2} textAlign='center'>
               <Button onClick={() => props.setValue(2)}>

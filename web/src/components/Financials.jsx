@@ -31,12 +31,12 @@ export const Financials = () => {
     for (const key in data) {
       fields.push(
         <Grid key={key} item xs={12} md={6}>
-          <Typography>
-            <Box ml={2} alignItems='left' color={data[key][1] || ''}>{key}</Box>
-          </Typography>
-          <Typography variant='h3'>
-            <Box ml={2} fontFamily='Roboto Slab'>${data[key][0]}</Box>
-          </Typography>
+          <Box ml={2} alignItems='left' color={data[key][1] || ''}>
+            <Typography>{key}</Typography>
+          </Box>
+          <Box ml={2}>
+            <Typography variant='h3' fontFamily='Roboto'>${data[key][0]}</Typography>
+          </Box>
         </Grid>
       )
     }
