@@ -29,7 +29,7 @@ import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
 import { GoalForm } from './GoalForm';
 import GoalsService from '../services/goals-service';
-import { GoalAccordionList } from './GoalAccordionList';
+import { FinancialList } from './Accordion'
 import { SettingsTab } from './SettingsTab';
 
 function TabPanel(props) {
@@ -100,6 +100,7 @@ export const TabBar = () => {
     exit: theme.transitions.duration.leavingScreen,
   };
 
+  // call to action buttons (add button)
   const fabs = [
     {
       className: `${classes.fab} ${classes.fabGoal}`,
@@ -146,7 +147,7 @@ export const TabBar = () => {
                   <Typography variant='h3'>Goals</Typography>
                 </Box>
                 <Container>
-                  <GoalAccordionList goals={GoalCtx.goals} />
+                  <FinancialList list={GoalCtx.goals} type='goal' context={GoalCtx}/>
                 </Container>
              </>
           }
@@ -167,7 +168,9 @@ export const TabBar = () => {
               <Typography variant='h3'>Transactions</Typography>
             </Box>
             <Container>
-              {TransactionCtx.transactions.map(trx => (
+              {TransactionCtx.createTransaction || TransactionCtx.editTransaction
+                ? null
+                : TransactionCtx.transactions.map(trx => (
                 <Paper key={trx.id}>
                   <Box m={1} p={2}>
                     <Transaction trx={trx} />
@@ -196,9 +199,9 @@ export const TabBar = () => {
         >
           <Fab 
             onClick={() => {
-              if (fab.name === 'goal') {
-                GoalCtx.setCreateGoal(true);
-              } 
+              if (fab.name === 'goal') GoalCtx.setCreateGoal(true)
+
+              if (fab.name == 'transaction') TransactionCtx.setCreateTransaction(true)
             }} 
             aria-label='Add' className={fab.className} 
             color={fab.color}

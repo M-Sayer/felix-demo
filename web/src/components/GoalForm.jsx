@@ -1,17 +1,12 @@
 import React, { useEffect } from 'react';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-import { Box, TextField, Typography, Button, withStyles } from '@material-ui/core';
+import { Box, TextField, Typography, Button } from '@material-ui/core';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Moment from 'moment';
 import { toCents, toDollars } from '../utils/moneyHelpers';
-
-const CancelButton = withStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.secondary.dark,
-  },
-}))(Button);
+import { CancelButton } from './Buttons';
 
 export const GoalForm = props => {
   const { submitGoal, createGoal, editGoal, goal } = props;

@@ -4,15 +4,24 @@ import TransactionsService from '../services/transactions-service';
 
 export const TransactionsContext = React.createContext({
   transactions: [],
-  setTransactions : ()=>{},
-  clearTransactions : ()=>{},
-  clearError: ()=>{},
-  filterTransactions : ()=>{},
+  setTransactions : () => {},
+  clearTransactions : () => {},
   setError : () => {},
+  clearError: () => {},
+  filterTransactions : () => {},
+  transaction: null,
+  setTransaction: () => {},
+  createTransaction: false,
+  setCreateTransaction: () => {},
+  editTransaction: false,
+  setEditTransaction: () => {},
 })
 
 export const TransactionsProvider = props => {
   const [transactions, setTransactions] = useState([]);
+  const [transaction, setTransaction] = useState(null)
+  const [createTransaction, setCreateTransaction] = useState(false)
+  const [editTransaction, setEditTransaction] = useState(false)
   const [error, setError] = useState(null);
 
   const clearTransactions = () => setTransactions([]);
@@ -41,6 +50,7 @@ export const TransactionsProvider = props => {
     }
   }
 
+  // we need to refetch when the user completes creating/editing transaction
   useEffect(() => {TokenService.hasAuthToken() && getTransactions()}, [])
 
   return (
@@ -52,7 +62,11 @@ export const TransactionsProvider = props => {
         error,
         setError,
         clearError,
-        filterTransactions
+        filterTransactions,
+        createTransaction,
+        setCreateTransaction,
+        editTransaction,
+        setEditTransaction,
       }}
     >
       {props.children}
