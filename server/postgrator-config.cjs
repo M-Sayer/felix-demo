@@ -3,7 +3,7 @@ require('dotenv').config();
 // import dotenv from 'dotenv'
 // dotenv.config()
 
-module.exports =  {
+module.exports = {
   "migrationDirectory": "migrations",
   "driver": "pg",
   "connectionString": (process.env.NODE_ENV === 'test')
