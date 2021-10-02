@@ -22,7 +22,7 @@ export const GoalForm = props => {
       name: goal ? goal.name : '',
       goal_amount: goal ? goal.goal_amount : '',
       end_date: goal ? goal.end_date : date,
-      contribution_amount: contribution,
+      contribution_amount: 0,
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Required')
