@@ -14,8 +14,8 @@ import {
   Fab,
   Zoom,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 
+import AddIcon from '@material-ui/icons/Add';
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import AttachMoney from '@material-ui/icons/AttachMoney'
 import MoneyOff from '@material-ui/icons/MoneyOff'
@@ -25,10 +25,11 @@ import Settings from '@material-ui/icons/Settings'
 import { Overview } from './Overview';
 import Alerts from './Alerts/Alerts';
 import { GoalsContext } from '../contexts/GoalsContext';
+import GoalsService from '../services/goals-service';
+import { GoalForm } from './GoalForm';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
-import { GoalForm } from './GoalForm';
-import GoalsService from '../services/goals-service';
+import { TransactionForm } from './TransactionForm'
 import { FinancialList } from './Accordion'
 import { SettingsTab } from './SettingsTab';
 
@@ -151,32 +152,37 @@ export const TabBar = () => {
                 </Container>
              </>
           }
-          {GoalCtx.editGoal 
-            ? <GoalForm 
+          {GoalCtx.editGoal && (
+            <GoalForm 
               goal={GoalCtx.goal}
               submitGoal={GoalsService.createUpdateGoal}
               editGoal={GoalCtx.setEditGoal}
-              /> : null}
-          {GoalCtx.createGoal 
-            ? <GoalForm 
+            />
+          )}
+          {GoalCtx.createGoal && (
+            <GoalForm 
               createGoal={GoalCtx.setCreateGoal}
               submitGoal={GoalsService.createUpdateGoal}
-            /> : null}
+            /> 
+          )}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Box color='secondary.main'>
-              <Typography variant='h3'>Transactions</Typography>
-            </Box>
+            <Typography variant='h3'>Transactions</Typography>
+          </Box>
             <Container>
               {TransactionCtx.createTransaction || TransactionCtx.editTransaction
                 ? null
                 : TransactionCtx.transactions.map(trx => (
-                <Paper key={trx.id}>
-                  <Box m={1} p={2}>
-                    <Transaction trx={trx} />
-                  </Box>
-                </Paper>
-              ))}
+                  <Paper key={trx.id}>
+                    <Box m={1} p={2}>
+                      <Transaction trx={trx} />
+                    </Box>
+                  </Paper>
+                ))
+                // : <FinancialList list={TransactionCtx.transactions} type='transaction' context={TransactionCtx} />
+              }
+              { TransactionCtx.createTransaction && <TransactionForm /> }
             </Container>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>

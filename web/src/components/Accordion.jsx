@@ -12,7 +12,7 @@ import {
   withStyles 
 } from '@material-ui/core';
 import moment from 'moment';
-import { DeleteButton, EditButton } from './Buttons';
+import { DeleteButton, EditButton } from './UI/Buttons';
 import { Goal } from './Goal';
 import { Transaction } from './Transaction'
 

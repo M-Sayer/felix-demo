@@ -6,10 +6,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Moment from 'moment';
 import { toCents, toDollars } from '../utils/moneyHelpers';
-import { CancelButton } from './Buttons';
+import { CancelButton } from './UI/Buttons';
 
-export const GoalForm = props => {
-  const { submitGoal, createGoal, editGoal, goal } = props;
+export const GoalForm = ({ submitGoal, createGoal, editGoal, goal }) => {
   const moment = Moment(), date = moment._d;
 
   const formik = useFormik({
