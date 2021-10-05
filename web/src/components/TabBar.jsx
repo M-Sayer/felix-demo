@@ -174,8 +174,9 @@ export const TabBar = () => {
             <Container>
               {TransactionCtx.createTransaction || TransactionCtx.editTransaction
                 ? null
-                : TransactionCtx.transactions.map(trx => (
-                  <Paper key={trx.id}>
+                : TransactionCtx.transactions.map((trx, idx) => (
+                  // transactions are merged from 2 DB's, can be conflicting trx.id. idx ensures unique key
+                  <Paper key={idx}>
                     <Box m={1} p={2}>
                       <Transaction trx={trx} />
                     </Box>
@@ -187,6 +188,7 @@ export const TabBar = () => {
                 <TransactionForm 
                   setCreateTransaction={TransactionCtx.setCreateTransaction}
                   submitTransaction={TransactionsService.createTransaction}
+                  getTransactions={TransactionCtx.getTransactions}
                 />
               )}
             </Container>

@@ -5,7 +5,7 @@ import { CancelButton } from './UI/Buttons';
 import { MenuItem, Button } from '@material-ui/core';
 import { FormField } from './UI/FormField'
 
-export const TransactionForm = ({ transaction, setCreateTransaction, setEditTransaction, submitTransaction }) => {
+export const TransactionForm = ({ transaction, setCreateTransaction, setEditTransaction, submitTransaction, getTransactions }) => {
 
   const trxTypes = ['income', 'expenses']
   const incomeCategories = ['paycheck', 'freelance', 'side_gig', 'other']
@@ -32,15 +32,16 @@ export const TransactionForm = ({ transaction, setCreateTransaction, setEditTran
             }),
           amount: Yup.number().positive('Please enter a number greater than 0')
             .required('Required').max(1000000, 'Cannot be greater than 1,000,000'),
-          description: Yup.string().required('Required').max(50, 'Must be 50 characters or less'),
+          description: Yup.string().max(50, 'Must be 50 characters or less'),
         })}
         onSubmit={async (values, { setSubmitting }) => {
           console.log(values)
           setSubmitting(true)
-          
+
           if (values.type == 'expenses') values.amount *= -1
 
           await submitTransaction(values)
+          await getTransactions()
 
           setSubmitting(false)
           transaction ? setEditTransaction(false) : setCreateTransaction(false)
@@ -99,7 +100,7 @@ export const TransactionForm = ({ transaction, setCreateTransaction, setEditTran
               Submit
             </Button>
             <CancelButton 
-              // onClick={() => goal ? editGoal(false) : createGoal(false)} 
+              onClick={() => transaction ? setEditTransaction(false) : setCreateTransaction(false)} 
               variant='contained' 
               disabled={props.isSubmitting}
             >

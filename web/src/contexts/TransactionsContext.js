@@ -4,11 +4,12 @@ import { TransactionsService } from '../services/transactions-service';
 
 export const TransactionsContext = React.createContext({
   transactions: [],
-  setTransactions : () => {},
-  clearTransactions : () => {},
-  setError : () => {},
+  setTransactions: () => {},
+  getTransactions: () => {},
+  clearTransactions: () => {},
+  setError: () => {},
   clearError: () => {},
-  filterTransactions : () => {},
+  filterTransactions: () => {},
   transaction: null,
   setTransaction: () => {},
   createTransaction: false,
@@ -57,7 +58,10 @@ export const TransactionsProvider = props => {
     <TransactionsContext.Provider
       value={{
         transactions,
-        setTransactions, 
+        setTransactions,
+        getTransactions,
+        transaction,
+        setTransaction,
         clearTransactions,
         error,
         setError,
