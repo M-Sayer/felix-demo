@@ -28,6 +28,7 @@ import { GoalsContext } from '../contexts/GoalsContext';
 import GoalsService from '../services/goals-service';
 import { GoalForm } from './GoalForm';
 import { TransactionsContext } from '../contexts/TransactionsContext';
+import { TransactionsService } from '../services/transactions-service'
 import { Transaction } from './Transaction';
 import { TransactionForm } from './TransactionForm'
 import { FinancialList } from './Accordion'
@@ -182,7 +183,12 @@ export const TabBar = () => {
                 ))
                 // : <FinancialList list={TransactionCtx.transactions} type='transaction' context={TransactionCtx} />
               }
-              { TransactionCtx.createTransaction && <TransactionForm /> }
+              {TransactionCtx.createTransaction && (
+                <TransactionForm 
+                  setCreateTransaction={TransactionCtx.setCreateTransaction}
+                  submitTransaction={TransactionsService.createTransaction}
+                />
+              )}
             </Container>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>

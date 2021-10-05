@@ -2,7 +2,7 @@ import config from '../config';
 import TokenService from './token-service';
 
 // config.API_ENDPOINT = http://localhost:8000/api
-const TransactionsService = {
+export const TransactionsService = {
       getSingleTransaction(type,id){
         return fetch(`${config.API_ENDPOINT}/transactions/${type}/${id}`, {
           'headers' :{
@@ -75,5 +75,3 @@ const TransactionsService = {
     return await response;
   }
 }
-
-export default TransactionsService;

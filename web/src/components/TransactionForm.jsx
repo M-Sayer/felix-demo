@@ -2,12 +2,12 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { CancelButton } from './UI/Buttons';
-import { MenuItem } from '@material-ui/core';
+import { MenuItem, Button } from '@material-ui/core';
 import { FormField } from './UI/FormField'
 
-export const TransactionForm = ({ transaction }) => {
+export const TransactionForm = ({ transaction, setCreateTransaction, setEditTransaction, submitTransaction }) => {
 
-  const trxTypes = ['income', 'expense']
+  const trxTypes = ['income', 'expenses']
   const incomeCategories = ['paycheck', 'freelance', 'side_gig', 'other']
   const expenseCategories = ['bills', 'transportation', 'food', 'entertainment', 'other']
 
@@ -23,7 +23,7 @@ export const TransactionForm = ({ transaction }) => {
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Required').max(15, 'Must be 15 characters or less'),
-          type: Yup.mixed().oneOf(trxTypes),
+          type: Yup.mixed().oneOf(trxTypes).required('Required'),
           category: Yup.mixed().required('Required')
             .when('type', {
               is: 'income',
@@ -36,6 +36,14 @@ export const TransactionForm = ({ transaction }) => {
         })}
         onSubmit={async (values, { setSubmitting }) => {
           console.log(values)
+          setSubmitting(true)
+          
+          if (values.type == 'expenses') values.amount *= -1
+
+          await submitTransaction(values)
+
+          setSubmitting(false)
+          transaction ? setEditTransaction(false) : setCreateTransaction(false)
         }}
       >
         {props => (
@@ -83,7 +91,20 @@ export const TransactionForm = ({ transaction }) => {
               label='Description'
               placeholder='e.g. Large coffee'
             />
-            
+            <Button 
+              variant='contained' 
+              color='primary' 
+              type='submit' 
+              disabled={props.isSubmitting}>
+              Submit
+            </Button>
+            <CancelButton 
+              // onClick={() => goal ? editGoal(false) : createGoal(false)} 
+              variant='contained' 
+              disabled={props.isSubmitting}
+            >
+              Cancel
+            </CancelButton>
           </Form>
         )}
       </Formik>
