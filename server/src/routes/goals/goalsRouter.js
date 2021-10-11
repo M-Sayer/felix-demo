@@ -148,6 +148,8 @@ goalsRouter
       // moment parses PostgreSQL date format correctly
       end_date,
     }
+
+    console.log('UPDAET GOAL', updatedGoal)
     
     // Insert updated goal object into database
     // Send appropriate response

@@ -25,10 +25,8 @@ import Settings from '@material-ui/icons/Settings'
 import { Overview } from './Overview';
 import Alerts from './Alerts/Alerts';
 import { GoalsContext } from '../contexts/GoalsContext';
-import GoalsService from '../services/goals-service';
 import { GoalForm } from './GoalForm';
 import { TransactionsContext } from '../contexts/TransactionsContext';
-import { TransactionsService } from '../services/transactions-service'
 import { Transaction } from './Transaction';
 import { TransactionForm } from './TransactionForm'
 import { FinancialList } from './Accordion'
@@ -86,7 +84,7 @@ export const TabBar = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const GoalCtx = useContext(GoalsContext);
+  const GoalsCtx = useContext(GoalsContext);
   const TransactionsCtx = useContext(TransactionsContext);
 
   const handleChange = (event, newValue) => {
@@ -142,30 +140,19 @@ export const TabBar = () => {
           <Overview setValue={setValue} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          {GoalCtx.editGoal || GoalCtx.createGoal
+          {GoalsCtx.editGoal || GoalsCtx.createGoal
             ? null
             : <>
                 <Box color='tertiary.main'>
                   <Typography variant='h3'>Goals</Typography>
                 </Box>
                 <Container>
-                  <FinancialList list={GoalCtx.goals} type='goal' context={GoalCtx}/>
+                  <FinancialList list={GoalsCtx.goals} type='goal' context={GoalsCtx}/>
                 </Container>
              </>
           }
-          {GoalCtx.editGoal && (
-            <GoalForm 
-              goal={GoalCtx.goal}
-              submitGoal={GoalsService.createUpdateGoal}
-              editGoal={GoalCtx.setEditGoal}
-            />
-          )}
-          {GoalCtx.createGoal && (
-            <GoalForm 
-              createGoal={GoalCtx.setCreateGoal}
-              submitGoal={GoalsService.createUpdateGoal}
-            /> 
-          )}
+          {GoalsCtx.editGoal && ( <GoalForm /> )}
+          {GoalsCtx.createGoal && ( <GoalForm /> )}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Box color='secondary.main'>
@@ -212,7 +199,7 @@ export const TabBar = () => {
         >
           <Fab 
             onClick={() => {
-              if (fab.name === 'goal') GoalCtx.setCreateGoal(true)
+              if (fab.name === 'goal') GoalsCtx.setCreateGoal(true)
 
               if (fab.name == 'transaction') TransactionsCtx.setCreateTransaction(true)
             }} 

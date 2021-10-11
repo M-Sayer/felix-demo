@@ -43,25 +43,48 @@ const GoalsService = {
     return response.json();
   },
 
-  async createUpdateGoal(goal, goalId = '', method) {
-    const settings = {
-      'method': `${method}`,
-      'headers': {
-        'Authorization': `Bearer ${TokenService.getAuthToken(config.TOKEN_KEY)}`,
-        'Content-Type' : 'application/json'
-      },
-      'body': JSON.stringify(goal)
-    }
-    
-    // http://localhost:8000/api/goals
-    const response = await fetch(`${config.API_ENDPOINT}/goals/${goalId}`, settings);
+  async createGoal(goal) {
+    try {
+      const response = await fetch(`${config.API_ENDPOINT}/goals`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${TokenService.getAuthToken(config.TOKEN_KEY)}`,
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(goal)
+      })
+  
+      if (!response.ok) {
+        const error = response.json()
+        return Promise.reject(error)
+      }
 
-    if(!response.ok) {
-      const error = await response.json();
-      return Promise.reject(error);
+      return response.json()
+    } catch (error) {
+      console.log(error)
     }
+  },
 
-    return response.json();
+  async updateGoal(goal, id) {
+    try {
+      const response = await fetch(`${config.API_ENDPOINT}/goals/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${TokenService.getAuthToken(config.TOKEN_KEY)}`,
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(goal)
+      });
+  
+      if(!response.ok) {
+        const error = await response.json();
+        return Promise.reject(error);
+      }
+  
+      return response.json();
+    } catch (error) {
+      console.log(error)
+    }
   },
 
   async deleteGoal(goalId) {
