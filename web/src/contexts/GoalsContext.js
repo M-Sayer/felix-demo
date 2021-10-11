@@ -14,6 +14,7 @@ export const GoalsContext = React.createContext({
   editGoal: false,
   setEditGoal: () => {},
   deleteGoal: () => {},
+  saveGoal: () => {},
 });
 
 export const GoalsProvider = props => {
@@ -25,16 +26,29 @@ export const GoalsProvider = props => {
 
   const fetchData = async () => {
     try {
-      const goals = await GoalsService.getGoals();
-      setGoals(goals);
+      const goals = await GoalsService.getGoals()
+
+      setGoals(goals)
+
+      console.log(goals)
     } catch(e) {
       setError(e);
     };
   };
 
-  const deleteGoal = async (goalId) => {
+  const deleteGoal = async goalId => {
     await GoalsService.deleteGoal(goalId)
     fetchData()
+  }
+
+  const saveGoal = async values => {
+    const res = createGoal 
+      ? await GoalsService.createGoal(values)
+      : await GoalsService.updateGoal(values, goal.id)
+
+    await fetchData()
+
+    return
   }
 
   useEffect(() => {TokenService.hasAuthToken() && fetchData()}, [createGoal, editGoal])
@@ -53,6 +67,7 @@ export const GoalsProvider = props => {
         error,
         setError,
         deleteGoal,
+        saveGoal,
       }}>
       {props.children}
     </GoalsContext.Provider>

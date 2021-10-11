@@ -32,11 +32,11 @@ const selectTransactionAmount = async (db, type, id) => {
 };
 
 const convertToCents = (dollars) => {
-  return dollars * 100;
+  return Math.trunc(dollars * 100)
 };
 
 const convertToDollars = (cents) => {
-  return cents / 100;
+  return (cents / 100).toFixed(2)
 };
 
 const convertTransactionsToDollars = (arr, type) => {

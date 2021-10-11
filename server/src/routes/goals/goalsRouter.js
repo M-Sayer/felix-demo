@@ -148,7 +148,7 @@ goalsRouter
       // moment parses PostgreSQL date format correctly
       end_date,
     }
-    
+
     // Insert updated goal object into database
     // Send appropriate response
     try {

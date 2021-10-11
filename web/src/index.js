@@ -10,10 +10,13 @@ import { GoalsProvider } from './contexts/GoalsContext';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import theme from './theme';
+import DayjsUtils from '@date-io/dayjs'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 
 ReactDOM.render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
+      <MuiPickersUtilsProvider utils={DayjsUtils}>
         <AlertsProvider>
           <UserProvider>
             <TransactionsProvider>
@@ -24,6 +27,7 @@ ReactDOM.render(
             </TransactionsProvider>
           </UserProvider>
         </AlertsProvider>
+      </MuiPickersUtilsProvider>
     </ThemeProvider>
   </BrowserRouter>,
   document.getElementById('root')
