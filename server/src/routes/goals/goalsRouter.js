@@ -149,8 +149,6 @@ goalsRouter
       end_date,
     }
 
-    console.log('UPDAET GOAL', updatedGoal)
-    
     // Insert updated goal object into database
     // Send appropriate response
     try {
