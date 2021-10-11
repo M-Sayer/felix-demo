@@ -35,7 +35,6 @@ export const TransactionForm = ({ transaction, setCreateTransaction, setEditTran
           description: Yup.string().max(50, 'Must be 50 characters or less'),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log(values)
           setSubmitting(true)
 
           if (values.type == 'expenses') values.amount *= -1
@@ -43,7 +42,7 @@ export const TransactionForm = ({ transaction, setCreateTransaction, setEditTran
           await saveTransaction(values)
 
           setSubmitting(false)
-          
+
           transaction ? setEditTransaction(false) : setCreateTransaction(false)
         }}
       >
