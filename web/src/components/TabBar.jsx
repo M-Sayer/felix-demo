@@ -14,8 +14,8 @@ import {
   Fab,
   Zoom,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 
+import AddIcon from '@material-ui/icons/Add';
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import AttachMoney from '@material-ui/icons/AttachMoney'
 import MoneyOff from '@material-ui/icons/MoneyOff'
@@ -25,11 +25,13 @@ import Settings from '@material-ui/icons/Settings'
 import { Overview } from './Overview';
 import Alerts from './Alerts/Alerts';
 import { GoalsContext } from '../contexts/GoalsContext';
-import { TransactionsContext } from '../contexts/TransactionsContext';
-import { Transaction } from './Transaction';
-import { GoalForm } from './GoalForm';
 import GoalsService from '../services/goals-service';
-import { GoalAccordionList } from './GoalAccordionList';
+import { GoalForm } from './GoalForm';
+import { TransactionsContext } from '../contexts/TransactionsContext';
+import { TransactionsService } from '../services/transactions-service'
+import { Transaction } from './Transaction';
+import { TransactionForm } from './TransactionForm'
+import { FinancialList } from './Accordion'
 import { SettingsTab } from './SettingsTab';
 
 function TabPanel(props) {
@@ -85,7 +87,7 @@ export const TabBar = () => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const GoalCtx = useContext(GoalsContext);
-  const TransactionCtx = useContext(TransactionsContext);
+  const TransactionsCtx = useContext(TransactionsContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -100,6 +102,7 @@ export const TabBar = () => {
     exit: theme.transitions.duration.leavingScreen,
   };
 
+  // call to action buttons (add button)
   const fabs = [
     {
       className: `${classes.fab} ${classes.fabGoal}`,
@@ -146,34 +149,47 @@ export const TabBar = () => {
                   <Typography variant='h3'>Goals</Typography>
                 </Box>
                 <Container>
-                  <GoalAccordionList goals={GoalCtx.goals} />
+                  <FinancialList list={GoalCtx.goals} type='goal' context={GoalCtx}/>
                 </Container>
              </>
           }
-          {GoalCtx.editGoal 
-            ? <GoalForm 
+          {GoalCtx.editGoal && (
+            <GoalForm 
               goal={GoalCtx.goal}
               submitGoal={GoalsService.createUpdateGoal}
               editGoal={GoalCtx.setEditGoal}
-              /> : null}
-          {GoalCtx.createGoal 
-            ? <GoalForm 
+            />
+          )}
+          {GoalCtx.createGoal && (
+            <GoalForm 
               createGoal={GoalCtx.setCreateGoal}
               submitGoal={GoalsService.createUpdateGoal}
-            /> : null}
+            /> 
+          )}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Box color='secondary.main'>
-              <Typography variant='h3'>Transactions</Typography>
-            </Box>
+            <Typography variant='h3'>Transactions</Typography>
+          </Box>
             <Container>
-              {TransactionCtx.transactions.map(trx => (
-                <Paper key={trx.id}>
-                  <Box m={1} p={2}>
-                    <Transaction trx={trx} />
-                  </Box>
-                </Paper>
-              ))}
+              {TransactionsCtx.createTransaction || TransactionsCtx.editTransaction
+                ? null
+                : TransactionsCtx.transactions.map((trx, idx) => (
+                  // transactions are merged from 2 DB's, can be conflicting trx.id. idx ensures unique key
+                  <Paper key={idx}>
+                    <Box m={1} p={2}>
+                      <Transaction trx={trx} />
+                    </Box>
+                  </Paper>
+                ))
+                // : <FinancialList list={TransactionsCtx.transactions} type='transaction' context={TransactionsCtx} />
+              }
+              {TransactionsCtx.createTransaction && (
+                <TransactionForm 
+                  setCreateTransaction={TransactionsCtx.setCreateTransaction}
+                  saveTransaction={TransactionsCtx.saveTransaction}
+                />
+              )}
             </Container>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
@@ -196,9 +212,9 @@ export const TabBar = () => {
         >
           <Fab 
             onClick={() => {
-              if (fab.name === 'goal') {
-                GoalCtx.setCreateGoal(true);
-              } 
+              if (fab.name === 'goal') GoalCtx.setCreateGoal(true)
+
+              if (fab.name == 'transaction') TransactionsCtx.setCreateTransaction(true)
             }} 
             aria-label='Add' className={fab.className} 
             color={fab.color}

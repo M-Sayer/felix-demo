@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import React, { useState, useContext } from 'react';
 import moment from 'moment';
-import { DeleteButton, EditButton } from './Buttons';
+import { DeleteButton, EditButton } from './UI/Buttons'
 import { GoalsContext } from '../contexts/GoalsContext';
 import GoalsService from '../services/goals-service';
 

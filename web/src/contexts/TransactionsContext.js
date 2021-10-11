@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import TokenService from '../services/token-service';
-import TransactionsService from '../services/transactions-service';
+import { TransactionsService } from '../services/transactions-service';
 
 export const TransactionsContext = React.createContext({
   transactions: [],
-  setTransactions : ()=>{},
-  clearTransactions : ()=>{},
-  clearError: ()=>{},
-  filterTransactions : ()=>{},
-  setError : () => {},
+  setTransactions: () => {},
+  getTransactions: () => {},
+  clearTransactions: () => {},
+  setError: () => {},
+  clearError: () => {},
+  filterTransactions: () => {},
+  transaction: null,
+  setTransaction: () => {},
+  createTransaction: false,
+  setCreateTransaction: () => {},
+  editTransaction: false,
+  setEditTransaction: () => {},
+  saveTransaction: () => {},
 })
 
 export const TransactionsProvider = props => {
   const [transactions, setTransactions] = useState([]);
+  const [transaction, setTransaction] = useState(null)
+  const [createTransaction, setCreateTransaction] = useState(false)
+  const [editTransaction, setEditTransaction] = useState(false)
   const [error, setError] = useState(null);
 
   const clearTransactions = () => setTransactions([]);
@@ -41,18 +52,36 @@ export const TransactionsProvider = props => {
     }
   }
 
+  const saveTransaction = async trx => {
+    const transaction = createTransaction
+      ? await TransactionsService.createTransaction(trx)
+      : await TransactionsService.updateSingleTransaction(trx)
+
+    await getTransactions()
+
+    return
+  }
+
   useEffect(() => {TokenService.hasAuthToken() && getTransactions()}, [])
 
   return (
     <TransactionsContext.Provider
       value={{
         transactions,
-        setTransactions, 
+        setTransactions,
+        getTransactions,
+        transaction,
+        setTransaction,
         clearTransactions,
         error,
         setError,
         clearError,
-        filterTransactions
+        filterTransactions,
+        createTransaction,
+        setCreateTransaction,
+        editTransaction,
+        setEditTransaction,
+        saveTransaction,
       }}
     >
       {props.children}

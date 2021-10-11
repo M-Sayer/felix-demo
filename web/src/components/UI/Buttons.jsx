@@ -32,3 +32,18 @@ export const EditButton = props => (
     Edit
   </Button>
 )
+
+const Cancel = withStyles(theme => ({
+  root: {
+    backgroundColor: theme.palette.secondary.dark,
+  },
+}))(Button)
+
+export const CancelButton = props => (
+  <Cancel 
+    variant='contained'
+    {...props}
+  >
+    Cancel
+  </Cancel>
+)

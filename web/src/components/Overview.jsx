@@ -61,7 +61,7 @@ export const Overview = props => {
               <Box mb={2} color='secondary.main'>
                 <Typography>Transactions</Typography>
               </Box>
-              {transactions.map(trx => <Transaction key={trx.id} trx={trx} /> )}
+              {transactions.map((trx, idx) => <Transaction key={idx} trx={trx} /> )}
               <Box m={2} textAlign='center'>
               <Button onClick={() => props.setValue(2)}>
                 <Typography variant='overline'>See All</Typography>
