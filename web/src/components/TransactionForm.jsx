@@ -5,7 +5,7 @@ import { CancelButton } from './UI/Buttons';
 import { MenuItem, Button } from '@material-ui/core';
 import { FormField } from './UI/FormField'
 
-export const TransactionForm = ({ transaction, setCreateTransaction, setEditTransaction, submitTransaction, getTransactions }) => {
+export const TransactionForm = ({ transaction, setCreateTransaction, setEditTransaction, saveTransaction }) => {
 
   const trxTypes = ['income', 'expenses']
   const incomeCategories = ['paycheck', 'freelance', 'side_gig', 'other']
@@ -40,10 +40,10 @@ export const TransactionForm = ({ transaction, setCreateTransaction, setEditTran
 
           if (values.type == 'expenses') values.amount *= -1
 
-          await submitTransaction(values)
-          await getTransactions()
+          await saveTransaction(values)
 
           setSubmitting(false)
+          
           transaction ? setEditTransaction(false) : setCreateTransaction(false)
         }}
       >

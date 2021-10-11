@@ -16,6 +16,7 @@ export const TransactionsContext = React.createContext({
   setCreateTransaction: () => {},
   editTransaction: false,
   setEditTransaction: () => {},
+  saveTransaction: () => {},
 })
 
 export const TransactionsProvider = props => {
@@ -51,7 +52,16 @@ export const TransactionsProvider = props => {
     }
   }
 
-  // we need to refetch when the user completes creating/editing transaction
+  const saveTransaction = async trx => {
+    const transaction = createTransaction
+      ? await TransactionsService.createTransaction(trx)
+      : await TransactionsService.updateSingleTransaction(trx)
+
+    await getTransactions()
+
+    return
+  }
+
   useEffect(() => {TokenService.hasAuthToken() && getTransactions()}, [])
 
   return (
@@ -71,6 +81,7 @@ export const TransactionsProvider = props => {
         setCreateTransaction,
         editTransaction,
         setEditTransaction,
+        saveTransaction,
       }}
     >
       {props.children}

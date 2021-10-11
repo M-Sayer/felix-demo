@@ -87,7 +87,7 @@ export const TabBar = () => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const GoalCtx = useContext(GoalsContext);
-  const TransactionCtx = useContext(TransactionsContext);
+  const TransactionsCtx = useContext(TransactionsContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -172,9 +172,9 @@ export const TabBar = () => {
             <Typography variant='h3'>Transactions</Typography>
           </Box>
             <Container>
-              {TransactionCtx.createTransaction || TransactionCtx.editTransaction
+              {TransactionsCtx.createTransaction || TransactionsCtx.editTransaction
                 ? null
-                : TransactionCtx.transactions.map((trx, idx) => (
+                : TransactionsCtx.transactions.map((trx, idx) => (
                   // transactions are merged from 2 DB's, can be conflicting trx.id. idx ensures unique key
                   <Paper key={idx}>
                     <Box m={1} p={2}>
@@ -182,13 +182,12 @@ export const TabBar = () => {
                     </Box>
                   </Paper>
                 ))
-                // : <FinancialList list={TransactionCtx.transactions} type='transaction' context={TransactionCtx} />
+                // : <FinancialList list={TransactionsCtx.transactions} type='transaction' context={TransactionsCtx} />
               }
-              {TransactionCtx.createTransaction && (
+              {TransactionsCtx.createTransaction && (
                 <TransactionForm 
-                  setCreateTransaction={TransactionCtx.setCreateTransaction}
-                  submitTransaction={TransactionsService.createTransaction}
-                  getTransactions={TransactionCtx.getTransactions}
+                  setCreateTransaction={TransactionsCtx.setCreateTransaction}
+                  saveTransaction={TransactionsCtx.saveTransaction}
                 />
               )}
             </Container>
@@ -215,7 +214,7 @@ export const TabBar = () => {
             onClick={() => {
               if (fab.name === 'goal') GoalCtx.setCreateGoal(true)
 
-              if (fab.name == 'transaction') TransactionCtx.setCreateTransaction(true)
+              if (fab.name == 'transaction') TransactionsCtx.setCreateTransaction(true)
             }} 
             aria-label='Add' className={fab.className} 
             color={fab.color}
