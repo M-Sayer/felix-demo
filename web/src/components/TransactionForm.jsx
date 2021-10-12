@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { CancelButton } from './UI/Buttons';
 import { MenuItem, Button } from '@material-ui/core';
 import { FormField } from './UI/FormField'
+import { TransactionsContext } from '../contexts/TransactionsContext'
 
-export const TransactionForm = ({ transaction, setCreateTransaction, setEditTransaction, saveTransaction }) => {
+export const TransactionForm = () => {
+  const { transaction, setTransaction, setCreateTransaction, setEditTransaction, saveTransaction } = useContext(TransactionsContext)
 
   const trxTypes = ['income', 'expenses']
   const incomeCategories = ['paycheck', 'freelance', 'side_gig', 'other']
   const expenseCategories = ['bills', 'transportation', 'food', 'entertainment', 'other']
+
+  const exitForm = () => {
+    if (!transaction) return setCreateTransaction(false)
+    
+    setTransaction(null)
+    setEditTransaction(false)
+    return
+  }
 
   return (
     <div>
@@ -22,7 +32,7 @@ export const TransactionForm = ({ transaction, setCreateTransaction, setEditTran
           description: '',
         }}
         validationSchema={Yup.object({
-          name: Yup.string().required('Required').max(15, 'Must be 15 characters or less'),
+          name: Yup.string().required('Required').max(20, 'Must be 20 characters or less'),
           type: Yup.mixed().oneOf(trxTypes).required('Required'),
           category: Yup.mixed().required('Required')
             .when('type', {
@@ -35,15 +45,19 @@ export const TransactionForm = ({ transaction, setCreateTransaction, setEditTran
           description: Yup.string().max(50, 'Must be 50 characters or less'),
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          setSubmitting(true)
+          try {
+            setSubmitting(true)
 
-          if (values.type == 'expenses') values.amount *= -1
+            if (values.type === 'expenses') values.amount *= -1
 
-          await saveTransaction(values)
+            await saveTransaction(values)
 
-          setSubmitting(false)
+            setSubmitting(false)
 
-          transaction ? setEditTransaction(false) : setCreateTransaction(false)
+            exitForm()
+          } catch (error) {
+            console.log(error)
+          }
         }}
       >
         {props => (
@@ -99,7 +113,7 @@ export const TransactionForm = ({ transaction, setCreateTransaction, setEditTran
               Submit
             </Button>
             <CancelButton 
-              onClick={() => transaction ? setEditTransaction(false) : setCreateTransaction(false)} 
+              onClick={() => exitForm()} 
               variant='contained' 
               disabled={props.isSubmitting}
             >

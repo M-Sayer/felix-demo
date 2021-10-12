@@ -141,7 +141,7 @@ export const TabBar = () => {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           {GoalsCtx.editGoal || GoalsCtx.createGoal
-            ? null
+            ? <GoalForm />
             : <>
                 <Box color='tertiary.main'>
                   <Typography variant='h3'>Goals</Typography>
@@ -151,8 +151,6 @@ export const TabBar = () => {
                 </Container>
              </>
           }
-          {GoalsCtx.editGoal && ( <GoalForm /> )}
-          {GoalsCtx.createGoal && ( <GoalForm /> )}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Box color='secondary.main'>
@@ -160,7 +158,7 @@ export const TabBar = () => {
           </Box>
             <Container>
               {TransactionsCtx.createTransaction || TransactionsCtx.editTransaction
-                ? null
+                ? <TransactionForm />
                 : TransactionsCtx.transactions.map((trx, idx) => (
                   // transactions are merged from 2 DB's, can be conflicting trx.id. idx ensures unique key
                   <Paper key={idx}>
@@ -171,12 +169,6 @@ export const TabBar = () => {
                 ))
                 // : <FinancialList list={TransactionsCtx.transactions} type='transaction' context={TransactionsCtx} />
               }
-              {TransactionsCtx.createTransaction && (
-                <TransactionForm 
-                  setCreateTransaction={TransactionsCtx.setCreateTransaction}
-                  saveTransaction={TransactionsCtx.saveTransaction}
-                />
-              )}
             </Container>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>

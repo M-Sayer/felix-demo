@@ -16,7 +16,7 @@ export const TransactionsService = {
                 :res.json()
                 )
     },
-    updateSingleTransaction(transaction){
+    updateTransaction(transaction){
         return fetch(`${config.API_ENDPOINT}/transactions/${transaction.type}/${transaction.id}`, {
             'method' : 'PATCH',
             'headers' : {
