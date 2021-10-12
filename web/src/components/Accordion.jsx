@@ -42,7 +42,7 @@ const Summary = withStyles(theme => ({
 
 const FinancialSummary = ({ item, type }) => (
   <Summary>
-    {type == 'goal'
+    {type === 'goal'
       ? <Goal goal={item} />
       : <Transaction trx={item} />
     }
@@ -76,29 +76,34 @@ const FinancialDetails = ({ type, item, context }) => {
         context.setEditGoal(true)
       }
 
-      deleteItem = async () => {
-        await context.deleteGoal(item.id)
-        setDialog(false);
-      }
+      deleteItem = async () => await context.deleteGoal(item.id)
 
       break
   
     default: // transaction
-    details = [
-      {
-        label: 'Details: ',
-        data: item.description
-      },
-      {
-        label: 'Amount: ',
-        data: '$' + (item.income_amount ?? item.expense_amount)
-      },
-      {
-        label: 'Category: ',
-        data: item.income_category ?? item.expense_category
-      },
-    ]
-      break;
+      details = [
+        {
+          label: 'Details: ',
+          data: item.description
+        },
+        {
+          label: 'Amount: ',
+          data: '$' + (item.income_amount ?? item.expense_amount)
+        },
+        {
+          label: 'Category: ',
+          data: item.income_category ?? item.expense_category
+        },
+      ]
+
+      editItem = () => {
+        context.setTransaction(item)
+        context.setEditTransaction(true)
+      }
+
+      deleteItem = async () => await context.deleteTransaction(item.type, item.id)
+
+      break
   }
 
   const renderDetails = () => details.map(detail => (
@@ -134,12 +139,7 @@ const FinancialDetails = ({ type, item, context }) => {
                   >
                     Cancel
                   </Button>
-                  <DeleteButton 
-                    onClick={async () => {
-                      await deleteItem()
-                      setDialog(false);
-                    }} 
-                  />
+                  <DeleteButton onClick={async () => await deleteItem()} />
                 </Box>
             </Dialog>
           </Box>
@@ -156,11 +156,9 @@ export const FinancialList = props => {
   const handleChange = idx => {
     setExpanded(expanded === idx ? false : idx)
   }
-  // goal/income/expense
-  const setAmount = item => item.current_amount ?? item.income_amount ?? item.expense_amount
   
   return list.map((item, idx) => (
-    <ListItem marginBottom={2} key={idx} expanded={expanded === item.id} onChange={() => handleChange(item.id)}>
+    <ListItem marginBottom={2} key={idx} expanded={expanded === idx} onChange={() => handleChange(idx)}>
       <FinancialSummary item={item} type={type} />
       <FinancialDetails type={type} item={item} context={context} />
     </ListItem>

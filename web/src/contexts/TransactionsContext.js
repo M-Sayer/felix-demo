@@ -17,6 +17,7 @@ export const TransactionsContext = React.createContext({
   editTransaction: false,
   setEditTransaction: () => {},
   saveTransaction: () => {},
+  deleteTransaction: () => {},
 })
 
 export const TransactionsProvider = props => {
@@ -34,28 +35,38 @@ export const TransactionsProvider = props => {
   };
 
   const sortTransactions = (transactions, property = null) => {
-    if(property === null) {
+    if (property === null) {
       return transactions.sort((a, b) => a - b);
     }
     return transactions.sort((a, b) => a[property] - b[property]);
-  };
+  }
 
   const getTransactions = async () => {
     try {
-      const { income, expenses } = await TransactionsService.getAllTransactions();
-      const sortedTransactions = sortTransactions([...income, ...expenses], 'date_created');
-      setTransactions(sortedTransactions);
+      const { income, expenses } = await TransactionsService.getAllTransactions()
+      income.forEach(item => item.type = 'income')
+      expenses.forEach(item => item.type = 'expenses')
+      const sortedTransactions = sortTransactions([...income, ...expenses], 'date_created')
+      setTransactions(sortedTransactions)
       console.log(sortedTransactions)
     }
     catch(error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
   const saveTransaction = async trx => {
-    const res = createTransaction
+    const response = createTransaction
       ? await TransactionsService.createTransaction(trx)
       : await TransactionsService.updateTransaction(trx)
+
+    await getTransactions()
+
+    return
+  }
+
+  const deleteTransaction = async (type, id) => {
+    await TransactionsService.deleteTransaction(type, id)
 
     await getTransactions()
 
@@ -82,6 +93,7 @@ export const TransactionsProvider = props => {
         editTransaction,
         setEditTransaction,
         saveTransaction,
+        deleteTransaction,
       }}
     >
       {props.children}

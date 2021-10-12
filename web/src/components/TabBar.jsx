@@ -159,15 +159,15 @@ export const TabBar = () => {
             <Container>
               {TransactionsCtx.createTransaction || TransactionsCtx.editTransaction
                 ? <TransactionForm />
-                : TransactionsCtx.transactions.map((trx, idx) => (
-                  // transactions are merged from 2 DB's, can be conflicting trx.id. idx ensures unique key
-                  <Paper key={idx}>
-                    <Box m={1} p={2}>
-                      <Transaction trx={trx} />
-                    </Box>
-                  </Paper>
-                ))
-                // : <FinancialList list={TransactionsCtx.transactions} type='transaction' context={TransactionsCtx} />
+                // : TransactionsCtx.transactions.map((trx, idx) => (
+                //   // transactions are merged from 2 DB's, can be conflicting trx.id. idx ensures unique key
+                //   <Paper key={idx}>
+                //     <Box m={1} p={2}>
+                //       <Transaction trx={trx} />
+                //     </Box>
+                //   </Paper>
+                // ))
+                : <FinancialList list={TransactionsCtx.transactions} type='transaction' context={TransactionsCtx} />
               }
             </Container>
         </TabPanel>
