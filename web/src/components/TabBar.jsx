@@ -140,36 +140,30 @@ export const TabBar = () => {
           <Overview setValue={setValue} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          {GoalsCtx.editGoal || GoalsCtx.createGoal
-            ? <GoalForm />
-            : <>
-                <Box color='tertiary.main'>
-                  <Typography variant='h3'>Goals</Typography>
-                </Box>
-                <Container>
+          <Container>
+            {GoalsCtx.editGoal || GoalsCtx.createGoal
+              ? <GoalForm />
+              : <>
+                  <Box color='tertiary.main'>
+                    <Typography variant='h3'>Goals</Typography>
+                  </Box>
                   <FinancialList list={GoalsCtx.goals} type='goal' context={GoalsCtx}/>
-                </Container>
-             </>
-          }
+               </>
+            }
+          </Container>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Box color='secondary.main'>
-            <Typography variant='h3'>Transactions</Typography>
-          </Box>
-            <Container>
-              {TransactionsCtx.createTransaction || TransactionsCtx.editTransaction
-                ? <TransactionForm />
-                : TransactionsCtx.transactions.map((trx, idx) => (
-                  // transactions are merged from 2 DB's, can be conflicting trx.id. idx ensures unique key
-                  <Paper key={idx}>
-                    <Box m={1} p={2}>
-                      <Transaction trx={trx} />
-                    </Box>
-                  </Paper>
-                ))
-                // : <FinancialList list={TransactionsCtx.transactions} type='transaction' context={TransactionsCtx} />
-              }
-            </Container>
+          <Container>
+            {TransactionsCtx.createTransaction || TransactionsCtx.editTransaction
+              ? <TransactionForm />
+              : <>
+                  <Box color='secondary.main'>
+                    <Typography variant='h3'>Transactions</Typography>
+                  </Box>
+                  <FinancialList list={TransactionsCtx.transactions} type='transaction' context={TransactionsCtx} />
+                </>
+            }
+          </Container>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
           Alerts

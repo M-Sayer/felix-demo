@@ -38,7 +38,10 @@ export const GoalsProvider = props => {
 
   const deleteGoal = async goalId => {
     await GoalsService.deleteGoal(goalId)
-    getGoals()
+    
+    await getGoals()
+
+    return
   }
 
   const saveGoal = async values => {
