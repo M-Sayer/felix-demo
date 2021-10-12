@@ -24,7 +24,7 @@ export const GoalsProvider = props => {
   const [createGoal, setCreateGoal] = useState(false);
   const [editGoal, setEditGoal] = useState(false);
 
-  const fetchData = async () => {
+  const getGoals = async () => {
     try {
       const goals = await GoalsService.getGoals()
 
@@ -38,7 +38,7 @@ export const GoalsProvider = props => {
 
   const deleteGoal = async goalId => {
     await GoalsService.deleteGoal(goalId)
-    fetchData()
+    getGoals()
   }
 
   const saveGoal = async values => {
@@ -46,12 +46,12 @@ export const GoalsProvider = props => {
       ? await GoalsService.createGoal(values)
       : await GoalsService.updateGoal(values, goal.id)
 
-    await fetchData()
+    await getGoals()
 
     return
   }
 
-  useEffect(() => {TokenService.hasAuthToken() && fetchData()}, [createGoal, editGoal])
+  useEffect(() => {TokenService.hasAuthToken() && getGoals()}, [createGoal, editGoal])
 
   return (
     <GoalsContext.Provider 
