@@ -25,11 +25,11 @@ export const TransactionForm = () => {
     <div>
       <Formik
         initialValues={{
-          name: transaction && (transaction.name ?? ''),
-          type: transaction && (transaction.type ?? ''),
-          category: transaction && (transaction.income_category ?? transaction.expense_category ?? ''),
-          amount: transaction && (transaction.income_amount ?? transaction.expense_amount ?? ''),
-          description: transaction && (transaction.description ?? ''),
+          name: (transaction && transaction.name) ?? '',
+          type: (transaction && transaction.type) ?? '',
+          category: (transaction && (transaction.income_category ?? transaction.expense_category)) ?? '',
+          amount: (transaction && (transaction.income_amount ?? transaction.expense_amount)) ?? '',
+          description: (transaction && transaction.description) ?? '',
         }}
         validationSchema={Yup.object({
           name: Yup.string().required('Required').max(20, 'Must be 20 characters or less'),
