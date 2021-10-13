@@ -8,7 +8,8 @@ import {
   Dialog, 
   DialogTitle, 
   Grid, 
-  Typography, 
+  Typography,
+  Paper,
   withStyles 
 } from '@material-ui/core';
 import moment from 'moment';
@@ -158,10 +159,12 @@ export const FinancialList = props => {
   }
   
   return list.map((item, idx) => (
-    <ListItem marginBottom={2} key={idx} expanded={expanded === idx} onChange={() => handleChange(idx)}>
-      <FinancialSummary item={item} type={type} />
-      <FinancialDetails type={type} item={item} context={context} />
-    </ListItem>
+    <Paper>
+      <ListItem marginBottom={2} key={idx} expanded={expanded === idx} onChange={() => handleChange(idx)}>
+        <FinancialSummary item={item} type={type} />
+        <FinancialDetails type={type} item={item} context={context} />
+      </ListItem>
+    </Paper>
   ))
 }
 
