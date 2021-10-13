@@ -16,9 +16,9 @@ export const TransactionsService = {
         :res.json()
         )
   },
-  async updateTransaction(transaction){
+  async updateTransaction(transaction, id){
     try {
-      const response = await fetch(`${config.API_ENDPOINT}/transactions/${transaction.type}/${transaction.id}`, {
+      const response = await fetch(`${config.API_ENDPOINT}/transactions/${transaction.type}/${id}`, {
         'method' : 'PATCH',
         'headers' : {
           'Authorization': `Bearer ${TokenService.getAuthToken(config.TOKEN_KEY)}`,
@@ -28,8 +28,8 @@ export const TransactionsService = {
       })
 
       if (!response.ok) return Promise.reject(response.json())
-
-      return response.json();
+      
+      return
     } catch (error) {
       console.log(error)
     }
