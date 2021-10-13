@@ -55,10 +55,10 @@ export const TransactionsProvider = props => {
     }
   }
 
-  const saveTransaction = async trx => {
+  const saveTransaction = async values => {
     const response = createTransaction
-      ? await TransactionsService.createTransaction(trx)
-      : await TransactionsService.updateTransaction(trx)
+      ? await TransactionsService.createTransaction(values)
+      : await TransactionsService.updateTransaction(values, transaction.id)
 
     await getTransactions()
 
