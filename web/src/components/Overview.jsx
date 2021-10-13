@@ -9,7 +9,7 @@ import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
 
-export const Overview = props => {
+export const Overview = ({ setTabIndex }) => {
   const alertsContext = useContext(AlertsContext);
   const UserCtx = useContext(UserContext);
   const GoalCtx = useContext(GoalsContext);
@@ -48,7 +48,7 @@ export const Overview = props => {
             </Box>
             {goals.map(goal => <Goal key={goal.id} goal={goal} /> )}
             <Box m={2} textAlign='center'>
-              <Button onClick={() => props.setValue(1)}>
+              <Button onClick={() => setTabIndex(1)}>
                 <Typography variant='overline'>See All</Typography>
               </Button>
             </Box>
@@ -63,7 +63,7 @@ export const Overview = props => {
               </Box>
               {transactions.map((trx, idx) => <Transaction key={idx} trx={trx} /> )}
               <Box m={2} textAlign='center'>
-              <Button onClick={() => props.setValue(2)}>
+              <Button onClick={() => setTabIndex(2)}>
                 <Typography variant='overline'>See All</Typography>
               </Button>
             </Box>
