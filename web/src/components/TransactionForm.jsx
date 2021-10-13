@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { CancelButton } from './UI/Buttons';
@@ -20,6 +20,11 @@ export const TransactionForm = () => {
     setEditTransaction(false)
     return
   }
+
+  useEffect(() => {
+    // reset form on unmount
+    return () => exitForm()
+  })
 
   return (
     <div>

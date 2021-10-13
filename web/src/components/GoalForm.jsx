@@ -61,6 +61,8 @@ export const GoalForm = () => {
   // reactively set contribution amt when values change in formik
   useEffect(() => {
     if (formik.values.goal_amount) setContributionAmt(formik.values.end_date, formik.values.goal_amount)
+
+    return () => exitForm()
   }, [formik.values.goal_amount, formik.values.end_date])
 
 

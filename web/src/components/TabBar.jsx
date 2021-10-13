@@ -9,7 +9,6 @@ import {
   useTheme, 
   makeStyles, 
   Container, 
-  Paper, 
   Typography, 
   Fab,
   Zoom,
@@ -27,33 +26,28 @@ import Alerts from './Alerts/Alerts';
 import { GoalsContext } from '../contexts/GoalsContext';
 import { GoalForm } from './GoalForm';
 import { TransactionsContext } from '../contexts/TransactionsContext';
-import { Transaction } from './Transaction';
 import { TransactionForm } from './TransactionForm'
 import { FinancialList } from './Accordion'
 import { SettingsTab } from './SettingsTab';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
+const TabPanel = ({ children, tabIndex, index, ...other }) => (
     <div
       role="tabpanel"
-      hidden={value !== index}
+      hidden={tabIndex !== index}
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {tabIndex === index && (
         <Box p={3}>{children}</Box>
       )}
     </div>
-  );
-}
+  )
 
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  tabIndex: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
@@ -83,17 +77,9 @@ const useStyles = makeStyles((theme) => ({
 export const TabBar = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState(0)
   const GoalsCtx = useContext(GoalsContext);
   const TransactionsCtx = useContext(TransactionsContext);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
@@ -117,29 +103,29 @@ export const TabBar = () => {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
-          value={value}
-          onChange={handleChange}
+          value={tabIndex}
+          onChange={(e, idx) => setTabIndex(idx)}
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
           aria-label="nav tabs"
         >
-          <Tab className={classes.tab} icon={<DonutLarge />} label={ value === 0 ? 'Overview' : '' } {...a11yProps(0)} />
-          <Tab className={classes.tab} icon={<AttachMoney />} label={ value === 1 ? 'Goals' : '' } {...a11yProps(1)} />
-          <Tab className={classes.tab} icon={<MoneyOff />} label={ value === 2 ? 'Transactions' : '' } {...a11yProps(2)} />
-          <Tab className={classes.tab} icon={<Notifications />} label={ value === 3 ? 'Alerts' : '' } {...a11yProps(3)} />
-          <Tab className={classes.tab} icon={<Settings />} label={ value === 4 ? 'Settings' : '' } {...a11yProps(4)} />
+          <Tab className={classes.tab} icon={<DonutLarge />} label={ tabIndex === 0 ? 'Overview' : '' } {...a11yProps(0)} />
+          <Tab className={classes.tab} icon={<AttachMoney />} label={ tabIndex === 1 ? 'Goals' : '' } {...a11yProps(1)} />
+          <Tab className={classes.tab} icon={<MoneyOff />} label={ tabIndex === 2 ? 'Transactions' : '' } {...a11yProps(2)} />
+          <Tab className={classes.tab} icon={<Notifications />} label={ tabIndex === 3 ? 'Alerts' : '' } {...a11yProps(3)} />
+          <Tab className={classes.tab} icon={<Settings />} label={ tabIndex === 4 ? 'Settings' : '' } {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
+        index={tabIndex}
+        onChangeIndex={setTabIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Overview setValue={setValue} />
+        <TabPanel tabIndex={tabIndex} index={0} dir={theme.direction}>
+          <Overview setTabIndex={setTabIndex} />
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
+        <TabPanel tabIndex={tabIndex} index={1} dir={theme.direction}>
           <Container>
             {GoalsCtx.editGoal || GoalsCtx.createGoal
               ? <GoalForm />
@@ -152,7 +138,7 @@ export const TabBar = () => {
             }
           </Container>
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
+        <TabPanel tabIndex={tabIndex} index={2} dir={theme.direction}>
           <Container>
             {TransactionsCtx.createTransaction || TransactionsCtx.editTransaction
               ? <TransactionForm />
@@ -165,21 +151,21 @@ export const TabBar = () => {
             }
           </Container>
         </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
+        <TabPanel tabIndex={tabIndex} index={3} dir={theme.direction}>
           Alerts
           <Alerts />
         </TabPanel>
-        <TabPanel value={value} index={4} dir={theme.direction}>
+        <TabPanel tabIndex={tabIndex} index={4} dir={theme.direction}>
           <SettingsTab />
         </TabPanel>
       </SwipeableViews>
       {fabs.map((fab, index) => (
         <Zoom
           key={index}
-          in={value === index + 1}
+          in={tabIndex === index + 1}
           timeout={transitionDuration}
           style={{
-            transitionDelay: `${value === index + 1 ? transitionDuration.exit : 0}ms`,
+            transitionDelay: `${tabIndex === index + 1 ? transitionDuration.exit : 0}ms`,
           }}
           unmountOnExit
         >
