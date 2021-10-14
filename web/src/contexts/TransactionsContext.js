@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TokenService from '../services/token-service';
 import { TransactionsService } from '../services/transactions-service';
+import dayjs from 'dayjs'
 
 export const TransactionsContext = React.createContext({
   transactions: [],
@@ -46,9 +47,16 @@ export const TransactionsProvider = props => {
       const { income, expenses } = await TransactionsService.getAllTransactions()
       income.forEach(item => item.type = 'income')
       expenses.forEach(item => item.type = 'expenses')
-      const sortedTransactions = sortTransactions([...income, ...expenses], 'date_created')
-      setTransactions(sortedTransactions)
-      console.log(sortedTransactions)
+      // const sortedTransactions = sortTransactions([...income, ...expenses], 'date_created')
+      const sorted = [...income, ...expenses].sort((a, b) => {
+        if (dayjs(a.date_created).isAfter(dayjs(b.date_created))) return -1
+        
+        if (dayjs(a.date_created).isBefore(dayjs(b.date_created))) return 1
+
+        return 0
+      })
+      setTransactions(sorted)
+      console.log(sorted)
     }
     catch(error) {
       console.log(error)
