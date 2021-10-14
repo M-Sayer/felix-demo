@@ -62,8 +62,11 @@ export const GoalForm = () => {
   useEffect(() => {
     if (formik.values.goal_amount) setContributionAmt(formik.values.end_date, formik.values.goal_amount)
 
-    return () => exitForm()
   }, [formik.values.goal_amount, formik.values.end_date])
+
+  useEffect(() => {
+    return () => exitForm()
+  }, [])
 
 
   return (
@@ -111,7 +114,7 @@ export const GoalForm = () => {
             id='contribution_amount'
             name='contribution_amount'
             label='Weekly Contribution'
-            placeholder={0}
+            placeholder='0'
             value={formik.values.contribution_amount}
             inputProps={{ style: { textAlign: 'center' } }}
           />
