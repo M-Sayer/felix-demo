@@ -30,6 +30,9 @@ const ListItem = withStyles(theme => ({
     },
     '&$expanded': {
       marginBottom: theme.spacing(1),
+      '&:last-child': {
+        marginBottom: theme.spacing(1),
+      }
     },
   },
   expanded: {},
@@ -115,7 +118,7 @@ const FinancialDetails = ({ type, item, context }) => {
     ))
 
   return (
-    <AccordionDetails flexDirection='column'>
+    <AccordionDetails flexDirection='column' marginBottom={2}>
       <Grid
         container
         direction='row'
