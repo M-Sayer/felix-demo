@@ -118,7 +118,7 @@ const FinancialDetails = ({ type, item, context }) => {
     ))
 
   return (
-    <AccordionDetails flexDirection='column' marginBottom={2}>
+    <AccordionDetails flexDirection='column'>
       <Grid
         container
         direction='row'
