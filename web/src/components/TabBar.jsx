@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { 
-  AppBar, 
-  Tabs, 
-  Tab, 
-  Box, 
-  useTheme, 
-  makeStyles, 
-  Container, 
-  Typography, 
+  AppBar,
+  Tabs,
+  Tab,
+  Box,
+  useTheme,
+  makeStyles,
+  Container,
+  Typography,
+  Paper,
   Fab,
   Zoom,
 } from '@material-ui/core';
@@ -28,7 +29,8 @@ import { GoalForm } from './GoalForm';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { TransactionForm } from './TransactionForm'
 import { FinancialList } from './Accordion'
-import { SettingsTab } from './SettingsTab';
+import { SettingsTab } from './SettingsTab'
+import { GoalLabels } from './UI/Labels'
 
 const TabPanel = ({ children, tabIndex, index, ...other }) => (
     <div

@@ -33,13 +33,6 @@ export const TransactionsProvider = props => {
 
   const filterTransactions = (transactions, property, value) => {
     return transactions.filter(trx => trx[property] === value);
-  };
-
-  const sortTransactions = (transactions, property = null) => {
-    if (property === null) {
-      return transactions.sort((a, b) => a - b);
-    }
-    return transactions.sort((a, b) => a[property] - b[property]);
   }
 
   const getTransactions = async () => {
@@ -81,7 +74,9 @@ export const TransactionsProvider = props => {
     return
   }
 
-  useEffect(() => {TokenService.hasAuthToken() && getTransactions()}, [])
+  useEffect(() => {
+    TokenService.hasAuthToken() && getTransactions()
+  }, [])
 
   return (
     <TransactionsContext.Provider
