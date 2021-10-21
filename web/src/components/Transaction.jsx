@@ -4,18 +4,19 @@ import { useAccordionStyles } from '../utils/sharedClasses';
 
 export const Transaction = ({ trx }) => {
   const classes = useAccordionStyles()
+  const desktop = useMediaQuery(theme => theme.breakpoints.up('md'))
   
   return (
     <Box display='flex' flexDirection='row'>
       <Box className={classes.header}>
         <Typography>{trx.name}</Typography>
       </Box>
-      {useMediaQuery(theme => theme.breakpoints.up('md')) && (
+      {desktop && (
         <Box className={classes.subHeader}>
           <Typography>{trx.expense_category || trx.income_category}</Typography>
         </Box>
       )}
-      {useMediaQuery(theme => theme.breakpoints.up('md')) && (
+      {desktop && (
         <Box className={classes.subHeader}>
           <Typography>{trx.description}</Typography>
         </Box>
