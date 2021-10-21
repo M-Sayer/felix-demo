@@ -10,8 +10,10 @@ import {
   Grid, 
   Typography,
   Paper,
-  withStyles 
+  withStyles, 
+  useMediaQuery
 } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import moment from 'moment';
 import { DeleteButton, EditButton } from './UI/Buttons';
 import { Goal } from './Goal';
@@ -45,7 +47,7 @@ const Summary = withStyles(theme => ({
 }))(AccordionSummary)
 
 const FinancialSummary = ({ item, type }) => (
-  <Summary>
+  <Summary expandIcon={<ExpandMoreIcon />}>
     {type === 'goal'
       ? <Goal goal={item} />
       : <Transaction trx={item} />
@@ -117,6 +119,8 @@ const FinancialDetails = ({ type, item, context }) => {
       </Box>
     ))
 
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+
   return (
     <AccordionDetails flexDirection='column'>
       <Grid
@@ -124,15 +128,21 @@ const FinancialDetails = ({ type, item, context }) => {
         direction='row'
         spacing={2}
       >
-        <Grid item xs={12} md={6}> 
-          <Box display='flex' flexDirection='column'>
-            {renderDetails}
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box display='flex' flexDirection='row' justifyContent='space-evenly'>
-            <EditButton onClick={() => editItem()} />
-            <DeleteButton onClick={() => setDialog(true)} />
+        {mobile && (
+          <Grid item xs={12} md={6}> 
+            <Box display='flex' flexDirection='column'>
+              {renderDetails}
+            </Box>
+          </Grid>
+        )}
+        <Grid item xs={12} md={mobile ? 6 : 12}>
+          <Box display='flex' flexDirection='row' justifyContent='center'>
+            <Box mr={2}>
+              <EditButton onClick={() => editItem()} />
+            </Box>
+            <Box ml={2}>
+              <DeleteButton marginLeft={2} onClick={() => setDialog(true)} />
+            </Box>
             <Dialog aria-labelledby='confirm-delete' open={dialog} onClose={() => setDialog(false)}>
               <DialogTitle>Are you sure you wish to delete this item?</DialogTitle>
                 <Box mb={2} display='flex' flexDirection='row' justifyContent='space-evenly'>

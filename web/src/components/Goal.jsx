@@ -1,13 +1,30 @@
-import { Box, Typography } from '@material-ui/core';
 import React from 'react';
+import { Box, Typography, useMediaQuery } from '@material-ui/core';
+import dayjs from 'dayjs'
+import { useAccordionStyles } from '../utils/sharedClasses';
 
-export const Goal = ({ goal }) => (
-  <Box display='flex' flexDirection='row'>
-    <Box flexGrow={2} >
-      <Typography>{goal.name}</Typography>
+export const Goal = ({ goal }) => {
+  const classes = useAccordionStyles()
+  const desktop = useMediaQuery(theme => theme.breakpoints.up('md'))
+
+  return (
+    <Box display='flex' flexDirection='row'>
+      <Box className={classes.header}>
+        <Typography>{goal.name}</Typography>
+      </Box>
+      {desktop && (
+        <Box className={classes.subHeader}>
+          <Typography>{dayjs(goal.end_date).format('MM/DD/YYYY')}</Typography>
+        </Box>
+      )}
+      {desktop && (
+        <Box className={classes.subHeader}>
+          <Typography>{goal.contribution_amount}</Typography>
+        </Box>
+      )}
+      <Box className={classes.amount} color='tertiary.main'>
+        <Typography>${goal.current_amount}</Typography>
+      </Box>
     </Box>
-    <Box color='tertiary.main' flexGrow={1} textAlign='right'>
-      <Typography>${goal.current_amount}</Typography>
-    </Box>
-  </Box>
-)
+  )
+}
