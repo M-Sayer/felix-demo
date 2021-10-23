@@ -119,7 +119,7 @@ const FinancialDetails = ({ type, item, context }) => {
       </Box>
     ))
 
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('md'))
+    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
   return (
     <AccordionDetails flexDirection='column'>
