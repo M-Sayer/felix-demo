@@ -36,3 +36,31 @@ export const GoalLabels = props => (
     </Label>
   </Box>
 )
+
+export const TransactionLabels = props => (
+  <Box display='flex' flexDirection='row' {...props}>
+    <Label
+      color='#C0C0C0'
+      fontSize={14}
+      flexBasis='40%'
+    >
+      Name
+    </Label>
+    <Label 
+      color='#C0C0C0'
+      fontSize={14}
+      flexBasis='20%'
+      textAlign='center'
+    >
+      Category
+    </Label>
+    <Label 
+      color='#C0C0C0'
+      fontSize={14}
+      flexBasis='20%'
+      textAlign='center'
+    >
+      Description
+    </Label>
+  </Box>
+)

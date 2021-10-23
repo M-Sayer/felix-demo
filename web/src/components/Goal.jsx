@@ -13,12 +13,12 @@ export const Goal = ({ goal }) => {
         <Typography>{goal.name}</Typography>
       </Box>
       {desktop && (
-        <Box className={classes.subHeader} textAlign='center'>
+        <Box className={classes.subHeader}>
           <Typography>{dayjs(goal.end_date).format('MM/DD/YYYY')}</Typography>
         </Box>
       )}
       {desktop && (
-        <Box className={classes.subHeader} textAlign='center'>
+        <Box className={classes.subHeader}>
           <Typography>{goal.contribution_amount}</Typography>
         </Box>
       )}

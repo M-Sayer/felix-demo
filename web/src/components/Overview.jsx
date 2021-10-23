@@ -8,7 +8,7 @@ import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
-import { GoalLabels } from './UI/Labels'
+import { GoalLabels, TransactionLabels } from './UI/Labels'
 
 export const Overview = ({ setTabIndex }) => {
   const alertsContext = useContext(AlertsContext);
@@ -63,6 +63,7 @@ export const Overview = ({ setTabIndex }) => {
               <Box mb={2} color='secondary.main'>
                 <Typography>Transactions</Typography>
               </Box>
+              <TransactionLabels />
               {transactions.map((trx, idx) => <Transaction key={idx} trx={trx} /> )}
               <Box m={2} textAlign='center'>
               <Button onClick={() => setTabIndex(2)}>

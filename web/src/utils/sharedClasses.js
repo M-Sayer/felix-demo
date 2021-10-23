@@ -14,6 +14,7 @@ export const useAccordionStyles = makeStyles(theme => ({
     flexBasis: '20%',
     flexShrink: 0,
     color: '#C0C0C0',
+    textAlign: 'center'
   },
   amount: {
     [theme.breakpoints.down('md')]: {
