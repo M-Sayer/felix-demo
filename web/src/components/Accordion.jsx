@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { 
   Accordion, 
   AccordionDetails, 
@@ -11,13 +11,20 @@ import {
   Typography,
   Paper,
   withStyles, 
-  useMediaQuery
-} from '@material-ui/core';
+  useMediaQuery,
+} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import moment from 'moment';
-import { DeleteButton, EditButton } from './UI/Buttons';
-import { Goal } from './Goal';
+import IconButton from '@material-ui/core/IconButton'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+
+import moment from 'moment'
+
+import { DeleteButton, EditButton } from './UI/Buttons'
+import { Goal } from './Goal'
 import { Transaction } from './Transaction'
+import { GoalLabels, TransactionLabels } from './UI/Labels'
 
 
 const ListItem = withStyles(theme => ({
@@ -55,10 +62,29 @@ const FinancialSummary = ({ item, type }) => (
   </Summary>
 )
 
-const FinancialDetails = ({ type, item, context }) => {
-  const [dialog, setDialog] = useState(false)
+const DeleteDialog = ({ dialog, setDialog, deleteItem, item, setAnchorEl }) => (
+  <Dialog aria-labelledby='confirm-delete' open={dialog} onClose={() => setDialog(false)}>
+    <DialogTitle>Are you sure you wish to delete this item?</DialogTitle>
+      <Box mb={2} display='flex' flexDirection='row' justifyContent='space-evenly'>
+        <Button 
+          variant='contained' 
+          color='primary' 
+          onClick={() => setDialog(false)}
+        >
+          Cancel
+        </Button>
+        <DeleteButton onClick={async () => {
+          console.log(item)
+          await deleteItem(item)
+          setAnchorEl && setAnchorEl({})
+          setDialog(false)
+        }} />
+      </Box>
+  </Dialog>
+)
 
-  let details, editItem, deleteItem
+const FinancialDetails = ({ type, item, editItem, handleDelete}) => {
+  let details
 
   switch (type) {
     case 'goal':
@@ -77,13 +103,6 @@ const FinancialDetails = ({ type, item, context }) => {
         }
       ]
 
-      editItem = () => {
-        context.setGoal(item)
-        context.setEditGoal(true)
-      }
-
-      deleteItem = async () => await context.deleteGoal(item.id)
-
       break
   
     default: // transaction
@@ -101,13 +120,6 @@ const FinancialDetails = ({ type, item, context }) => {
           data: item.income_category ?? item.expense_category
         },
       ]
-
-      editItem = () => {
-        context.setTransaction(item)
-        context.setEditTransaction(true)
-      }
-
-      deleteItem = async () => await context.deleteTransaction(item.type, item.id)
 
       break
   }
@@ -138,24 +150,11 @@ const FinancialDetails = ({ type, item, context }) => {
         <Grid item xs={12} md={mobile ? 6 : 12}>
           <Box display='flex' flexDirection='row' justifyContent='center'>
             <Box mr={2}>
-              <EditButton onClick={() => editItem()} />
+              <EditButton onClick={() => editItem(item)} />
             </Box>
             <Box ml={2}>
-              <DeleteButton marginLeft={2} onClick={() => setDialog(true)} />
+              <DeleteButton marginLeft={2} onClick={() => handleDelete(item)} />
             </Box>
-            <Dialog aria-labelledby='confirm-delete' open={dialog} onClose={() => setDialog(false)}>
-              <DialogTitle>Are you sure you wish to delete this item?</DialogTitle>
-                <Box mb={2} display='flex' flexDirection='row' justifyContent='space-evenly'>
-                  <Button 
-                    variant='contained' 
-                    color='primary' 
-                    onClick={() => setDialog(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <DeleteButton onClick={async () => await deleteItem()} />
-                </Box>
-            </Dialog>
           </Box>
         </Grid>
       </Grid>
@@ -163,21 +162,99 @@ const FinancialDetails = ({ type, item, context }) => {
   )
 }
 
+const MenuIcon = withStyles(theme => ({
+  root: {
+    padding: 0,
+  }
+}))(IconButton)
+
 export const FinancialList = props => {
   const { list, type, context } = props
   const [expanded, setExpanded] = useState(false)
+  const [anchorEl, setAnchorEl] = useState({})
+  const [dialog, setDialog] = useState(false)
+  const [listItem, setListItem] = useState(null)
+  const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+
+  let editItem, deleteItem
+
+  if (type === 'goal') {
+    editItem = item => {
+      context.setGoal(item)
+      context.setEditGoal(true)
+    }
+
+    deleteItem = async item => await context.deleteGoal(item.id)
+  } else {
+    editItem = item => {
+      context.setTransaction(item)
+      context.setEditTransaction(true)
+    }
+
+    deleteItem = async item => await context.deleteTransaction(item.type, item.id)
+  }
 
   const handleChange = idx => {
     setExpanded(expanded === idx ? false : idx)
   }
-  
-  return list.map((item, idx) => (
-    <Paper>
-      <ListItem marginBottom={2} key={idx} expanded={expanded === idx} onChange={() => handleChange(idx)}>
-        <FinancialSummary item={item} type={type} />
-        <FinancialDetails type={type} item={item} context={context} />
-      </ListItem>
-    </Paper>
-  ))
+
+  const handleDelete = item => {
+    setAnchorEl({})
+    setListItem(item)
+    setDialog(true)
+  }
+
+  return (
+    <>
+      <DeleteDialog dialog={dialog} setDialog={setDialog} deleteItem={deleteItem} item={listItem} setAnchorEl={setAnchorEl} />
+      {!mobile && (
+        <Box display="flex" padding={2}>
+          {type === 'goal'
+            ? <GoalLabels flexBasis="95%" />
+            : <TransactionLabels flexBasis="95%" />  
+          }
+          <Box flexBasis="5%" />
+        </Box>
+      )}
+      {list.map((item, idx) => (
+        <Paper key={idx}>
+          {mobile
+            ? (
+              <ListItem marginBottom={2} expanded={expanded === idx} onChange={() => handleChange(idx)}>
+                <FinancialSummary item={item} type={type} />
+                <FinancialDetails type={type} item={item} editItem={editItem} deleteItem={deleteItem} handleDelete={handleDelete} />
+              </ListItem>
+            ) : (
+              <Box padding={2} mb={2} display="flex" flexDirection="row">
+                {type === 'goal'
+                  ? <Goal flexBasis="95%" goal={item} />
+                  : <Transaction flexBasis="95%" trx={item} />
+                }
+                <Box display="flex" justifyContent="flex-end" flexBasis="5%">
+                  <MenuIcon
+                    aria-label="options"
+                    aria-controls="menu"
+                    aria-haspopup="true"
+                    onClick={(e) => setAnchorEl({ [idx]: e.currentTarget })}
+                  >
+                    <MoreVertIcon />
+                  </MenuIcon>
+                  <Menu
+                    id="menu"
+                    anchorEl={anchorEl[idx]}
+                    keepMounted
+                    open={!!anchorEl[idx]}
+                    onClose={() => setAnchorEl({})}
+                  >
+                    <MenuItem onClick={() => editItem(item)}>Edit</MenuItem>
+                    <MenuItem onClick={() => handleDelete(item)}>Delete</MenuItem>
+                  </Menu>
+                </Box>
+              </Box>
+            )}
+        </Paper>
+      ))}
+    </>
+  )
 }
 
