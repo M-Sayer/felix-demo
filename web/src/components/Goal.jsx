@@ -3,12 +3,12 @@ import { Box, Typography, useMediaQuery } from '@material-ui/core';
 import dayjs from 'dayjs'
 import { useAccordionStyles } from '../utils/sharedClasses';
 
-export const Goal = ({ goal }) => {
+export const Goal = ({ goal, ...props }) => {
   const classes = useAccordionStyles()
   const desktop = useMediaQuery(theme => theme.breakpoints.up('md'))
 
   return (
-    <Box display='flex' flexDirection='row'>
+    <Box display='flex' flexDirection='row' {...props}>
       <Box className={classes.header}>
         <Typography>{goal.name}</Typography>
       </Box>

@@ -54,7 +54,7 @@ export const GoalsProvider = props => {
     return
   }
 
-  useEffect(() => {TokenService.hasAuthToken() && getGoals()}, [createGoal, editGoal])
+  useEffect(() => {TokenService.hasAuthToken() && getGoals()}, [])
 
   return (
     <GoalsContext.Provider 

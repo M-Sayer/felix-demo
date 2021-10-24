@@ -2,12 +2,12 @@ import { Box, Typography, useMediaQuery } from '@material-ui/core';
 import React from 'react';
 import { useAccordionStyles } from '../utils/sharedClasses';
 
-export const Transaction = ({ trx }) => {
+export const Transaction = ({ trx, ...props }) => {
   const classes = useAccordionStyles()
   const desktop = useMediaQuery(theme => theme.breakpoints.up('md'))
   
   return (
-    <Box display='flex' flexDirection='row'>
+    <Box display='flex' flexDirection='row' {...props}>
       <Box className={classes.header}>
         <Typography>{trx.name}</Typography>
       </Box>
