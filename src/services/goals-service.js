@@ -11,7 +11,6 @@ const GoalsService = {
       },
     }
 
-    // http://localhost:8000/api/goals/goal/:id
     const response = await fetch(`${config.API_ENDPOINT}/goals/${id}`, settings);
 
     if(!response.ok) {
@@ -32,7 +31,6 @@ const GoalsService = {
       },
     }
     
-    // http://localhost:8000/api/goals
     const response = await fetch(`${config.API_ENDPOINT}/goals`, settings);
 
     if(!response.ok) {
@@ -96,7 +94,6 @@ const GoalsService = {
       }
     }
     
-    // http://localhost:8000/api/goals
     const response = await fetch(`${config.API_ENDPOINT}/goals/${goalId}`, settings);
 
     if(!response.ok) {
