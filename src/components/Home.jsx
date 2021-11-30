@@ -8,7 +8,7 @@ export const Home = () => {
 
   return (
     <Container>
-      <Typography variant='h1'>amina</Typography>
+      <Typography variant='h1'>Felix</Typography>
       {register ? <RegistrationForm register={setRegister} /> : <LoginForm register={setRegister} />}
     </Container>
   )

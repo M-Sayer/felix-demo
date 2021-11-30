@@ -3,7 +3,6 @@ import TokenService from './token-service';
 
 // User service object strictly for getting user information
 // Not for user authentication and signup!
-// config.API_ENDPOINT = http://localhost:8000/api
 
 const UserService = {
   async getUser() {

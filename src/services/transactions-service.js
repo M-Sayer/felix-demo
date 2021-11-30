@@ -60,7 +60,6 @@ export const TransactionsService = {
       },
     }
 
-    // http://localhost:8000/api/transactions/
     const response = await fetch(`${config.API_ENDPOINT}/transactions`, settings);
 
     if(!response.ok) {
