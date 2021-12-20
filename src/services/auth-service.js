@@ -69,6 +69,23 @@ const AuthService = {
     }
 
     return await response.json();
+  },
+
+  async demoLogin() {
+    try {
+      const response = await fetch(`${config.API_ENDPOINT}/users/login/demo`, {
+        method: 'GET', 
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+  
+      if (!response.ok) return Promise.reject(response.json())
+  
+      return response.json()
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
