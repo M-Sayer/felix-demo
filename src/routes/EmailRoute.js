@@ -24,6 +24,6 @@ export const EmailRoute = () => {
   }, [])
   
   return (
-    <h1>email</h1>
+    <p>loading</p>
   )
 }

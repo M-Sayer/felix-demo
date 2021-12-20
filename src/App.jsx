@@ -10,7 +10,7 @@ import { Box } from '@material-ui/core';
 export const App = () => {
   return (
     <div className='App'>
-      <Box bgcolor="red" textAlign="center">This demo is currently being refactored. Please excuse our appearance :)</Box>
+      <Box bgcolor="red" textAlign="center">This demo is currently being refactored. Please excuse our appearance</Box>
       <Switch>
         <PrivateRoute
           exact path='/'
