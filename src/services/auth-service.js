@@ -81,8 +81,8 @@ const AuthService = {
       })
   
       if (!response.ok) return Promise.reject(response.json())
-  
-      return response.json()
+
+      return await response.json()
     } catch (error) {
       console.log(error)
     }

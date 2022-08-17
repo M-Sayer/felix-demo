@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthService from '../services/auth-service';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import TokenService from '../services/token-service';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../contexts/UserContext';
 
 const Transition = React.forwardRef((props, ref) => (
   <Slide direction="down" ref={ref} {...props} />
@@ -23,6 +24,7 @@ const Transition = React.forwardRef((props, ref) => (
 
 export const LoginForm = props => {
   const history = useHistory()
+  const UserCtx = useContext(UserContext)
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -32,9 +34,11 @@ export const LoginForm = props => {
   
   const handleDemoLogin = async () => {
     try {
-      const token = await AuthService.demoLogin().authToken
-
-      TokenService.saveAuthToken(token)
+      const { authToken } = await AuthService.demoLogin()
+      
+      TokenService.saveAuthToken(authToken)
+      
+      UserCtx.getUser()
       
       history.push('/')
     } catch (error) {
