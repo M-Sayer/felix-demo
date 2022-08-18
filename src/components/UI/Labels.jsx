@@ -5,6 +5,7 @@ const Label = props => (
   <Box 
     color='#C0C0C0'
     fontSize={14}
+    textAlign="center"
     {...props}
   />
 )
@@ -12,25 +13,20 @@ const Label = props => (
 export const GoalLabels = props => (
   <Box display='flex' flexDirection='row' {...props}>
     <Label
-      color='#C0C0C0'
-      fontSize={14}
       flexBasis='40%'
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
     >
       Name
     </Label>
     <Label 
-      color='#C0C0C0'
-      fontSize={14}
-      flexBasis='20%'
-      textAlign='center'
+      flexBasis='25%'
     >
       Target Date
     </Label>
     <Label 
-      color='#C0C0C0'
-      fontSize={14}
-      flexBasis='20%'
-      textAlign='center'
+      flexBasis='35%'
     >
       Weekly Contribution
     </Label>
@@ -40,25 +36,17 @@ export const GoalLabels = props => (
 export const TransactionLabels = props => (
   <Box display='flex' flexDirection='row' {...props}>
     <Label
-      color='#C0C0C0'
-      fontSize={14}
       flexBasis='40%'
     >
       Name
     </Label>
     <Label 
-      color='#C0C0C0'
-      fontSize={14}
-      flexBasis='20%'
-      textAlign='center'
+      flexBasis="30%"
     >
       Category
     </Label>
     <Label 
-      color='#C0C0C0'
-      fontSize={14}
-      flexBasis='20%'
-      textAlign='center'
+      flexBasis="30%"
     >
       Description
     </Label>
