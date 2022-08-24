@@ -16,7 +16,7 @@ export const Financials = () => {
 
     for (const key in data) {
       fields.push(
-        <Box>
+        <Box key={key}>
           <Box color={data[key][1] || ''}>
             <Typography variant='h5'>{key}</Typography>
           </Box>
