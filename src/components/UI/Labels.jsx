@@ -5,7 +5,7 @@ const Label = props => (
   <Box 
     color='#C0C0C0'
     fontSize={14}
-    textAlign="center"
+    // textAlign="center"
     {...props}
   />
 )

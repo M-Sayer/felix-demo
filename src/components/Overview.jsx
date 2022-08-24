@@ -8,7 +8,6 @@ import { GoalsContext } from '../contexts/GoalsContext';
 import { Goal } from './Goal';
 import { TransactionsContext } from '../contexts/TransactionsContext';
 import { Transaction } from './Transaction';
-import { GoalLabels, TransactionLabels } from './UI/Labels'
 
 export const Overview = ({ setTabIndex }) => {
   const alertsContext = useContext(AlertsContext);
@@ -38,7 +37,7 @@ export const Overview = ({ setTabIndex }) => {
           <Financials />
         </Paper>
       </Grid>
-      <Grid item xs={10}>
+      {/* <Grid item xs={10}>
         <Paper>
           <Box p={2}>
             <Box display="flex" flexDirection="column" alignItems="center">
@@ -68,20 +67,19 @@ export const Overview = ({ setTabIndex }) => {
             }
           </Box>
         </Paper>
-      </Grid>
+      </Grid> */}
       <Grid item xs={10}>
         <Paper>
           <Box p={2}>
             <Box mb={2} color='secondary.main'>
-              <Typography align="center" variant="h5">Transactions</Typography>
+              <Typography variant="h5">Transactions</Typography>
             </Box>
             {transactions.length > 0
               ? (
                 <Box>
-                  <TransactionLabels />
                   {transactions.map((trx, idx) => <Transaction key={idx} trx={trx} /> )}
                   <Box m={2} textAlign='center'>
-                    <Button onClick={() => setTabIndex(2)}>
+                    <Button onClick={() => setTabIndex(1)}>
                       <Typography variant='overline'>See All</Typography>
                     </Button>
                   </Box>

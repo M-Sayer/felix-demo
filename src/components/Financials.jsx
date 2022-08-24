@@ -8,7 +8,7 @@ export const Financials = () => {
 
   const renderOverview = () => {
     const data = {
-      Allowance: [user.allowance, 'primary.dark'],
+      // Allowance: [user.allowance, 'primary.dark'],
       Balance: [user.balance, 'primary.main'],
     }
 
@@ -16,11 +16,11 @@ export const Financials = () => {
 
     for (const key in data) {
       fields.push(
-        <Box display="flex" flexDirection="column" alignItems="center" flexBasis="50%" spacing={2}>
+        <Box spacing={2}>
           <Box color={data[key][1] || ''}>
             <Typography variant='h5'>{key}</Typography>
           </Box>
-          <Box>
+          <Box textAlign="right">
             <Typography variant='h3' fontFamily='Roboto'>${data[key][0]}</Typography>
           </Box>
         </Box>
@@ -32,7 +32,7 @@ export const Financials = () => {
 
   return (
     <Container>
-      <Box display="flex" flexDirection="row" p={2}>
+      <Box py={2}>
         {renderOverview()}
       </Box>
     </Container>

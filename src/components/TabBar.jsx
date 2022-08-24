@@ -90,10 +90,10 @@ export const TabBar = () => {
 
   // call to action buttons (add button)
   const fabs = [
-    {
-      className: `${classes.fab} ${classes.fabGoal}`,
-      name: 'goal',
-    },
+    // {
+    //   className: `${classes.fab} ${classes.fabGoal}`,
+    //   name: 'goal',
+    // },
     {
       color: 'secondary',
       className: classes.fab,
@@ -113,10 +113,10 @@ export const TabBar = () => {
           aria-label="nav tabs"
         >
           <Tab className={classes.tab} icon={<DonutLarge />} label={ tabIndex === 0 ? 'Overview' : '' } {...a11yProps(0)} />
-          <Tab className={classes.tab} icon={<AttachMoney />} label={ tabIndex === 1 ? 'Goals' : '' } {...a11yProps(1)} />
-          <Tab className={classes.tab} icon={<MoneyOff />} label={ tabIndex === 2 ? 'Transactions' : '' } {...a11yProps(2)} />
-          <Tab className={classes.tab} icon={<Notifications />} label={ tabIndex === 3 ? 'Alerts' : '' } {...a11yProps(3)} />
-          <Tab className={classes.tab} icon={<Settings />} label={ tabIndex === 4 ? 'Settings' : '' } {...a11yProps(4)} />
+          {/* <Tab className={classes.tab} icon={<AttachMoney />} label={ tabIndex === 1 ? 'Goals' : '' } {...a11yProps(1)} /> */}
+          <Tab className={classes.tab} icon={<MoneyOff />} label={ tabIndex === 1 ? 'Transactions' : '' } {...a11yProps(2)} />
+          {/* <Tab className={classes.tab} icon={<Notifications />} label={ tabIndex === 3 ? 'Alerts' : '' } {...a11yProps(3)} /> */}
+          <Tab className={classes.tab} icon={<Settings />} label={ tabIndex === 2 ? 'Settings' : '' } {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -127,7 +127,7 @@ export const TabBar = () => {
         <TabPanel tabIndex={tabIndex} index={0} dir={theme.direction}>
           <Overview setTabIndex={setTabIndex} />
         </TabPanel>
-        <TabPanel tabIndex={tabIndex} index={1} dir={theme.direction}>
+        {/* <TabPanel tabIndex={tabIndex} index={1} dir={theme.direction}>
           <Container>
             {GoalsCtx.editGoal || GoalsCtx.createGoal
               ? <GoalForm />
@@ -139,8 +139,8 @@ export const TabBar = () => {
                </>
             }
           </Container>
-        </TabPanel>
-        <TabPanel tabIndex={tabIndex} index={2} dir={theme.direction}>
+        </TabPanel> */}
+        <TabPanel tabIndex={tabIndex} index={1} dir={theme.direction}>
           <Container>
             {TransactionsCtx.createTransaction || TransactionsCtx.editTransaction
               ? <TransactionForm />
@@ -153,11 +153,11 @@ export const TabBar = () => {
             }
           </Container>
         </TabPanel>
-        <TabPanel tabIndex={tabIndex} index={3} dir={theme.direction}>
+        {/* <TabPanel tabIndex={tabIndex} index={3} dir={theme.direction}>
           Alerts
           <Alerts />
-        </TabPanel>
-        <TabPanel tabIndex={tabIndex} index={4} dir={theme.direction}>
+        </TabPanel> */}
+        <TabPanel tabIndex={tabIndex} index={2} dir={theme.direction}>
           <SettingsTab />
         </TabPanel>
       </SwipeableViews>
