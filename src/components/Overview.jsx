@@ -70,7 +70,7 @@ export const Overview = ({ setTabIndex }) => {
       </Grid> */}
       <Grid item xs={10}>
         <Paper>
-          <Box p={2}>
+          <Box p={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
             <Box mb={2} color='secondary.main'>
               <Typography variant="h5">Transactions</Typography>
             </Box>
