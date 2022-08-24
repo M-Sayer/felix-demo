@@ -6,11 +6,9 @@ export const Financials = () => {
   const UserCtx = useContext(UserContext)
   const user = UserCtx.user
 
-  const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
-
   const renderOverview = () => {
     const data = {
-      Allowance: [user.allowance, 'primary.dark'],
+      // Allowance: [user.allowance, 'primary.dark'],
       Balance: [user.balance, 'primary.main'],
     }
 
@@ -18,11 +16,11 @@ export const Financials = () => {
 
     for (const key in data) {
       fields.push(
-        <Box flexBasis='50%'>
-          <Box alignItems='left' color={data[key][1] || ''}>
+        <Box>
+          <Box color={data[key][1] || ''}>
             <Typography variant='h5'>{key}</Typography>
           </Box>
-          <Box>
+          <Box textAlign="right">
             <Typography variant='h3' fontFamily='Roboto'>${data[key][0]}</Typography>
           </Box>
         </Box>
@@ -33,10 +31,8 @@ export const Financials = () => {
   }
 
   return (
-    <Container>
-      <Box display='flex' flexDirection={mobile ? 'column' : 'row'}>
-        {renderOverview()}
-      </Box>
-    </Container>
+    <Box p={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
+      {renderOverview()}
+    </Box>
   );
 };

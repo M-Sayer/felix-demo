@@ -1,6 +1,6 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
-let theme = createMuiTheme({
+let theme = createTheme({
   palette: {
     type: 'dark',
     background: {
@@ -25,7 +25,7 @@ let theme = createMuiTheme({
     money: {
       fontFamily: 'Roboto Slab',
     }
-  }
+  },
 });
 
 theme = responsiveFontSizes(theme);

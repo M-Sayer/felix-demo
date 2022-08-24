@@ -3,7 +3,7 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import { Box, TextField, Typography, Button } from '@material-ui/core';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { toCents, toDollars } from '../utils/moneyHelpers';
+import { toCents, toDollars } from '../utils/helpers';
 import { CancelButton } from './UI/Buttons';
 import { GoalsContext } from '../contexts/GoalsContext';
 import dayjs from 'dayjs'
