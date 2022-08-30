@@ -33,7 +33,7 @@ export const TransactionForm = () => {
           name: (transaction && transaction.name) ?? '',
           type: (transaction && transaction.type) ?? '',
           category: (transaction && (transaction.income_category ?? transaction.expense_category)) ?? '',
-          amount: (transaction && (transaction.income_amount ?? transaction.expense_amount)) ?? '',
+          amount: (transaction && (transaction.income_amount ?? Math.abs(transaction.expense_amount))) ?? '',
           description: (transaction && transaction.description) ?? '',
         }}
         validationSchema={Yup.object({
