@@ -112,10 +112,6 @@ const FinancialDetails = ({ type, item }) => {
           data: item.description
         },
         {
-          label: 'Amount: ',
-          data: '$' + (item.income_amount ?? item.expense_amount)
-        },
-        {
           label: 'Category: ',
           data: item.income_category ?? item.expense_category
         },
@@ -124,7 +120,8 @@ const FinancialDetails = ({ type, item }) => {
       break
   }
 
-  const renderDetails = () => details.map((detail, idx) => (
+  // don't render label if no data (primarily for empty description)
+  const renderDetails = () => details.map((detail, idx) => detail.data && (
     <Box key={idx} display="flex" flexDirection='row'>
       <Box display="flex" flexGrow={1}>
         <Typography display='inline'>{detail.label}</Typography>
