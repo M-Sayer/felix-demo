@@ -4,7 +4,6 @@ import React from 'react';
 export const Transaction = ({ trx, ...props }) => {
   const desktop = useMediaQuery(theme => theme.breakpoints.up('md'))
 
-
   const styles = makeStyles(theme => ({
     name: {
       [theme.breakpoints.down('md')]: {

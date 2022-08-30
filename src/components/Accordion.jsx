@@ -4,7 +4,6 @@ import {
   AccordionDetails, 
   AccordionSummary, 
   Box, 
-  Button, 
   Dialog, 
   DialogTitle, 
   Grid, 
@@ -24,7 +23,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 import moment from 'moment'
 
-import { CancelButton, DeleteButton, EditButton } from './UI/Buttons'
+import { CancelButton, DeleteButton } from './UI/Buttons'
 import { Goal } from './Goal'
 import { Transaction } from './Transaction'
 import { GoalLabels, TransactionLabels } from './UI/Labels'
@@ -258,4 +257,3 @@ export const FinancialList = props => {
     </>
   )
 }
-
