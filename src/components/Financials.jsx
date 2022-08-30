@@ -1,6 +1,7 @@
 import { Typography, Grid, Container, Box, useMediaQuery } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
+import { formatDollarUS } from '../utils/helpers';
 
 export const Financials = () => {
   const UserCtx = useContext(UserContext)
@@ -21,7 +22,7 @@ export const Financials = () => {
             <Typography variant='h5'>{key}</Typography>
           </Box>
           <Box textAlign="right">
-            <Typography variant='h3' fontFamily='Roboto'>${data[key][0]}</Typography>
+            <Typography variant='h3' fontFamily='Roboto'>{formatDollarUS(data[key][0])}</Typography>
           </Box>
         </Box>
       )

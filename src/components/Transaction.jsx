@@ -1,5 +1,6 @@
 import { Box, makeStyles, Typography, useMediaQuery } from '@material-ui/core';
 import React from 'react';
+import { formatDollarUS } from '../utils/helpers';
 
 export const Transaction = ({ trx, ...props }) => {
   const desktop = useMediaQuery(theme => theme.breakpoints.up('md'))
@@ -53,7 +54,7 @@ export const Transaction = ({ trx, ...props }) => {
         </Box>
       )}
       <Box className={classes.amount} color={trx.income_amount ? 'primary.dark' : 'secondary.dark'}>
-        <Typography>${trx.expense_amount || trx.income_amount}</Typography>
+        <Typography>{formatDollarUS(trx.expense_amount || trx.income_amount)}</Typography>
       </Box>
     </Box>
   )
