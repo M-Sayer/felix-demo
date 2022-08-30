@@ -34,14 +34,14 @@ export const GoalLabels = props => (
 )
 
 export const TransactionLabels = props => (
-  <Box display='flex' flexDirection='row' {...props}>
+  <Box display='flex' flexDirection='row' flexBasis="95%" {...props}>
     <Label
       flexBasis='40%'
     >
       Name
     </Label>
     <Label 
-      flexBasis="30%"
+      flexBasis="20%"
     >
       Category
     </Label>

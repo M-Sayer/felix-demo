@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { CancelButton } from './UI/Buttons';
-import { MenuItem, Button } from '@material-ui/core';
+import { CancelButton, SubmitButton } from './UI/Buttons';
+import { Box, MenuItem } from '@material-ui/core';
 import { FormField } from './UI/FormField'
 import { TransactionsContext } from '../contexts/TransactionsContext'
 
@@ -66,7 +66,7 @@ export const TransactionForm = () => {
         }}
       >
         {props => (
-          <Form>
+          <Form style={{ display: 'flex', flexDirection: 'column' }}>
             <FormField 
               formik={props} 
               name='name'
@@ -110,20 +110,17 @@ export const TransactionForm = () => {
               label='Description'
               placeholder='e.g. Large coffee'
             />
-            <Button 
-              variant='contained' 
-              color='primary' 
-              type='submit' 
-              disabled={props.isSubmitting}>
-              Submit
-            </Button>
-            <CancelButton 
-              onClick={() => exitForm()} 
-              variant='contained' 
-              disabled={props.isSubmitting}
-            >
-              Cancel
-            </CancelButton>
+            <Box width="100%" display="flex" flexDirection="column" pt={2}>
+              <CancelButton 
+                onClick={() => exitForm()} 
+                color="primary"
+                disabled={props.isSubmitting}
+              />
+              <SubmitButton
+                disabled={props.isSubmitting}>
+                Submit
+              </SubmitButton>
+            </Box>
           </Form>
         )}
       </Formik>
