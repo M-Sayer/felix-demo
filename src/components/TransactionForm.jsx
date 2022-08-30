@@ -102,7 +102,6 @@ export const TransactionForm = () => {
               name='amount'
               label='Amount'
               placeholder='e.g. 500'
-              type='number'
             />
             <FormField 
               formik={props} 
