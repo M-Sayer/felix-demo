@@ -4,7 +4,6 @@ import {
   AccordionDetails, 
   AccordionSummary, 
   Box, 
-  Button, 
   Dialog, 
   DialogTitle, 
   Grid, 
@@ -12,16 +11,19 @@ import {
   Paper,
   withStyles, 
   useMediaQuery,
+  AccordionActions,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit'
 
 import moment from 'moment'
 
-import { DeleteButton, EditButton } from './UI/Buttons'
+import { CancelButton, DeleteButton } from './UI/Buttons'
 import { Goal } from './Goal'
 import { Transaction } from './Transaction'
 import { GoalLabels, TransactionLabels } from './UI/Labels'
@@ -65,16 +67,14 @@ const FinancialSummary = ({ item, type }) => (
 const DeleteDialog = ({ dialog, setDialog, deleteItem, item, setAnchorEl }) => (
   <Dialog aria-labelledby='confirm-delete' open={dialog} onClose={() => setDialog(false)}>
     <DialogTitle>Are you sure you wish to delete this item?</DialogTitle>
-      <Box mb={2} display='flex' flexDirection='row' justifyContent='space-evenly'>
-        <Button 
-          variant='contained' 
-          color='primary' 
+      <Box mb={2} display="flex" flexDirection="row" justifyContent="space-evenly">
+        <CancelButton
+          variant='outlined' 
           onClick={() => setDialog(false)}
         >
           Cancel
-        </Button>
+        </CancelButton>
         <DeleteButton onClick={async () => {
-          console.log(item)
           await deleteItem(item)
           setAnchorEl && setAnchorEl({})
           setDialog(false)
@@ -83,7 +83,7 @@ const DeleteDialog = ({ dialog, setDialog, deleteItem, item, setAnchorEl }) => (
   </Dialog>
 )
 
-const FinancialDetails = ({ type, item, editItem, handleDelete}) => {
+const FinancialDetails = ({ type, item }) => {
   let details
 
   switch (type) {
@@ -112,10 +112,6 @@ const FinancialDetails = ({ type, item, editItem, handleDelete}) => {
           data: item.description
         },
         {
-          label: 'Amount: ',
-          data: '$' + (item.income_amount ?? item.expense_amount)
-        },
-        {
           label: 'Category: ',
           data: item.income_category ?? item.expense_category
         },
@@ -124,37 +120,30 @@ const FinancialDetails = ({ type, item, editItem, handleDelete}) => {
       break
   }
 
-  const renderDetails = () => details.map(detail => (
-      <Box flexDirection='row'>
-        <Typography flexGrow={2} display='inline'>{detail.label}</Typography>
-        <Typography flexGrow={1} display='inline'>{detail.data}</Typography>
+  // don't render label if no data (primarily for empty description)
+  const renderDetails = () => details.map((detail, idx) => detail.data && (
+    <Box key={idx} display="flex" flexDirection='row'>
+      <Box display="flex" flexGrow={1}>
+        <Typography display='inline'>{detail.label}</Typography>
       </Box>
-    ))
+      <Box display="flex" flexGrow={2} justifyContent="flex-end">
+        <Typography display='inline'>{detail.data}</Typography>
+      </Box>
+    </Box>
+  ))
 
-    const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+  // const mobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
   return (
-    <AccordionDetails flexDirection='column'>
+    <AccordionDetails>
       <Grid
         container
         direction='row'
         spacing={2}
       >
-        {mobile && (
-          <Grid item xs={12} md={6}> 
-            <Box display='flex' flexDirection='column'>
-              {renderDetails}
-            </Box>
-          </Grid>
-        )}
-        <Grid item xs={12} md={mobile ? 6 : 12}>
-          <Box display='flex' flexDirection='row' justifyContent='center'>
-            <Box mr={2}>
-              <EditButton onClick={() => editItem(item)} />
-            </Box>
-            <Box ml={2}>
-              <DeleteButton marginLeft={2} onClick={() => handleDelete(item)} />
-            </Box>
+        <Grid item xs={12} md={6}> 
+          <Box display='flex' flexDirection='column'>
+            {renderDetails}
           </Box>
         </Grid>
       </Grid>
@@ -220,9 +209,17 @@ export const FinancialList = props => {
         <Paper key={idx}>
           {mobile
             ? (
-              <ListItem marginBottom={2} expanded={expanded === idx} onChange={() => handleChange(idx)}>
+              <ListItem mb={2} expanded={expanded === idx} onChange={() => handleChange(idx)}>
                 <FinancialSummary item={item} type={type} />
-                <FinancialDetails type={type} item={item} editItem={editItem} deleteItem={deleteItem} handleDelete={handleDelete} />
+                <FinancialDetails type={type} item={item} />
+                <AccordionActions>
+                  <IconButton onClick={() => editItem(item)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(item)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </AccordionActions>
               </ListItem>
             ) : (
               <Box padding={2} mb={2} display="flex" flexDirection="row">
@@ -257,4 +254,3 @@ export const FinancialList = props => {
     </>
   )
 }
-

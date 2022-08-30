@@ -3,6 +3,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit'
 import { Button, withStyles } from '@material-ui/core';
 
+const StyledButton = withStyles(theme => ({
+  root: {
+    [theme.breakpoints.up('xs')]: {
+      margin: theme.spacing(1)
+    },
+    [theme.breakpoints.up('sm')]: {
+      margin: theme.spacing(2)
+    },
+  }
+}))(Button)
+
 const Delete = withStyles(theme => ({
   root: {
     backgroundColor: theme.palette.error.light,
@@ -10,11 +21,11 @@ const Delete = withStyles(theme => ({
       backgroundColor: theme.palette.error.dark,
     }
   },
-  }))(Button);
+  }))(StyledButton);
 
 export const DeleteButton = props => (
   <Delete
-    variant='contained'
+    variant="contained"
     startIcon={<DeleteIcon />}
     {...props}
   >
@@ -23,27 +34,32 @@ export const DeleteButton = props => (
 );
 
 export const EditButton = props => (
-  <Button
-    variant='contained'
+  <StyledButton
+    variant="contained"
     startIcon={<EditIcon />}
-    color='primary'
+    color="primary"
     {...props}
   >
     Edit
-  </Button>
+  </StyledButton>
 )
 
-const Cancel = withStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.secondary.dark,
-  },
-}))(Button)
-
 export const CancelButton = props => (
-  <Cancel 
-    variant='contained'
+  <StyledButton
+    variant="outlined"
     {...props}
   >
     Cancel
-  </Cancel>
+  </StyledButton>
+)
+
+export const SubmitButton = props => (
+  <StyledButton
+    variant="contained"
+    type="submit"
+    color="primary"
+    {...props}
+  >
+    Submit
+  </StyledButton>
 )
